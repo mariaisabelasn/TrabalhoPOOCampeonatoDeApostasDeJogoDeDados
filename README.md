@@ -19,7 +19,7 @@ em jogos de sua escolha (um jogo por aposta).
 próximo jogador.
 
 (4) Para cada jogador serão armazenados os resultados de até dez jogos realizados (do tipo general ou de azar) com seus respectivos valores de aposta.
-    – O resultado do jogo de azar compreende se o jogador ganhou ou perdeu determinada jogada, de acordo com as regras do jogo (Anexo 1).
+    – O resultado do jogo de azar compreende se o jogador ganhou ou perdeu determinada jogada, de acordo com as regras do jogo.
     – O resultado do jogo general compreende os valores obtidos para as 13 jogadas. O jogador ganha a aposta se a soma dos valores das jogadas de 1 a 12 for maior que o dobro do valor obtido na jogada 13 (aleatória).
 
 (5) Quando o jogador é inserido no campeonato, o mesmo inicia com o saldo de R$ 100,00. No início de cada rodada, o jogador indicará o quanto deseja apostar. Se o jogador ganhar, este
