@@ -1,8 +1,8 @@
 public class Humano implements JogarComoHumano{
-    String cpf;
-    String agencia;
-    String conta;
-    int numeroBanco;
+    private String cpf;
+    private String agencia;
+    private String conta;
+    private int numeroBanco;
 
     public Humano(String cpf, String agencia, String conta,  int numeroBanco){
         this.cpf = cpf;
