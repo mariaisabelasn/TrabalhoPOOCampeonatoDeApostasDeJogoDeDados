@@ -3,6 +3,7 @@ public abstract class JogoDados implements Estatistica{
     String nomeJogo;
     float saldo;
     Dado[] dados;
+    int[] vstatic = new int[6];
 
     public JogoDados(int nDados, String nomeJogo, float saldo, Dado[] dados){
         this.nDados = nDados;
