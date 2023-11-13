@@ -1,8 +1,8 @@
 import java.io.Serializable;
-public class Jogador implements Serializable{
-    private String nome = new String();
-    private String tipoJogador = new String();
-    private JogoGeneral jogoGeneral = new JogoGeneral();
+public abstract class Jogador implements Serializable{
+    String nome = new String();
+    String tipoJogador = new String();
+    JogoGeneral jogoGeneral = new JogoGeneral();
    
 
     // Construtor
