@@ -12,10 +12,12 @@ public class UsaCampeonato {
             System.out.println ("(a) Para incluir um jogador ");
             System.out.println ("(b) Para excluir um jogador (pelo nome)" );
             System.out.println ("(c) Executar rodada");
-            System.out.println ("(d) Mostrar a cartela de resulatdos [da última jogada realizada]");
-            System.out.println ("(e) Gravar os dados do campeonato em arquivo");
-            System.out.println ("(f) Ler os dados do campeonato em arquivo");
-            System.out.println ("(g) Sair da aplicação");
+            System.out.println ("(d) Imprimir saldos");
+            System.out.println ("(e) Imprimir extratos dos resultados");
+            System.out.println ("(f) Imprimir estatísticas");
+            System.out.println ("(g) Gravar os dados do campeonato em arquivo");
+            System.out.println ("(h) Ler os dados do campeonato em arquivo");
+            System.out.println ("(i) Sair da aplicação");
             System.out.println("Entre com uma opção do menu: ");
             opcao = teclado.nextLine( );
 
@@ -30,15 +32,21 @@ public class UsaCampeonato {
                     campeonato.iniciarCampeonato();
                     break;
                 case "d":
-                    campeonato.mostrarCartela();
+                    campeonato.mostrarSaldo();
                     break;
                 case "e":
-                    campeonato.gravarEmArquivo();
+                    campeonato.mostrarExtratos();
                     break;
                 case "f":
-                    campeonato.lerDoArquivo();
+                    campeonato.mostrarEstatistica();
                     break;
                 case "g":
+                    campeonato.gravarEmArquivo();
+                    break;
+                case "h":
+                    campeonato.lerDoArquivo();
+                    break;
+                case "i":
                     System.out.println ("Saindo");
                     saida=true;
                     break;

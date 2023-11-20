@@ -147,37 +147,49 @@ public class Campeonato implements Serializable {
         }
     }
 
-    public void mostrarCartela() {
-        System.out.println("-- Cartela de Resultados --");
-        System.out.print("Jogada\t");
+    // public void mostrarCartela() {
+    //     System.out.println("-- Cartela de Resultados --");
+    //     System.out.print("Jogada\t");
 
-        for(int i=0; i<contJogadores; i++){
-            System.out.print(players[i].getNome()+"("+players[i].getTipoJogador()+")\t\t");
-        } // vai imprimir o nome e o tipo de todos os players lado a lado
-        System.out.print("\n"); //pula linha quando os nomes terminam
+    //     for(int i=0; i<contJogadores; i++){
+    //         System.out.print(players[i].getNome()+"("+players[i].getTipoJogador()+")\t\t");
+    //     } // vai imprimir o nome e o tipo de todos os players lado a lado
+    //     System.out.print("\n"); //pula linha quando os nomes terminam
 
-        String[] type={"1", "2", "3", "4", "5", "6", "7(T)", "8(Q)", "9(F)", "10(S+)", "11(S-)", "12(G)", "13(X)"};//string com os "nomes" das jogadas
+    //     String[] type={"1", "2", "3", "4", "5", "6", "7(T)", "8(Q)", "9(F)", "10(S+)", "11(S-)", "12(G)", "13(X)"};//string com os "nomes" das jogadas
         
-        for(int j=0; j<13;j++){
-            System.out.print(type[j]+"\t");//imprime os nomes das jogadas
+    //     for(int j=0; j<13;j++){
+    //         System.out.print(type[j]+"\t");//imprime os nomes das jogadas
             
-            for(int k=0; k<contJogadores; k++){
-                System.out.print(players[k].getJogoGeneral(j)+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
-            }
-            System.out.print("\n");
-        }
-        if(contJogadores<=5){//para imprimir linha fofa 
-            System.out.println("-------------------<3-------------------<3-------------------<3-------------------");
-        }
-        else if(contJogadores>5){
-            System.out.println("-------------------<3-------------------<3-------------------<3-------------------<3------------------<3-------------------<3------------------");
-        }
-        System.out.print("Total\t");
+    //         for(int k=0; k<contJogadores; k++){
+    //             System.out.print(players[k].getJogoGeneral(j)+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
+    //         }
+    //         System.out.print("\n");
+    //     }
+    //     if(contJogadores<=5){//para imprimir linha fofa 
+    //         System.out.println("-------------------<3-------------------<3-------------------<3-------------------");
+    //     }
+    //     else if(contJogadores>5){
+    //         System.out.println("-------------------<3-------------------<3-------------------<3-------------------<3------------------<3-------------------<3------------------");
+    //     }
+    //     System.out.print("Total\t");
 
-        for(int k=0; k<contJogadores; k++){
-            System.out.print(somaJogadas(k)+"\t\t");
-        }
-        System.out.print("\n");
+    //     for(int k=0; k<contJogadores; k++){
+    //         System.out.print(somaJogadas(k)+"\t\t");
+    //     }
+    //     System.out.print("\n");
+
+    // }
+
+    public void mostrarSaldo(){
+
+    }
+
+    public void mostrarExtratos(){
+
+    }
+
+    public void mostrarEstatistica(){
 
     }
 
@@ -229,7 +241,7 @@ public class Campeonato implements Serializable {
                     i++;
                 }
             }
-            mostrarCartela();//mostra a cartela dos jogos 
+            //mostrarCartela();//mostra a cartela dos jogos 
         } catch (Exception ex) {
             System.err.println("erro: " + ex.toString());
         }
