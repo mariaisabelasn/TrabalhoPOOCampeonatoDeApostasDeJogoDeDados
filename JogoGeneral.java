@@ -1,9 +1,10 @@
 import java.io.Serializable;
-public class JogoGeneral implements Serializable{
+public class JogoGeneral extends JogoDados implements Serializable{
     private Dado[] dados = new Dado[5];
     private int[] jogadas = new int[13];
 
-    public JogoGeneral() {
+    public JogoGeneral(int nDados, String nomeJogo, float saldo, Dado[] dados) {
+        super(nDados, nomeJogo, saldo, dados);
         for (int i = 0; i < 5; i++) {
             this.dados[i] = new Dado(); // cria os 5 dados
         }

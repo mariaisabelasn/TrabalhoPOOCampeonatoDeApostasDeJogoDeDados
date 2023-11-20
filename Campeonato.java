@@ -7,7 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 public class Campeonato implements Serializable {
-    int n = 10;
+    private int n = 10;
     private Jogador[] players = new Jogador[n]; // vetor dos jogadores do campeonato
     private int contJogadores = 0;
     private Scanner teclado = new Scanner(System.in);// scanf do java
@@ -45,7 +45,12 @@ public class Campeonato implements Serializable {
 
     public void removerJogador() {
         System.out.println("Jogadores:");
-        for (int i = 0; i < contJogadores; i++) { // printar o nome dos jogadores
+
+        for (int i = 0; i <= contJogadores; i++) { // printar o nome dos jogadores
+            if(contJogadores==0){
+                System.out.println("Não há jogadores para excluir");
+                break;
+            }
             System.out.println(i+" - "+ players[i].getNome());
         }
         System.out.println("Digite o nome do jogador:");
