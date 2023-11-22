@@ -10,11 +10,11 @@ public class Dado implements Serializable{
     }
 
     public int getSideUp(){//pega a parte virada pra cima
-        return  sideUp;
+        return this.sideUp;
     }
 
     public void setSideUp(int x){
-        sideUp = x;
+        this.sideUp = x;
     }
 
     public void roll(){ //faz a rolagem do dado
