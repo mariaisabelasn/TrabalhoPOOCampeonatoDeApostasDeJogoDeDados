@@ -8,14 +8,20 @@ import java.io.Serializable;
 
 public class Campeonato implements Serializable {
     private int n = 10;
-    private Jogador[] players = new Jogador[n]; // vetor dos jogadores do campeonato
-    private int contJogadores = 0;
-    private Scanner teclado = new Scanner(System.in);// scanf do java
-    private int[] vet = new int[13];
+    private Jogador[] players; 
+    private int contJogadores;
+    private Scanner teclado;
+    private int[] vet;
     private String nome, biotipo;
 
     // CONSTRUTOR
     public Campeonato() {
+        n = 10;
+        players = new Jogador[n]; // vetor dos jogadores do campeonato
+        contJogadores = 0;
+        teclado = new Scanner(System.in);// scanf do java
+        vet = new int[13];
+
         for (int i = 0; i < players.length; i++) {
             players[i] = null; // Define cada elemento como nulo
         }
@@ -85,6 +91,25 @@ public class Campeonato implements Serializable {
     }
 
     public void iniciarCampeonato() {//inicia ou reinicia um campeonato
+        int opcao = 0;
+        do{
+            System.out.println("Qual jogo deseja jogar?");
+            System.out.println("1 - Jogo General");
+            System.out.println("2 - Jogo Azar");
+            opcao = teclado.nextInt();
+            teclado.nextLine();
+
+            if(opcao==1){
+
+            }
+            else if(opcao==2){
+
+            }
+            else{
+                System.out.println("Opção inválida!");
+                opcao = 0;
+            }
+        }while(opcao==1||opcao==2);
         for(int i = 0; i < contJogadores; i++) { // para iniciar ou resetar as jogadas e poder começar o campeonato novamente
             for(int j = 0; j < 13; j++){
                 players[i].getJogo().setJogadas(j, -1);
@@ -235,7 +260,7 @@ public class Campeonato implements Serializable {
             ObjectInputStream oin = new ObjectInputStream(fin);
 
             //Lendo objetos de um arquivo
-            Jogador[] players = (Jogador[]) oin.readObject();
+            players = (Jogador[]) oin.readObject();
             oin.close();
             fin.close();
 
@@ -246,6 +271,7 @@ public class Campeonato implements Serializable {
                     i++;
                 }
             }
+            contJogadores = i-1;
             //mostrarCartela();//mostra a cartela dos jogos 
         } catch (Exception ex) {
             System.err.println("erro: " + ex.toString());
