@@ -4,12 +4,12 @@ public class Humano extends Jogador implements JogarComoHumano{
     private String conta;
     private int numeroBanco;
 
-    public Humano(String nome, String tipoJogador, String cpf, String agencia, String conta,  int numeroBanco){
+    public Humano(String nome, String tipoJogador, String cpf){
         super(nome, tipoJogador);
         this.cpf = cpf;
-        this.agencia = agencia;
-        this.conta = conta;
-        this.numeroBanco = numeroBanco;
+        this.agencia = "2567-8";
+        this.conta = "2564987";
+        this.numeroBanco = 007;
     }
 
     @Override
@@ -19,6 +19,7 @@ public class Humano extends Jogador implements JogarComoHumano{
 
     @Override
     public int escolherJogo() {
+        
         return 0;
     }
 }

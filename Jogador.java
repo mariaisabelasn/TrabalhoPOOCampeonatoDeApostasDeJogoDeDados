@@ -46,6 +46,9 @@ public abstract class Jogador implements Serializable{
 		System.out.println("");
     }
 
-    
+    //fazer uma função para armazenar dez jogos(azar ou general)
+
+    //função pra controlar a conta bancaria (começa sempre em 100)(saldo que vai decrementando e aumentando o valor da conta) 
+            //ter saldo suficiente e n ultrapassar dez apostas
 
 }

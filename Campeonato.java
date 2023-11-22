@@ -91,16 +91,19 @@ public class Campeonato implements Serializable {
     }
 
     public void iniciarCampeonato() {//inicia ou reinicia um campeonato
+
+        //PODE SE UMA FUNÇÃO CHAMNDO A ESCOLHER JOGO DO HUMANO SE FOR HUMANO E DO MAQ SE FOR MAQ
+        //JÁ COMEÇAR O SETSALDO COM 100 PILA
         int opcao = 0;
         do{
-            System.out.println("Qual jogo deseja jogar?");
+            System.out.println("Qual jogo deseja jogar?");//DEFINE QUAL JOGO É
             System.out.println("1 - Jogo General");
             System.out.println("2 - Jogo Azar");
             opcao = teclado.nextInt();
             teclado.nextLine();
 
             if(opcao==1){
-
+                    //IF E ELSE DA MAQUINA E DO JOGADOR
             }
             else if(opcao==2){
 
@@ -115,7 +118,8 @@ public class Campeonato implements Serializable {
                 players[i].getJogo().setJogadas(j, -1);
             }
         }
-
+         
+        //fazer um if else aqui pra escolher o jogo
         for (int j = 0; j < 13; j++) {
             for (int i = 0; i < contJogadores; i++) {
                 System.out.println(">>Rolando dados para " + players[i].getNome());
@@ -124,6 +128,7 @@ public class Campeonato implements Serializable {
                 players[i].getJogo().mostrarDados();
                 int opcao = 0;
 
+                //PARTE DO JOGADOR hUMANO
                 if (players[i].getTipoJogador().equals("H")|| players[i].getTipoJogador().equals("h")) {
                     opcao=0;
                     do {
