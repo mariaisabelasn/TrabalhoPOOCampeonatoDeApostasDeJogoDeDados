@@ -107,7 +107,7 @@ public class Campeonato implements Serializable {
             teclado.nextLine();
 
             if(opcao==1){
-
+                
             }
             else if(opcao==2){
 
