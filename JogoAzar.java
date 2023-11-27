@@ -1,14 +1,16 @@
-import java.util.Random;
-
 public class JogoAzar extends JogoDados{
     private Dado[] dados = new Dado[2];
     private float valorAposta;
-    private int[] jogadas = new int[13];
 
 
-    public JogoAzar(int nDados, String nomeJogo, float saldo, Dado[] dados, float valorAposta){
-        super(nDados, nomeJogo, saldo, dados);
+    public JogoAzar(int nDados, String nomeJogo, float saldo, float valorAposta){
+        super(nDados, nomeJogo, saldo);
         this.valorAposta = valorAposta;
+
+        // Inicialize cada elemento do array dados
+        for (int i = 0; i < 2; i++) {
+            this.dados[i] = new Dado(); // Ou use o construtor apropriado de Dado, se existir
+        }
     }
 
     public float getValorAposta(){
@@ -20,59 +22,73 @@ public class JogoAzar extends JogoDados{
     }
 
     public void executarRegrasJogo(){
-        for(){
-            dados[i] = rolarDados(numFaces);
-        }
-        int dado1 = random.nextInt(6) + 1; // Simula o lançamento do dado 1
-        int dado2 = random.nextInt(6) + 1; // Simula o lançamento do dado 2
-        int soma = dado1 + dado2;
+        int i;
+        int soma=0;
 
-        System.out.printf("Dado 1: %d, Dado 2: %d%n", dado1, dado2);
-        System.out.printf("Soma das faces: %d%n", soma);
+        rolarDados(2);
+        int cont[] = somarFacesSorteadas(dados);
+
+        System.out.println("1º Lançamento");
+
+        soma = dados[0].getSideUp()+dados[1].getSideUp();
+        System.out.printf(toString()+" = %d%n",soma); 
+
+        int pont = 0;
 
         if (soma == 7 || soma == 11) {
-            System.out.println("Jogador ganha!");
+            System.out.println("Jogador ganhou! [encerra jogada]");
+            System.out.println("...");
+            pont = 1;
         } else if (soma == 2 || soma == 3 || soma == 12) {
-            System.out.println("Jogador perde!");
+            pont = 0;
+            System.out.println("Jogador perdeu! [encerra jogada]");
         } else {
-            System.out.println("Continue jogando para atingir a soma inicial.");
+            System.out.printf("Número a ser buscado: %d%n", soma);
 
-            int novaSoma;
+            int novaSoma=0;
+            i = 2;
             do {
-                dado1 = random.nextInt(6) + 1; // Novo lançamento do dado 1
-                dado2 = random.nextInt(6) + 1; // Novo lançamento do dado 2
-                novaSoma = dado1 + dado2;
+                rolarDados(2);
+                cont = somarFacesSorteadas(dados);
 
-                System.out.printf("Novo Dado 1: %d, Novo Dado 2: %d%n", dado1, dado2);
-                System.out.printf("Nova Soma das faces: %d%n", novaSoma);
+                novaSoma = dados[0].getSideUp()+dados[1].getSideUp();
+
+                System.out.printf("%dº Lançamento%n",i);
+                System.out.printf(toString()+" = %d%n",novaSoma); 
 
                 if (novaSoma == soma) {
-                    System.out.println("Jogador ganha!");
+                    System.out.println("Jogador ganhou! [encerra jogada]");
+                    System.out.println("...");
+                    pont = 1;
                     break;
-                } else if (novaSoma == 7) {
-                    System.out.println("Jogador perde!");
+                } else if (novaSoma == 2 || novaSoma == 3 || novaSoma == 12) {
+                    System.out.println("Jogador perdeu! [encerra jogada]");
+                    pont = 0;
                     break;
                 }
-
-                System.out.println("Continue jogando para atingir a soma inicial.");
-
-            } while (novaSoma != soma && novaSoma != 7);
+                i++;
+            } while (novaSoma != soma || (novaSoma == 2 || novaSoma == 3 || novaSoma == 12));
         }
     }
-    }
+
 
     public void rolarDados(int nDados) { // resultados dos 2 dados
         for (int i = 0; i < nDados; i++) {
-            this.dados[i].roll();
+            if (this.dados[i] == null) {
+                this.dados[i] = new Dado(); // ou use o construtor apropriado de Dado, se existir
+            }
+            this.dados[i].roll(numFaces);
         }
     }
 
-    public String toString() {
-        int soma[] = somarFacesSorteadas(dados);
-    
-        String result = dados[0].toString() + " + " + dados[1].toString() + "= " + soma[0].toString();
-    
-        return result;
+    public String toString() {    
+        return dados[0].getSideUp() + " + " + dados[1].getSideUp();
+    }
+    public static void main(String[] args){
+        JogoAzar jogoAzar = new JogoAzar( 2, null, 2,2000);
+        
+
+        jogoAzar.executarRegrasJogo();;
     }
     
     

@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public abstract class JogoDados implements Estatistica{
     private int nDados;
     private String nomeJogo;
@@ -12,7 +10,7 @@ public abstract class JogoDados implements Estatistica{
         this.saldo = saldo;
         this.dados = dados;
     }
-    
+
     // Sobrecarga
     public JogoDados(int nDados, String nomeJogo, float saldo) {
         this.nDados = nDados;
@@ -37,24 +35,40 @@ public abstract class JogoDados implements Estatistica{
         this.saldo = saldo;
     }
 
-    public void rolarDados(int nDados) { // resultados dos dados
-        for (int i = 0; i < nDados; i++) {
-            this.dados[i].roll();
+    public void rolarDados() { // resultados dos dados
+        for (int i = 0; i < 1; i++) {
+            this.dados[i].roll(numFaces);
         }
     }
     
     @Override
-    public int[] somarFacesSorteadas(Dado[] dados) {
+    public int[] somarFacesSorteadas(Dado[] dados) { // método para verificar quantas vezes a face do dado caiu
         int i = 0;
-        int[] cont = new int[dados.length]; // Inicializa o array cont
-        // Usando rolarDados
-        rolarDados(dados.length); 
+        int[] cont = new int[numFaces]; // Inicializa o array cont
     
         while (i < dados.length) {
-            cont[i] += dados[i].getSideUp(); // soma as faces sorteadas
+            if(dados[i].getSideUp()==1){
+                cont[0]++;
+            }
+            else if(dados[i].getSideUp()==2){
+                cont[1]++;
+            }
+            else if(dados[i].getSideUp()==3){
+                cont[2]++;
+            }
+            else if(dados[i].getSideUp()==4){
+                cont[3]++;
+            }
+            else if(dados[i].getSideUp()==5){
+                cont[4]++;
+            }
+            else if(dados[i].getSideUp()==6){
+                cont[5]++;
+            }
+
             i++;
         }
     
-        return cont; // Retorna a pontuação
+        return cont; // Retorna o vetor com a quantidade de vezes que cada face apareceu
     }
 }

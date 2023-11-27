@@ -17,9 +17,9 @@ public class Dado implements Serializable{
         this.sideUp = x;
     }
 
-    public void roll(){ //faz a rolagem do dado
+    public void roll(int numFaces){ //faz a rolagem do dado
         Random x = new Random();
-        this.sideUp = x.nextInt(6) + 1;
+        this.sideUp = x.nextInt(numFaces) + 1;
     }
 
     public String toString() { //transforma o array de dados em uma string

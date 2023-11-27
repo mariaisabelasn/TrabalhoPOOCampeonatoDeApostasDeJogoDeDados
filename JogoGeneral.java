@@ -15,7 +15,7 @@ public class JogoGeneral extends JogoDados implements Serializable{
 
     public void rolarDados(int nDados) { // resultados dos 5 dados
         for (int i = 0; i < nDados; i++) {
-            this.dados[i].roll();
+            this.dados[i].roll(numFaces);
         }
     }
 
