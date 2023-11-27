@@ -19,7 +19,7 @@ public class Campeonato implements Serializable {
     // CONSTRUTOR
     public Campeonato() {
         n = 10;
-        //players = new Jogador[n]; // vetor dos jogadores do campeonato
+        players = new Jogador[n]; // vetor dos jogadores do campeonato
         contJogadores = 0;
         teclado = new Scanner(System.in);// scanf do java
         vet = new int[13];
@@ -42,10 +42,10 @@ public class Campeonato implements Serializable {
             }while(!biotipo.equals("H") && !biotipo.equals("h") && !biotipo.equals("M") && !biotipo.equals("m"));//tratamento de dados pra caso o biotipo for diferente de humano ou máquina
 
             if(biotipo.equals("H") || biotipo.equals("h")){
-                humano = new Humano(nome, biotipo, biotipo, nome, biotipo, n);
+                players[contJogadores] = new Humano(nome, biotipo, biotipo, nome, biotipo, n);
             }
             else{
-                maquina = new Maquina(nome, biotipo);
+                players[contJogadores] = new Maquina(nome, biotipo);
             }
             //players[contJogadores] = jogador;
             contJogadores++;
