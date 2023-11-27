@@ -11,7 +11,6 @@ public class Campeonato implements Serializable {
     private Jogador[] players; 
     private int contJogadores;
     private Scanner teclado;
-    private int[] vet;
     private String nome, biotipo, cpf;
     private Humano humano;
     private Maquina maquina;
