@@ -13,11 +13,13 @@ public class Campeonato implements Serializable {
     private Scanner teclado;
     private int[] vet;
     private String nome, biotipo;
+    private Humano humano;
+    private Maquina maquina;
 
     // CONSTRUTOR
     public Campeonato() {
         n = 10;
-        players = new Jogador[n]; // vetor dos jogadores do campeonato
+        //players = new Jogador[n]; // vetor dos jogadores do campeonato
         contJogadores = 0;
         teclado = new Scanner(System.in);// scanf do java
         vet = new int[13];
@@ -39,8 +41,13 @@ public class Campeonato implements Serializable {
     
             }while(!biotipo.equals("H") && !biotipo.equals("h") && !biotipo.equals("M") && !biotipo.equals("m"));//tratamento de dados pra caso o biotipo for diferente de humano ou máquina
 
-            Jogador jogador = new Jogador(nome, biotipo);
-            players[contJogadores] = jogador;
+            if(biotipo.equals("H") || biotipo.equals("h")){
+                humano = new Humano(nome, biotipo, biotipo, nome, biotipo, n);
+            }
+            else{
+                maquina = new Maquina(nome, biotipo);
+            }
+            //players[contJogadores] = jogador;
             contJogadores++;
 
         } else {
@@ -122,7 +129,7 @@ public class Campeonato implements Serializable {
                 System.out.print("Valores obtidos: ");// imprime sem pular a linha pros dados ficarem do lado
                 players[i].getJogo().rolarDados();
                 players[i].getJogo().mostrarDados();
-                int opcao = 0;
+                opcao = 0;
 
                 if (players[i].getTipoJogador().equals("H")|| players[i].getTipoJogador().equals("h")) {
                     opcao=0;

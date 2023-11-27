@@ -1,10 +1,14 @@
 import java.io.Serializable;
 public class JogoGeneral extends JogoDados implements Serializable{
-    private Dado[] dados = new Dado[5];
-    private int[] jogadas = new int[13];
+    private Dado[] dados;
+    private int[] jogadas;
 
-    public JogoGeneral(int nDados, String nomeJogo, float saldo, Dado[] dados) {
-        super(nDados, nomeJogo, saldo, dados);
+    public JogoGeneral(int nDados, String nomeJogo, Dado[] dados) {
+        super(nDados, nomeJogo, dados);
+
+        dados = new Dado[5];
+        jogadas = new int[13];
+
         for (int i = 0; i < 5; i++) {
             this.dados[i] = new Dado(); // cria os 5 dados
         }
@@ -37,6 +41,11 @@ public class JogoGeneral extends JogoDados implements Serializable{
             }
         }
         return result;
+    }
+
+    @Override
+    public int[] somarFacesSorteadas(Dado[] dados) {
+        return super.somarFacesSorteadas(dados);
     }
 
     public Boolean validarJogada(int njogada) { // vai verificar se a jogada escolhida é valida retorna

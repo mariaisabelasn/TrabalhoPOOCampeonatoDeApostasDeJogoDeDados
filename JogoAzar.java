@@ -1,11 +1,10 @@
 public class JogoAzar extends JogoDados{
-    private Dado[] dados = new Dado[2];
-    private float valorAposta;
+    private Dado[] dados;
 
+    public JogoAzar(int nDados, String nomeJogo){
+        super(nDados, nomeJogo);
 
-    public JogoAzar(int nDados, String nomeJogo, float saldo, float valorAposta){
-        super(nDados, nomeJogo, saldo);
-        this.valorAposta = valorAposta;
+        dados = new Dado[2];
 
         // Inicialize cada elemento do array dados
         for (int i = 0; i < 2; i++) {
@@ -13,15 +12,7 @@ public class JogoAzar extends JogoDados{
         }
     }
 
-    public float getValorAposta(){
-        return this.valorAposta;
-    }
-
-    public void setValorAposta(float valor){
-       this.valorAposta = valor;
-    }
-
-    public void executarRegrasJogo(){
+    public boolean executarRegrasJogo(){
         int i;
         int soma=0;
 
@@ -33,15 +24,14 @@ public class JogoAzar extends JogoDados{
         soma = dados[0].getSideUp()+dados[1].getSideUp();
         System.out.printf(toString()+" = %d%n",soma); 
 
-        int pont = 0;
 
         if (soma == 7 || soma == 11) {
             System.out.println("Jogador ganhou! [encerra jogada]");
             System.out.println("...");
-            pont = 1;
+            return true;
         } else if (soma == 2 || soma == 3 || soma == 12) {
-            pont = 0;
             System.out.println("Jogador perdeu! [encerra jogada]");
+            return false;
         } else {
             System.out.printf("Número a ser buscado: %d%n", soma);
 
@@ -59,16 +49,15 @@ public class JogoAzar extends JogoDados{
                 if (novaSoma == soma) {
                     System.out.println("Jogador ganhou! [encerra jogada]");
                     System.out.println("...");
-                    pont = 1;
-                    break;
+                    return true;
                 } else if (novaSoma == 2 || novaSoma == 3 || novaSoma == 12) {
                     System.out.println("Jogador perdeu! [encerra jogada]");
-                    pont = 0;
-                    break;
+                    return false;
                 }
                 i++;
             } while (novaSoma != soma || (novaSoma == 2 || novaSoma == 3 || novaSoma == 12));
         }
+        return false;
     }
 
 
@@ -84,12 +73,12 @@ public class JogoAzar extends JogoDados{
     public String toString() {    
         return dados[0].getSideUp() + " + " + dados[1].getSideUp();
     }
-    public static void main(String[] args){
-        JogoAzar jogoAzar = new JogoAzar( 2, null, 2,2000);
+    // public static void main(String[] args){
+    //     JogoAzar jogoAzar = new JogoAzar( 2, null, 2);
         
 
-        jogoAzar.executarRegrasJogo();;
-    }
+    //     jogoAzar.executarRegrasJogo();;
+    // }
     
     
 }

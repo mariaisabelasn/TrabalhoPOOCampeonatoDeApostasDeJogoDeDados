@@ -1,21 +1,18 @@
 public abstract class JogoDados implements Estatistica{
     private int nDados;
     private String nomeJogo;
-    private float saldo;
     private Dado[] dados;
 
-    public JogoDados(int nDados, String nomeJogo, float saldo, Dado[] dados){
+    public JogoDados(int nDados, String nomeJogo, Dado[] dados){
         this.nDados = nDados;
         this.nomeJogo = nomeJogo;
-        this.saldo = saldo;
         this.dados = dados;
     }
 
     // Sobrecarga
-    public JogoDados(int nDados, String nomeJogo, float saldo) {
+    public JogoDados(int nDados, String nomeJogo) {
         this.nDados = nDados;
         this.nomeJogo = nomeJogo;
-        this.saldo = saldo;
         this.dados = new Dado[nDados];
     }
 
@@ -23,16 +20,8 @@ public abstract class JogoDados implements Estatistica{
         return this.nomeJogo;
     }
 
-    public float getSaldo(){
-        return this.saldo;
-    }
-
     public void setNomeJogo(String nome){
         this.nomeJogo = nome;
-    }
-
-    public void setSaldo(float saldo){
-        this.saldo = saldo;
     }
 
     public void rolarDados() { // resultados dos dados
