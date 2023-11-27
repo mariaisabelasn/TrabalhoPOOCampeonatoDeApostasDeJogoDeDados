@@ -12,9 +12,11 @@ public class Campeonato implements Serializable {
     private int contJogadores;
     private Scanner teclado;
     private int[] vet;
-    private String nome, biotipo;
+    private String nome, biotipo, cpf;
     private Humano humano;
     private Maquina maquina;
+    private double saldo;
+
 
     // CONSTRUTOR
     public Campeonato() {
@@ -30,6 +32,7 @@ public class Campeonato implements Serializable {
     }
 
     public void incluirjogador() {
+        saldo=0;
         if (contJogadores < n && players[contJogadores] == null) {
 
             System.out.println("Nome do Jogador(a): ");
@@ -38,14 +41,18 @@ public class Campeonato implements Serializable {
             do{
                 System.out.println("Tipo do Jogador [H-Humano ou M-Máquina]: ");
                 biotipo = teclado.nextLine();
+
+                if(biotipo.equals("H") || biotipo.equals("h")){
+                    cpf=teclado.nextLine();
+                }
     
             }while(!biotipo.equals("H") && !biotipo.equals("h") && !biotipo.equals("M") && !biotipo.equals("m"));//tratamento de dados pra caso o biotipo for diferente de humano ou máquina
 
             if(biotipo.equals("H") || biotipo.equals("h")){
-                players[contJogadores] = new Humano(nome, biotipo, biotipo, nome, biotipo, n);
+                players[contJogadores] = new Humano(nome, biotipo, cpf, saldo);
             }
             else{
-                players[contJogadores] = new Maquina(nome, biotipo);
+                players[contJogadores] = new Maquina(nome, biotipo, saldo);
             }
             //players[contJogadores] = jogador;
             contJogadores++;
@@ -134,7 +141,7 @@ public class Campeonato implements Serializable {
                 System.out.print("Valores obtidos: ");// imprime sem pular a linha pros dados ficarem do lado
                 players[i].getJogo().rolarDados();
                 players[i].getJogo().mostrarDados();
-                opcao = 0;
+                int opcao = 0;
 
                 //PARTE DO JOGADOR hUMANO
                 if (players[i].getTipoJogador().equals("H")|| players[i].getTipoJogador().equals("h")) {
@@ -154,8 +161,11 @@ public class Campeonato implements Serializable {
                     //     if (players[i].getJogo().getJogadas(opcao-1)==-1) { //se a jogada ainda nao tiver sido feita
                     //         this.players[i].getJogo().setJogadas(opcao-1, this.players[i].getJogo().pontuarJogada(opcao));
                     //     } 
-                    // } while (players[i].getJogo().getJogadas(opcao-1)==-1);
-                    players[i].escolherJogada();
+                    // } while (players[i].getJogo().getJogadas(opcao-1)==-1);INS
+
+
+                    ///INNTANCE OF AQUI
+                    Humano.players[i].escolherJogada();
                 }
                 else if (players[i].getTipoJogador().equals("M")|| players[i].getTipoJogador().equals("m")){   // Se for do tipo máquina irá escolher a melhor jogada
                     // opcao=0;
@@ -185,7 +195,7 @@ public class Campeonato implements Serializable {
                     // System.out.println("1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)");
                     // players[i].mostrarJogadasExecutadas();
                     // System.out.println("Jogada que a maquina escolheu: "+ (melhorJogada+1));//retorna a jogada feita pela maquina melhorjogada(posição do vet)+1(pra ficar o "nome" da jogada certinho)
-                    players[i].
+                    Maquina.players[i].aplicarEstrategia();
                 }
             }
         }
