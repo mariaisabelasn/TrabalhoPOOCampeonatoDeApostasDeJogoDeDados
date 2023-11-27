@@ -3,6 +3,7 @@ import java.util.Random;
 public class Maquina extends Jogador implements JogarComoMaquina {
     // private Jogador players = new Jogador();
     // private JogoDados jDados = new JogoDados();
+    int[]vet=new vet[]
 
     public Maquina(String nome, String tipoJogador, double saldo){
         super(nome, tipoJogador, saldo);
@@ -64,9 +65,9 @@ public class Maquina extends Jogador implements JogarComoMaquina {
                     super.getJogo().setJogadas(k, -1); //resolve o problema de preenchimento de outras jogadas
                 }
             }  
-            this.players[i].getJogo().setJogadas(melhorJogada, melhorPontuacao);//pontua para a máquina             
+            super.getJogo().setJogadas(melhorJogada, melhorPontuacao);//pontua para a máquina             
             System.out.println("1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)");
-            players[i].mostrarJogadasExecutadas();
+            super.mostrarJogadasExecutadas();
             System.out.println("Jogada que a maquina escolheu: "+ (melhorJogada+1));//retorna a jogada feita pela maquina melhorjogada(posição do vet)+1(pra ficar o "nome" da jogada certinho)
         
         return 0;
