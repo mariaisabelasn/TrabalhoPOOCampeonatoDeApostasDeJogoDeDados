@@ -17,7 +17,7 @@ public class Humano extends Jogador implements JogarComoHumano{
     }
 
     @Override
-    public int escolherJogada(JogoGeneral Jogo) { //vai escolher a jogada do jogo general
+    public int escolherJogada() { //vai escolher a jogada do jogo general
         int opcao=0;
              do {
                 System.out.println("Para qual jogada deseja marcar: [1-13] " + super.getNome() + "?");

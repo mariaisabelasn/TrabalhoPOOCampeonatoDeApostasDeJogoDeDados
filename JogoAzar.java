@@ -16,20 +16,6 @@ public class JogoAzar extends JogoDados{
         }
     }
 
-    public void jogarJogoAzar(){
-        System.out.println("Quanto você deseja apostar?");
-        int valorApostas = teclado.nextInt();
-        setValorAposta(valorApostas);
-        do{
-            if(getValorAposta()<){
-
-            }
-            else{
-
-            }
-        } while();
-    }
-
     public boolean executarRegrasJogo(){
         int i;
         int soma=0;
