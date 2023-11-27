@@ -47,22 +47,22 @@ public abstract class JogoDados implements Estatistica{
         int[] cont = new int[numFaces]; // Inicializa o array cont
     
         while (i < dados.length) {
-            if(this.dados[i].getSideUp()==1){
+            if(dados[i].getSideUp()==1){
                 cont[0]++;
             }
-            else if(this.dados[i].getSideUp()==2){
+            else if(dados[i].getSideUp()==2){
                 cont[1]++;
             }
-            else if(this.dados[i].getSideUp()==3){
+            else if(dados[i].getSideUp()==3){
                 cont[2]++;
             }
-            else if(this.dados[i].getSideUp()==4){
+            else if(dados[i].getSideUp()==4){
                 cont[3]++;
             }
-            else if(this.dados[i].getSideUp()==5){
+            else if(dados[i].getSideUp()==5){
                 cont[4]++;
             }
-            else if(this.dados[i].getSideUp()==6){
+            else if(dados[i].getSideUp()==6){
                 cont[5]++;
             }
 

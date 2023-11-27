@@ -29,11 +29,9 @@ public class JogoAzar extends JogoDados{
         int cont[] = somarFacesSorteadas(dados);
 
         System.out.println("1º Lançamento");
-        System.out.println(toString()); 
 
-        for(i=0;i<dados.length;i++){
-            soma += cont[i];
-        }
+        soma = dados[0].getSideUp()+dados[1].getSideUp();
+        System.out.printf(toString()+" = %d%n",soma); 
 
         int pont = 0;
 
@@ -48,16 +46,15 @@ public class JogoAzar extends JogoDados{
             System.out.printf("Número a ser buscado: %d%n", soma);
 
             int novaSoma=0;
-            i = 1;
+            i = 2;
             do {
                 rolarDados(2);
                 cont = somarFacesSorteadas(dados);
 
-                for(i=0;i<dados.length;i++){
-                    novaSoma += cont[i];
-                }
-                System.out.printf("%dº Lançamento%n",i+1);
-                System.out.println(toString()); //System.out.printf("%d + %d = %d", dados[0], dados[1], soma);
+                novaSoma = dados[0].getSideUp()+dados[1].getSideUp();
+
+                System.out.printf("%dº Lançamento%n",i);
+                System.out.printf(toString()+" = %d%n",novaSoma); 
 
                 if (novaSoma == soma) {
                     System.out.println("Jogador ganhou! [encerra jogada]");
@@ -69,8 +66,8 @@ public class JogoAzar extends JogoDados{
                     pont = 0;
                     break;
                 }
-
-            } while (novaSoma != soma && (novaSoma == 2 || novaSoma == 3 || novaSoma == 12));
+                i++;
+            } while (novaSoma != soma || (novaSoma == 2 || novaSoma == 3 || novaSoma == 12));
         }
     }
 
@@ -83,12 +80,6 @@ public class JogoAzar extends JogoDados{
             this.dados[i].roll(numFaces);
         }
     }
-
-    // public String toString(int soma) {    
-    //     String result = dados[0].toString() + " + " + dados[1].toString() + "= " + soma;
-    
-    //     return result;
-    // }
 
     public String toString() {    
         return dados[0].getSideUp() + " + " + dados[1].getSideUp();
