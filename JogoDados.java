@@ -1,12 +1,14 @@
 public abstract class JogoDados implements Estatistica{
     private int nDados;
+    private double valorAposta;
     private String nomeJogo;
     private Dado[] dados;
 
-    public JogoDados(int nDados, String nomeJogo, Dado[] dados){
+    public JogoDados(int nDados, String nomeJogo, Dado[] dados, double valorAposta){
         this.nDados = nDados;
         this.nomeJogo = nomeJogo;
         this.dados = dados;
+        this.valorAposta = valorAposta;
     }
 
     // Sobrecarga
@@ -22,6 +24,14 @@ public abstract class JogoDados implements Estatistica{
 
     public void setNomeJogo(String nome){
         this.nomeJogo = nome;
+    }
+
+    public double getValorAposta(){
+        return this.valorAposta;
+    }
+
+    public void setValorAposta(double valorAposta){
+        this.valorAposta = valorAposta;
     }
 
     public void rolarDados() { // resultados dos dados

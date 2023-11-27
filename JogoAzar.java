@@ -1,15 +1,33 @@
+import java.util.Scanner;
+
 public class JogoAzar extends JogoDados{
     private Dado[] dados;
+    private Scanner teclado;
 
     public JogoAzar(int nDados, String nomeJogo){
         super(nDados, nomeJogo);
-
+        
+        teclado = new Scanner(System.in);// scanf do java
         dados = new Dado[2];
 
         // Inicialize cada elemento do array dados
         for (int i = 0; i < 2; i++) {
             this.dados[i] = new Dado(); // Ou use o construtor apropriado de Dado, se existir
         }
+    }
+
+    public void jogarJogoAzar(){
+        System.out.println("Quanto você deseja apostar?");
+        int valorApostas = teclado.nextInt();
+        setValorAposta(valorApostas);
+        do{
+            if(getValorAposta()<){
+
+            }
+            else{
+
+            }
+        } while();
     }
 
     public boolean executarRegrasJogo(){
@@ -73,12 +91,12 @@ public class JogoAzar extends JogoDados{
     public String toString() {    
         return dados[0].getSideUp() + " + " + dados[1].getSideUp();
     }
-    // public static void main(String[] args){
-    //     JogoAzar jogoAzar = new JogoAzar( 2, null, 2);
+    public static void main(String[] args){
+        JogoAzar jogoAzar = new JogoAzar( 2, null);
         
 
-    //     jogoAzar.executarRegrasJogo();;
-    // }
+        jogoAzar.executarRegrasJogo();
+    }
     
     
 }

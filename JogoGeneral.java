@@ -361,4 +361,17 @@ public class JogoGeneral extends JogoDados implements Serializable{
         }    
         System.out.print("\n");
     }
+
+    public boolean resultadoJogoGeneral(){
+        int soma = 0;
+        for (int i = 0 ; i < 12 ; i++) { 
+			if(this.getJogadas(i) !=-1) {
+				soma = this.getJogadas(i); 
+			} 
+		}
+        if(soma>(2*this.getJogadas(13))){
+            return true;
+        }
+        return false;
+    }
 }
