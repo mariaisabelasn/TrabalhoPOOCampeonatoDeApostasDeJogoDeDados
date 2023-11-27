@@ -98,31 +98,36 @@ public class Campeonato implements Serializable {
     }
 
     public void iniciarCampeonato() {//inicia ou reinicia um campeonato
-        int opcao = 0;
-        do{
-            System.out.println("Qual jogo deseja jogar?");
-            System.out.println("1 - Jogo General");
-            System.out.println("2 - Jogo Azar");
-            opcao = teclado.nextInt();
-            teclado.nextLine();
 
-            if(opcao==1){
-                
-            }
-            else if(opcao==2){
+        //PODE SE UMA FUNÇÃO CHAMNDO A ESCOLHER JOGO DO HUMANO SE FOR HUMANO E DO MAQ SE FOR MAQ
+        //JÁ COMEÇAR O SETSALDO COM 100 PILA
+        // int opcao = 0;
+        // do{
+        //     System.out.println("Qual jogo deseja jogar?");//DEFINE QUAL JOGO É
+        //     System.out.println("1 - Jogo General");
+        //     System.out.println("2 - Jogo Azar");
+        //     opcao = teclado.nextInt();
+        //     teclado.nextLine();
 
-            }
-            else{
-                System.out.println("Opção inválida!");
-                opcao = 0;
-            }
-        }while(opcao==1||opcao==2);
-        for(int i = 0; i < contJogadores; i++) { // para iniciar ou resetar as jogadas e poder começar o campeonato novamente
+        //     if(opcao==1){
+        //             //IF E ELSE DA MAQUINA E DO JOGADOR
+        //     }
+        //     else if(opcao==2){
+
+        //     }
+        //     else{
+        //         System.out.println("Opção inválida!");
+        //         opcao = 0;
+        //     }
+        // }while(opcao==1||opcao==2);
+
+        for(int i = 0; i < contJogadores; i++) { // para iniciar ou resetar as jogadas e poder começar o campeonato novamente jogo general
             for(int j = 0; j < 13; j++){
                 players[i].getJogo().setJogadas(j, -1);
             }
         }
-
+         
+        //fazer um if else aqui pra escolher o jogo
         for (int j = 0; j < 13; j++) {
             for (int i = 0; i < contJogadores; i++) {
                 System.out.println(">>Rolando dados para " + players[i].getNome());
@@ -131,54 +136,56 @@ public class Campeonato implements Serializable {
                 players[i].getJogo().mostrarDados();
                 opcao = 0;
 
+                //PARTE DO JOGADOR hUMANO
                 if (players[i].getTipoJogador().equals("H")|| players[i].getTipoJogador().equals("h")) {
-                    opcao=0;
-                    do {
-                        System.out.println("Para qual jogada deseja marcar: [1-13] " + players[i].getNome() + "?");
-                        System.out.println("1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)");
-                        players[i].mostrarJogadasExecutadas();
+                    // opcao=0;
+                    // do {
+                    //     System.out.println("Para qual jogada deseja marcar: [1-13] " + players[i].getNome() + "?");
+                    //     System.out.println("1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)");
+                    //     players[i].mostrarJogadasExecutadas();
 
-                        while(opcao<=0|| opcao>13 || players[i].getJogo().getJogadas(opcao-1)!=-1){//caso o usuário tente escolher uma opcao inexistente ou alguma jogada já feita de novo
-                            opcao = teclado.nextInt();
-                            teclado.nextLine(); // Limpar o buffer de entrada após a leitura do inteiro
-                            if(opcao<=0||opcao>13 || players[i].getJogo().getJogadas(opcao-1)!=-1){
-                                System.out.println("Jogada inválida, escolha outra.");
-                            }
-                        }
-                        if (players[i].getJogo().getJogadas(opcao-1)==-1) { //se a jogada ainda nao tiver sido feita
-                            this.players[i].getJogo().setJogadas(opcao-1, this.players[i].getJogo().pontuarJogada(opcao));
-                        } 
-                    } while (players[i].getJogo().getJogadas(opcao-1)==-1);
-
+                    //     while(opcao<=0|| opcao>13 || players[i].getJogo().getJogadas(opcao-1)!=-1){//caso o usuário tente escolher uma opcao inexistente ou alguma jogada já feita de novo
+                    //         opcao = teclado.nextInt();
+                    //         teclado.nextLine(); // Limpar o buffer de entrada após a leitura do inteiro
+                    //         if(opcao<=0||opcao>13 || players[i].getJogo().getJogadas(opcao-1)!=-1){
+                    //             System.out.println("Jogada inválida, escolha outra.");
+                    //         }
+                    //     }
+                    //     if (players[i].getJogo().getJogadas(opcao-1)==-1) { //se a jogada ainda nao tiver sido feita
+                    //         this.players[i].getJogo().setJogadas(opcao-1, this.players[i].getJogo().pontuarJogada(opcao));
+                    //     } 
+                    // } while (players[i].getJogo().getJogadas(opcao-1)==-1);
+                    players[i].escolherJogada();
                 }
                 else if (players[i].getTipoJogador().equals("M")|| players[i].getTipoJogador().equals("m")){   // Se for do tipo máquina irá escolher a melhor jogada
-                    opcao=0;
-                    int melhorPontuacao = 0;
-                    int melhorJogada=0;
-                        while(opcao<13){//basicamente vai ver para aquela rodada qual vai ser a jogada com maior pontuação
-                        if(this.players[i].getJogo().getJogadas(opcao)==-1){//se já não for ocupada a jogada
-                            int pontuacao = this.players[i].getJogo().pontuarJogada(opcao+1);
+                    // opcao=0;
+                    // int melhorPontuacao = 0;
+                    // int melhorJogada=0;
+                    //     while(opcao<13){//basicamente vai ver para aquela rodada qual vai ser a jogada com maior pontuação
+                    //     if(this.players[i].getJogo().getJogadas(opcao)==-1){//se já não for ocupada a jogada
+                    //         int pontuacao = this.players[i].getJogo().pontuarJogada(opcao+1);
                             
-                            if(pontuacao>=melhorPontuacao){//serve p achar a melhor jogada mas vai acabar preenchendo todas as outras do vetor jogadas tbm
-                                melhorPontuacao=pontuacao;
-                                melhorJogada=opcao;
-                                vet[melhorJogada] = 1;//se a jogada já tiver sido usada anteriormente é marcada como 1;
-                            }
+                    //         if(pontuacao>=melhorPontuacao){//serve p achar a melhor jogada mas vai acabar preenchendo todas as outras do vetor jogadas tbm
+                    //             melhorPontuacao=pontuacao;
+                    //             melhorJogada=opcao;
+                    //             vet[melhorJogada] = 1;//se a jogada já tiver sido usada anteriormente é marcada como 1;
+                    //         }
                             
-                        }
+                    //     }
                        
-                        opcao++;
-                    }
+                    //     opcao++;
+                    // }
                     
-                    for (int k=0; k<13; k++){
-                        if(this.players[i].getJogo().getJogadas(k)!= melhorPontuacao && vet[k]!=1){
-                            this.players[i].getJogo().setJogadas(k, -1); //resolve o problema de preenchimento de outras jogadas
-                        }
-                    }  
-                    this.players[i].getJogo().setJogadas(melhorJogada, melhorPontuacao);//pontua para a máquina             
-                    System.out.println("1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)");
-                    players[i].mostrarJogadasExecutadas();
-                    System.out.println("Jogada que a maquina escolheu: "+ (melhorJogada+1));//retorna a jogada feita pela maquina melhorjogada(posição do vet)+1(pra ficar o "nome" da jogada certinho)
+                    // for (int k=0; k<13; k++){
+                    //     if(this.players[i].getJogo().getJogadas(k)!= melhorPontuacao && vet[k]!=1){
+                    //         this.players[i].getJogo().setJogadas(k, -1); //resolve o problema de preenchimento de outras jogadas
+                    //     }
+                    // }  
+                    // this.players[i].getJogo().setJogadas(melhorJogada, melhorPontuacao);//pontua para a máquina             
+                    // System.out.println("1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)");
+                    // players[i].mostrarJogadasExecutadas();
+                    // System.out.println("Jogada que a maquina escolheu: "+ (melhorJogada+1));//retorna a jogada feita pela maquina melhorjogada(posição do vet)+1(pra ficar o "nome" da jogada certinho)
+                    players[i].
                 }
             }
         }

@@ -3,12 +3,20 @@ public abstract class Jogador implements Serializable{
     String nome = new String();
     String tipoJogador = new String();
     JogoGeneral jogoGeneral = new JogoGeneral();
+    double saldo;
+    int jogosRealizados= 0;
    
 
     // Construtor
-    public Jogador(String nome, String tipoJogador) {
+    public Jogador(String nome, String tipoJogador, double saldo) {
         this.nome = nome;
         this.tipoJogador = tipoJogador;
+        if(jogosRealizados==0){
+            this.saldo = 100.00;//saldo de todo jogador inicia com 100, maquina ou humano
+        }
+        else{
+            this.saldo=saldo;
+        }
     }
 
     public String getNome() {// Função para pegar o nome dos respectivos jogadores.
@@ -17,6 +25,10 @@ public abstract class Jogador implements Serializable{
 
     public String getTipoJogador() {// Função para pegar o tipo dos respectivos jogadores.
         return this.tipoJogador;
+    }
+
+    public String getSaldo(){//função para pegar o saldo do jogador
+        return "Saldo Atual: R$"+ this.saldo;
     }
 
     public int getJogoGeneral(int i) { // Função para pegar as jogadas da "ficha" dos respectivos jogadores.
@@ -46,6 +58,9 @@ public abstract class Jogador implements Serializable{
 		System.out.println("");
     }
 
-    
+    //fazer uma função para armazenar dez jogos(azar ou general)
+
+    //função pra controlar a conta bancaria (começa sempre em 100)(saldo que vai decrementando e aumentando o valor da conta) 
+            //ter saldo suficiente e n ultrapassar dez apostas
 
 }
