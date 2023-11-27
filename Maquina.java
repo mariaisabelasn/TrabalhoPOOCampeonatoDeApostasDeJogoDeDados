@@ -1,4 +1,5 @@
 import java.util.Random;
+
 public class Maquina extends Jogador implements JogarComoMaquina {
     // private Jogador players = new Jogador();
     // private JogoDados jDados = new JogoDados();
@@ -9,11 +10,11 @@ public class Maquina extends Jogador implements JogarComoMaquina {
 
     public int sorteiaJogo() { //como cada jogo é individual e nehum jogador joga com outro é necessário um método pra maquina "entrar" em um jogo
         int opcao = 0;
-      if(players.saldo <=0.0){
+      if(super.saldo <=0.0){
         System.out.println("Saldo insufíciente");
         return 0;
       }
-      if(players.jogosRealizados>=10){
+      if(super.jogosRealizados>=10){
         System.out.println("Você atingiu o limite máximo de jogatina no Cassino M&M, volte amanhã!");
         return 0;
       }
@@ -44,8 +45,8 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             int melhorPontuacao = 0;
             int melhorJogada=0;
                 while(opcao<13){//basicamente vai ver para aquela rodada qual vai ser a jogada com maior pontuação
-                if(this.players[i].getJogo().getJogadas(opcao)==-1){//se já não for ocupada a jogada
-                    int pontuacao = this.players[i].getJogo().pontuarJogada(opcao+1);
+                if(super.getJogo().getJogadas(opcao)==-1){//se já não for ocupada a jogada
+                    int pontuacao = super.getJogo().pontuarJogada(opcao+1);
                     
                     if(pontuacao>=melhorPontuacao){//serve p achar a melhor jogada mas vai acabar preenchendo todas as outras do vetor jogadas tbm
                         melhorPontuacao=pontuacao;
@@ -59,8 +60,8 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             }
             
             for (int k=0; k<13; k++){
-                if(this.players[i].getJogo().getJogadas(k)!= melhorPontuacao && vet[k]!=1){
-                    this.players[i].getJogo().setJogadas(k, -1); //resolve o problema de preenchimento de outras jogadas
+                if(super.getJogo().getJogadas(k)!= melhorPontuacao && vet[k]!=1){
+                    super.getJogo().setJogadas(k, -1); //resolve o problema de preenchimento de outras jogadas
                 }
             }  
             this.players[i].getJogo().setJogadas(melhorJogada, melhorPontuacao);//pontua para a máquina             
