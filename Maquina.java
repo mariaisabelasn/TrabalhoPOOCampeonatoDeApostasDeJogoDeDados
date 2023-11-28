@@ -3,7 +3,8 @@ import java.util.Random;
 public class Maquina extends Jogador implements JogarComoMaquina {
     // private Jogador players = new Jogador();
     // private JogoDados jDados = new JogoDados();
-    int[]vet=new vet[];
+    private int vet[]=new int[13];
+    private Random random =new Random();
 
     public Maquina(String nome, String tipoJogador, float saldo){
         super(nome, tipoJogador, saldo);

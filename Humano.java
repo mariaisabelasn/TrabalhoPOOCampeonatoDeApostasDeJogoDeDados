@@ -7,13 +7,12 @@ public class Humano extends Jogador implements JogarComoHumano{
     private Jogador[] players; // referência para os jogadores
     private Scanner teclado;
 
-    public Humano(String nome, String tipoJogador, String cpf,float saldo, Jogador[] players){
+    public Humano(String nome, String tipoJogador, String cpf,float saldo){
         super(nome, tipoJogador, saldo);
         this.cpf = cpf;
         this.agencia = "2567-8";
         this.conta = "2564987";
         this.numeroBanco = 007; 
-        this.players=players;   
     }
 
     @Override

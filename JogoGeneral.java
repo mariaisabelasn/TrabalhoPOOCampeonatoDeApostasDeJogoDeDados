@@ -5,7 +5,7 @@ public class JogoGeneral extends JogoDados implements Serializable{
     private Jogador[] players;
     private int i, contJogadores;
 
-    public JogoGeneral( float valorAposta) {
+    public JogoGeneral(float valorAposta) {
         super(5, "Jogo General", valorAposta);
 
         dados = new Dado[5];
@@ -26,7 +26,6 @@ public class JogoGeneral extends JogoDados implements Serializable{
             }
         }
          
-        //fazer um if else aqui pra escolher o jogo
         for (int j = 0; j < 13; j++) {
             for (i = 0; i < contJogadores; i++) {
                 System.out.println(">>Rolando dados para " + players[i].getNome());
@@ -35,11 +34,11 @@ public class JogoGeneral extends JogoDados implements Serializable{
                 players[i].getJogo().mostrarDados();
                 int opcao = 0;
 
-                if(players[i] instanceof Humano){
+                if(players[i] instanceof Humano){ //faz a parada se jogar se o player for humano
                     Humano humano = (Humano) players[i];
                     humano.escolherJogada();
                 }
-                else if(players[i] instanceof Maquina){
+                else if(players[i] instanceof Maquina){ ///faz a parada se jogar se o player for maquina
                     Maquina maquina = (Maquina) players[i];
                     maquina.aplicarEstrategia();
                 }
@@ -68,7 +67,7 @@ public class JogoGeneral extends JogoDados implements Serializable{
 
 
                 //}
-                else if (players[i].getTipoJogador().equals("M")|| players[i].getTipoJogador().equals("m")){   // Se for do tipo máquina irá escolher a melhor jogada
+                //else if (players[i].getTipoJogador().equals("M")|| players[i].getTipoJogador().equals("m")){   // Se for do tipo máquina irá escolher a melhor jogada
                     // opcao=0;
                     // int melhorPontuacao = 0;
                     // int melhorJogada=0;
@@ -96,12 +95,12 @@ public class JogoGeneral extends JogoDados implements Serializable{
                     // System.out.println("1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)");
                     // players[i].mostrarJogadasExecutadas();
                     // System.out.println("Jogada que a maquina escolheu: "+ (melhorJogada+1));//retorna a jogada feita pela maquina melhorjogada(posição do vet)+1(pra ficar o "nome" da jogada certinho)
-                }
+                //}
             }
         }
     }
 
-    }
+    
 
     public void rolarDados(int nDados) { // resultados dos 5 dados
         for (int i = 0; i < nDados; i++) {
@@ -456,6 +455,7 @@ public class JogoGeneral extends JogoDados implements Serializable{
 			} 
 		}
         if(soma>(2*this.getJogadas(13))){
+            //atualizar saldo da aposta
             return true;
         }
         return false;

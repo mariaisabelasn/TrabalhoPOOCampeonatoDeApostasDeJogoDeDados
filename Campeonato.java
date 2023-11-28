@@ -14,10 +14,11 @@ public class Campeonato implements Serializable {
     private String nome, biotipo, cpf, opcao;
     private Humano humano;
     private Maquina maquina;
-    private double saldo;
+    private float saldo;
     private JogoGeneral jogoGeneral;
     private JogoAzar jogoAzar;
     private String[] jogos;
+    private int vet[];
 
 
     // CONSTRUTOR
@@ -111,7 +112,7 @@ public class Campeonato implements Serializable {
         //PODE SE UMA FUNÇÃO CHAMNDO A ESCOLHER JOGO DO HUMANO SE FOR HUMANO E DO MAQ SE FOR MAQ
         //JÁ COMEÇAR O SETSALDO COM 100 PILA
         
-        int jogo,i;
+        int jogo=0,i=0;
         if(players[i] instanceof Humano){
             Humano humano = (Humano) players[i];
             jogo = humano.escolherJogo();
@@ -123,22 +124,21 @@ public class Campeonato implements Serializable {
         }
 
         if(jogo==1){
-            // if(players[i] instanceof Humano){
-            //     Humano humano = (Humano) players[i];
-            //     humano.escolherJogada();
-            // }
-            // else if(players[i] instanceof Maquina){
-            //     Maquina maquina = (Maquina) players[i];
-            //     maquina.aplicarEstrategia();
-            // }
-            jogoGeneral = new JogoGeneral(100);
+            float valorAposta;
+            System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
+            valorAposta= teclado.nextFloat();
+            
+            jogoGeneral = new JogoGeneral(valorAposta);
             jogoGeneral.iniciarJogoGeneral();
             mostrarCartela();
 
         }
         else if(jogo==2){
-            jogoAzar = new JogoAzar(100);
-
+            float valorAposta;
+            System.out.println("Qual o valor que deseja apostar? ");
+            valorAposta= teclado.nextFloat();
+            
+            jogoAzar = new JogoAzar(valorAposta);
             jogoAzar.executarRegrasJogo();
         }
 
