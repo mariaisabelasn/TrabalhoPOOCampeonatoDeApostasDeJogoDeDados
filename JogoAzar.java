@@ -4,8 +4,8 @@ public class JogoAzar extends JogoDados{
     private Dado[] dados;
     private Scanner teclado;
 
-    public JogoAzar(int nDados, String nomeJogo){
-        super(nDados, nomeJogo);
+    public JogoAzar(float valorAposta){
+        super(2, "Jogo Azar", valorAposta);
         
         teclado = new Scanner(System.in);// scanf do java
         dados = new Dado[2];
@@ -78,7 +78,7 @@ public class JogoAzar extends JogoDados{
         return dados[0].getSideUp() + " + " + dados[1].getSideUp();
     }
     public static void main(String[] args){
-        JogoAzar jogoAzar = new JogoAzar( 2, null);
+        JogoAzar jogoAzar = new JogoAzar( 100);
         
 
         jogoAzar.executarRegrasJogo();

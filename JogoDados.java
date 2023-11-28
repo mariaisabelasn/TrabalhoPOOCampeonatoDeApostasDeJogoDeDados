@@ -4,7 +4,7 @@ public abstract class JogoDados implements Estatistica{
     private String nomeJogo;
     private Dado[] dados;
 
-    public JogoDados(int nDados, String nomeJogo, Dado[] dados, double valorAposta){
+    public JogoDados(int nDados, String nomeJogo, Dado[] dados, float valorAposta){
         this.nDados = nDados;
         this.nomeJogo = nomeJogo;
         this.dados = dados;
@@ -12,10 +12,14 @@ public abstract class JogoDados implements Estatistica{
     }
 
     // Sobrecarga
-    public JogoDados(int nDados, String nomeJogo) {
+    public JogoDados(int nDados, String nomeJogo, float valorAposta) {
         this.nDados = nDados;
         this.nomeJogo = nomeJogo;
         this.dados = new Dado[nDados];
+        for (int i = 0; i < nDados; i++) {
+            dados[i] = new Dado();
+        }
+        this.valorAposta = valorAposta;
     }
 
     public String getNomeJogo(){

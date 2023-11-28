@@ -3,9 +3,9 @@ import java.util.Random;
 public class Maquina extends Jogador implements JogarComoMaquina {
     // private Jogador players = new Jogador();
     // private JogoDados jDados = new JogoDados();
-    int[]vet=new vet[]
+    int[]vet=new vet[];
 
-    public Maquina(String nome, String tipoJogador, double saldo){
+    public Maquina(String nome, String tipoJogador, float saldo){
         super(nome, tipoJogador, saldo);
     }
 

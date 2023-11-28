@@ -11,10 +11,13 @@ public class Campeonato implements Serializable {
     private Jogador[] players; 
     private int contJogadores;
     private Scanner teclado;
-    private String nome, biotipo, cpf;
+    private String nome, biotipo, cpf, opcao;
     private Humano humano;
     private Maquina maquina;
     private double saldo;
+    private JogoGeneral jogoGeneral;
+    private JogoAzar jogoAzar;
+    private String[] jogos;
 
 
     // CONSTRUTOR
@@ -107,25 +110,7 @@ public class Campeonato implements Serializable {
 
         //PODE SE UMA FUNÇÃO CHAMNDO A ESCOLHER JOGO DO HUMANO SE FOR HUMANO E DO MAQ SE FOR MAQ
         //JÁ COMEÇAR O SETSALDO COM 100 PILA
-        // int opcao = 0;
-        // do{
-        //     System.out.println("Qual jogo deseja jogar?");//DEFINE QUAL JOGO É
-        //     System.out.println("1 - Jogo General");
-        //     System.out.println("2 - Jogo Azar");
-        //     opcao = teclado.nextInt();
-        //     teclado.nextLine();
-
-        //     if(opcao==1){
-        //             //IF E ELSE DA MAQUINA E DO JOGADOR
-        //     }
-        //     else if(opcao==2){
-
-        //     }
-        //     else{
-        //         System.out.println("Opção inválida!");
-        //         opcao = 0;
-        //     }
-        // }while(opcao==1||opcao==2);
+        
         int jogo,i;
         if(players[i] instanceof Humano){
             Humano humano = (Humano) players[i];
@@ -138,58 +123,61 @@ public class Campeonato implements Serializable {
         }
 
         if(jogo==1){
-            if(players[i] instanceof Humano){
-                Humano humano = (Humano) players[i];
-                humano.escolherJogada();
-            }
-            else if(players[i] instanceof Maquina){
-                Maquina maquina = (Maquina) players[i];
-                maquina.aplicarEstrategia();
-            }
+            // if(players[i] instanceof Humano){
+            //     Humano humano = (Humano) players[i];
+            //     humano.escolherJogada();
+            // }
+            // else if(players[i] instanceof Maquina){
+            //     Maquina maquina = (Maquina) players[i];
+            //     maquina.aplicarEstrategia();
+            // }
+            jogoGeneral = new JogoGeneral(100);
+            jogoGeneral.iniciarJogoGeneral();
+            mostrarCartela();
+
         }
         else if(jogo==2){
+            jogoAzar = new JogoAzar(100);
 
-            players[i].executarRegrasJogo();
+            jogoAzar.executarRegrasJogo();
         }
 
                     
     }
                 
-                   
+    public void mostrarCartela() {
+        System.out.println("-- Cartela de Resultados --");
+        System.out.print("Jogada\t");
 
-    // public void mostrarCartela() {
-    //     System.out.println("-- Cartela de Resultados --");
-    //     System.out.print("Jogada\t");
+        for(int i=0; i<contJogadores; i++){
+            System.out.print(players[i].getNome()+"("+players[i].getTipoJogador()+")\t\t");
+        } // vai imprimir o nome e o tipo de todos os players lado a lado
+        System.out.print("\n"); //pula linha quando os nomes terminam
 
-    //     for(int i=0; i<contJogadores; i++){
-    //         System.out.print(players[i].getNome()+"("+players[i].getTipoJogador()+")\t\t");
-    //     } // vai imprimir o nome e o tipo de todos os players lado a lado
-    //     System.out.print("\n"); //pula linha quando os nomes terminam
-
-    //     String[] type={"1", "2", "3", "4", "5", "6", "7(T)", "8(Q)", "9(F)", "10(S+)", "11(S-)", "12(G)", "13(X)"};//string com os "nomes" das jogadas
+        String[] type={"1", "2", "3", "4", "5", "6", "7(T)", "8(Q)", "9(F)", "10(S+)", "11(S-)", "12(G)", "13(X)"};//string com os "nomes" das jogadas
         
-    //     for(int j=0; j<13;j++){
-    //         System.out.print(type[j]+"\t");//imprime os nomes das jogadas
+        for(int j=0; j<13;j++){
+            System.out.print(type[j]+"\t");//imprime os nomes das jogadas
             
-    //         for(int k=0; k<contJogadores; k++){
-    //             System.out.print(players[k].getJogoGeneral(j)+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
-    //         }
-    //         System.out.print("\n");
-    //     }
-    //     if(contJogadores<=5){//para imprimir linha fofa 
-    //         System.out.println("-------------------<3-------------------<3-------------------<3-------------------");
-    //     }
-    //     else if(contJogadores>5){
-    //         System.out.println("-------------------<3-------------------<3-------------------<3-------------------<3------------------<3-------------------<3------------------");
-    //     }
-    //     System.out.print("Total\t");
+            for(int k=0; k<contJogadores; k++){
+                System.out.print(players[k].getJogoGeneral(j)+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
+            }
+            System.out.print("\n");
+        }
+        if(contJogadores<=5){//para imprimir linha fofa 
+            System.out.println("-------------------<3-------------------<3-------------------<3-------------------");
+        }
+        else if(contJogadores>5){
+            System.out.println("-------------------<3-------------------<3-------------------<3-------------------<3------------------<3-------------------<3------------------");
+        }
+        System.out.print("Total\t");
 
-    //     for(int k=0; k<contJogadores; k++){
-    //         System.out.print(somaJogadas(k)+"\t\t");
-    //     }
-    //     System.out.print("\n");
+        for(int k=0; k<contJogadores; k++){
+            System.out.print(somaJogadas(k)+"\t\t");
+        }
+        System.out.print("\n");
 
-    // }
+    }
 
     public void mostrarSaldo(){
 
@@ -200,7 +188,37 @@ public class Campeonato implements Serializable {
     }
 
     public void mostrarEstatistica(){
+        System.out.println("------- Estatícticas -------");
+        System.out.println("Qual tipo de jogador? h - Humano    m - Máquina");
+        opcao = teclado.nextLine();
+        
+        switch (opcao) {
+            case "h":
+                
+                break;
+            case "m":
 
+                break;
+        
+            default:
+                System.out.println ("Opcao invalida. Tente novamente");
+        }
+
+        System.out.println("Qual tipo de jogo? g - General    a - Azar");
+        opcao = teclado.nextLine();
+        
+        switch (opcao) {
+            case "g":
+                
+                break;
+            case "a":
+
+                break;
+        
+            default:
+                System.out.println ("Opcao invalida. Tente novamente");
+        }
+        jogoAzar.somarFacesSorteadas(null);
     }
 
     public int somaJogadas(int jogante){

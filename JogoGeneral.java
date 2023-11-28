@@ -2,9 +2,11 @@ import java.io.Serializable;
 public class JogoGeneral extends JogoDados implements Serializable{
     private Dado[] dados;
     private int[] jogadas;
+    private Jogador[] players;
+    private int i, contJogadores;
 
-    public JogoGeneral(int nDados, String nomeJogo, Dado[] dados) {
-        super(nDados, nomeJogo, dados);
+    public JogoGeneral( float valorAposta) {
+        super(5, "Jogo General", valorAposta);
 
         dados = new Dado[5];
         jogadas = new int[13];
@@ -33,6 +35,15 @@ public class JogoGeneral extends JogoDados implements Serializable{
                 players[i].getJogo().mostrarDados();
                 int opcao = 0;
 
+                if(players[i] instanceof Humano){
+                    Humano humano = (Humano) players[i];
+                    humano.escolherJogada();
+                }
+                else if(players[i] instanceof Maquina){
+                    Maquina maquina = (Maquina) players[i];
+                    maquina.aplicarEstrategia();
+                }
+
                 //PARTE DO JOGADOR hUMANO
                 //if (players[i].getTipoJogador().equals("H")|| players[i].getTipoJogador().equals("h")) {
                     
@@ -56,11 +67,6 @@ public class JogoGeneral extends JogoDados implements Serializable{
                     // } while (players[i].getJogo().getJogadas(opcao-1)==-1);INS
 
 
-                    ///INNTANCE OF AQUI
-                     if(players[i] instanceof Humano){
-                        Humano humano = (Humano) players[i];
-                        jogo = humano.escolherJogada(jogo);
-                    }
                 //}
                 else if (players[i].getTipoJogador().equals("M")|| players[i].getTipoJogador().equals("m")){   // Se for do tipo máquina irá escolher a melhor jogada
                     // opcao=0;
@@ -90,7 +96,6 @@ public class JogoGeneral extends JogoDados implements Serializable{
                     // System.out.println("1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)");
                     // players[i].mostrarJogadasExecutadas();
                     // System.out.println("Jogada que a maquina escolheu: "+ (melhorJogada+1));//retorna a jogada feita pela maquina melhorjogada(posição do vet)+1(pra ficar o "nome" da jogada certinho)
-                    Maquina.players[i].aplicarEstrategia();
                 }
             }
         }

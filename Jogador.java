@@ -2,17 +2,17 @@ import java.io.Serializable;
 public abstract class Jogador implements Serializable{
     String nome = new String();
     String tipoJogador = new String();
-    JogoGeneral jogoGeneral = new JogoGeneral();
-    double saldo;
+    JogoGeneral jogoGeneral;
+    float saldo;
     int jogosRealizados= 0;
    
 
     // Construtor
-    public Jogador(String nome, String tipoJogador, double saldo) {
+    public Jogador(String nome, String tipoJogador, float saldo) {
         this.nome = nome;
         this.tipoJogador = tipoJogador;
         if(jogosRealizados==0){
-            this.saldo = 100.00;//saldo de todo jogador inicia com 100, maquina ou humano
+            this.saldo = 100;//saldo de todo jogador inicia com 100, maquina ou humano
         }
         else{
             this.saldo=saldo;
