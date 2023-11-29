@@ -59,8 +59,8 @@ public abstract class JogoDados implements Estatistica, Serializable{
     //     return this.numFaces;
     // }
 
-    public void rolarDados() { // resultados dos dados
-        for (int i = 0; i < 1; i++) {
+    public void rolarDados(int nDados) { // resultados dos dados
+        for (int i = 0; i < nDados; i++) {
             this.dados[i].roll(numFaces);
         }
     }

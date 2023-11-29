@@ -3,11 +3,13 @@ import java.util.Random;
 public class Maquina extends Jogador implements JogarComoMaquina {
     // private Jogador players = new Jogador();
     // private JogoDados jDados = new JogoDados();
-    private int vet[]=new int[13];
-    private Random random =new Random();
+    private int[] vet;
+    private Random random;
 
     public Maquina(String nome, String tipoJogador, float saldo){
         super(nome, tipoJogador, saldo);
+        vet=new int[13];
+        random =new Random();
     }
 
     public int sorteiaJogo() { //como cada jogo é individual e nehum jogador joga com outro é necessário um método pra maquina "entrar" em um jogo

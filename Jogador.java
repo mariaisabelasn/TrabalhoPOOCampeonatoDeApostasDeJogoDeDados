@@ -42,7 +42,7 @@ public abstract class Jogador implements Serializable{
     }
 
     public int getJogoGeneral(int i) { // Função para pegar as jogadas da "ficha" dos respectivos jogadores.
-        return this.jogoGeneral.getJogadas(i);
+        return this.getJogoDados(i).getJogadas(i);
     }
 
     // public JogoGeneral getJogoG() { //para acessar por outra classe o jogo de cada jogador
