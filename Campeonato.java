@@ -190,46 +190,125 @@ public class Campeonato implements Serializable {
     }
 
     public void mostrarSaldo(){
-        System.out.println("");
+        System.out.println("Deseja imprimir saldo para quem?");
+        System.out.println("a) Para todos os Jogadores");
+        System.out.println("b) Apenas para os jogadores humanos");
+        System.out.println("c) Apenas para os jogadores máquinas");
+        opcao = teclado.nextLine();
+        
+        switch (opcao) {
+            case "a":
+            for (Jogador p : players) {//printa o saldo de todos os jogadores
+                if(p!=null){
+                    System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                }
+            }
+                
+                break;
+
+            case "b":
+                for (Jogador p : players) {//printa o saldo de todos os humanos
+                if(p!=null && p instanceof Humano){
+                    System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                }
+            }
+
+                break;
+            
+            case "c":
+             for (Jogador p : players) {//printa o saldo de todas as maquinas
+                if(p!=null && p instanceof Maquina){
+                    System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                }
+            }
+                break;
+        
+            default:
+                System.out.println ("Opcao invalida. Tente novamente");
+        }
+
 
     }
 
     public void mostrarExtratos(){
+        System.out.println("Deseja imprimir saldo para quem?");
+        System.out.println("a) Para todos os Jogadores");
+        System.out.println("b) Apenas para os jogadores humanos");
+        System.out.println("c) Apenas para os jogadores máquinas");
+        opcao = teclado.nextLine();
+        
+        switch (opcao) {
+            case "a":
+            for (Jogador p : players) {//printa o saldo de todos os jogadores
+                if(p!=null){
+                    System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                }
+            }
+                
+                break;
+
+            case "b":
+                for (Jogador p : players) {//printa o saldo de todos os humanos
+                if(p!=null && p instanceof Humano){
+                    System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                }
+            }
+
+                break;
+            
+            case "c":
+             for (Jogador p : players) {//printa o saldo de todas as maquinas
+                if(p!=null && p instanceof Maquina){
+                    System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                }
+            }
+                break;
+        
+            default:
+                System.out.println ("Opcao invalida. Tente novamente");
+        }
+
 
     }
 
     public void mostrarEstatistica(){
         System.out.println("------- Estatícticas -------");
-        System.out.println("Qual tipo de jogador? h - Humano    m - Máquina");
+        System.out.println("Deseja imprimir as estatísticas para qual das opções abaixo?");
+        System.out.println("a) Por tipo de Jogador[humano ou máquina]");
+        System.out.println("b) Por tipo de jogo[general ou de azar] escolhido por um jogador [específico]");
+        System.out.println("c) Total por jogos[general e azar]");
+        System.out.println("d) Total do campeonato");
         opcao = teclado.nextLine();
         
         switch (opcao) {
-            case "h":
-                
-                break;
-            case "m":
-
-                break;
-        
-            default:
-                System.out.println ("Opcao invalida. Tente novamente");
-        }
-
-        System.out.println("Qual tipo de jogo? g - General    a - Azar");
-        opcao = teclado.nextLine();
-        
-        switch (opcao) {
-            case "g":
-                
-                break;
             case "a":
+                do{
+                    System.out.println("Humano (h) ou máquina (m)? ");
+                    opcao=teclado.nextLine();
+
+                    if(opcao.equals("h")){
+                        //chamar função das estatísticas de humano
+
+                    }
+                    else if(opcao.equals("m")){
+                        //chamar fçao da estatisticas de maquina
+                    }
+                }while(!opcao.equals("h")|| !opcao.equals("m"));
+
+            break;
+            case "b":
+
+                break;
+            case "c":
+                
+                break;
+            case "d":
 
                 break;
         
             default:
                 System.out.println ("Opcao invalida. Tente novamente");
         }
-        jogoAzar.somarFacesSorteadas(null);
     }
 
     public int somaJogadas(int jogante){
