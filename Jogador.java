@@ -9,7 +9,7 @@ public abstract class Jogador implements Serializable{
    
 
     // Construtor
-    public Jogador(String nome, String tipoJogador, float saldo) {
+    public Jogador(String nome, String tipoJogador, double saldo) {
         this.nome = nome;
         this.tipoJogador = tipoJogador;
         if(jogosRealizados==0){
