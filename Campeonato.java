@@ -15,11 +15,12 @@ public class Campeonato implements Serializable {
     private Humano humano;
     private Maquina maquina;
     private float saldo;
-    private JogoGeneral jogoGeneral;
-    private JogoAzar jogoAzar;
+    // private JogoGeneral jogoGeneral;
+    // private JogoAzar jogoAzar;
     private String[] jogos;
     private int vet[];
     private JogoDados jogoDados;
+
 
 
     // CONSTRUTOR
@@ -149,19 +150,21 @@ public class Campeonato implements Serializable {
                     
                 }while(valorAposta==0);
                 
-                jogoGeneral = new JogoGeneral(valorAposta);
+                // jogoGeneral = new JogoGeneral(valorAposta);
+                JogoDados j =new JogoGeneral(valorAposta);//outro indice
+                players[i].setJogoDados(j, players[i].getJogadasRealizadas());
 
                 if (players[i] instanceof Humano){
-                       humano=(Humano) players[i];
-                       humano.setJogoGeneral(jogoGeneral);
-                       humano.getJogoG().iniciarJogoGeneral();
+                    //    humano=(Humano) players[i];
+                    //    humano.setJogoGeneral(jogoGeneral);
+                      players[i].getJogoDados(humano.getJogadasRealizadas()).iniciarJogoGeneral();
                        mostrarCartela();
                     i++; //passa pro outra casa do vetor
                 }
                 
                 else if(players[i] instanceof Maquina){
                     maquina=(Maquina) players[i];
-                    maquina.setJogoGeneral(jogoGeneral);
+                    // maquina.setJogoGeneral(jogoGeneral);
                     maquina.getJogoG().iniciarJogoGeneral();
                     mostrarCartela();
                     i++;

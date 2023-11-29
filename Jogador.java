@@ -1,14 +1,14 @@
 import java.io.Serializable;
 public abstract class Jogador implements Serializable{
-    String nome = new String();
-    String tipoJogador = new String();
-    JogoGeneral jogoGeneral;
-    JogoAzar jogoAzar;
-    double saldo;
-    JogoDados[] jogoDados;
-    int jogosRealizados= 0;
-    double valorAposta;
-    int i=0;
+    private String nome = new String();
+    private String tipoJogador = new String();
+    // JogoGeneral jogoGeneral;
+    // JogoAzar jogoAzar;
+    private double saldo;
+    private JogoDados[] jogoDados;
+    private int jogosRealizados= 0;
+    private double valorAposta;
+    private int i=0;
    
 
     // Construtor
@@ -45,24 +45,32 @@ public abstract class Jogador implements Serializable{
         return this.jogoGeneral.getJogadas(i);
     }
 
-    public JogoGeneral getJogoG() { //para acessar por outra classe o jogo de cada jogador
-        return this.jogoGeneral;
-    }
+    // public JogoGeneral getJogoG() { //para acessar por outra classe o jogo de cada jogador
+    //     return this.jogoGeneral;
+    // }
     
-    public JogoAzar getJogoA(){//para acessar de outra classe o jogo azar de cada jogador
-        return this.jogoAzar;
+    // public JogoAzar getJogoA(){//para acessar de outra classe o jogo azar de cada jogador
+    //     return this.jogoAzar;
+    // }
+    public void setJogoDados(JogoDados jogoDados, int i ){//seta jogo general colocando ele no array de jogoDados
+        // this.jogoGeneral=jogoGeneral;
+        this.jogosRealizados=i;
+        this.jogoDados[jogosRealizados]=jogoDados;
+        jogosRealizados++;
     }
-    public void setJogoGeneral(JogoGeneral jogoGeneral){//seta jogo general colocando ele no array de jogoDados
-        this.jogoGeneral=jogoGeneral;
-        this.jogoDados[i]=jogoGeneral;
-        i++;
+    public JogoDados getJogoDados (int i){
+        return jogoDados[i];
     }
 
-    public void setJogoAzar(JogoAzar jogoAzar){//seta jogo azar colocando ele no array de jogoDados
-        this.jogoAzar=jogoAzar;
-        this.jogoDados[i]=jogoAzar;
-        i++;
+    public int getJogadasRealizadas(){
+        return jogosRealizados;
     }
+
+    // public void setJogoAzar(JogoAzar jogoAzar){//seta jogo azar colocando ele no array de jogoDados
+    //     this.jogoAzar=jogoAzar;
+    //     this.jogoDados[i]=jogoAzar;
+    //     i++;
+    // }
 
 
     public void dell(){ //deleta os dados do jogador
