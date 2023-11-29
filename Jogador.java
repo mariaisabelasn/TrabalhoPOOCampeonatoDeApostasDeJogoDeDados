@@ -3,12 +3,12 @@ public abstract class Jogador implements Serializable{
     String nome = new String();
     String tipoJogador = new String();
     JogoGeneral jogoGeneral;
-    float saldo;
+    double saldo;
     int jogosRealizados= 0;
    
 
     // Construtor
-    public Jogador(String nome, String tipoJogador, float saldo) {
+    public Jogador(String nome, String tipoJogador, double saldo) {
         this.nome = nome;
         this.tipoJogador = tipoJogador;
         if(jogosRealizados==0){
@@ -27,8 +27,8 @@ public abstract class Jogador implements Serializable{
         return this.tipoJogador;
     }
 
-    public String getSaldo(){//função para pegar o saldo do jogador
-        return "Saldo Atual: R$"+ this.saldo;
+    public double getSaldo(){//função para pegar o saldo do jogador
+        return this.saldo;
     }
 
     public int getJogoGeneral(int i) { // Função para pegar as jogadas da "ficha" dos respectivos jogadores.
