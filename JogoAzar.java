@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class JogoAzar extends JogoDados{
     private Dado[] dados;
     private Scanner teclado;
+    private Jogador[] players;
 
     public JogoAzar(double valorAposta){
         super(2, "Jogo Azar", valorAposta);
@@ -17,8 +18,19 @@ public class JogoAzar extends JogoDados{
     }
 
     public boolean executarRegrasJogo(){
-        int i;
+        int i=0;
         int soma=0;
+        double novoSaldo = 0;
+
+        double valorAposta=0;
+        do{
+            if(getValorAposta()>players[i].getSaldo()){
+                System.out.println("Saldo insuficiente! Aposte outro valor");
+                valorAposta = teclado.nextFloat();
+                players[i].setSaldo(valorAposta);
+            }
+            i++;
+        }while(getValorAposta()>players[i].getSaldo());
 
         rolarDados(2);
         int cont[] = somarFacesSorteadas(dados);
@@ -32,9 +44,17 @@ public class JogoAzar extends JogoDados{
         if (soma == 7 || soma == 11) {
             System.out.println("Jogador ganhou! [encerra jogada]");
             System.out.println("...");
+            System.out.printf("Seu saldo era de R$ %.2d%n", players[i].getSaldo());
+            novoSaldo = valorAposta*2;
+            players[i].setSaldo(novoSaldo);
+            System.out.printf("Seu saldo atual é de R$ %.2d%n", players[i].getSaldo());
             return true;
         } else if (soma == 2 || soma == 3 || soma == 12) {
             System.out.println("Jogador perdeu! [encerra jogada]");
+            System.out.printf("Seu saldo era de R$ %.2d%n", players[i].getSaldo());
+            novoSaldo = players[i].getSaldo() - valorAposta;
+            players[i].setSaldo(novoSaldo);
+            System.out.printf("Seu saldo atual é de R$ %.2d%n", players[i].getSaldo());
             return false;
         } else {
             System.out.printf("Número a ser buscado: %d%n", soma);
@@ -53,9 +73,17 @@ public class JogoAzar extends JogoDados{
                 if (novaSoma == soma) {
                     System.out.println("Jogador ganhou! [encerra jogada]");
                     System.out.println("...");
+                    System.out.printf("Seu saldo era de R$ %.2d%n", players[i].getSaldo());
+                    novoSaldo = valorAposta*2;
+                    players[i].setSaldo(novoSaldo);
+                    System.out.printf("Seu saldo atual é de R$ %.2d%n", players[i].getSaldo());
                     return true;
                 } else if (novaSoma == 2 || novaSoma == 3 || novaSoma == 12) {
                     System.out.println("Jogador perdeu! [encerra jogada]");
+                    System.out.printf("Seu saldo era de R$ %.2d%n", players[i].getSaldo());
+                    novoSaldo = players[i].getSaldo() - valorAposta;
+                    players[i].setSaldo(novoSaldo);
+                    System.out.printf("Seu saldo atual é de R$ %.2d%n", players[i].getSaldo());
                     return false;
                 }
                 i++;
