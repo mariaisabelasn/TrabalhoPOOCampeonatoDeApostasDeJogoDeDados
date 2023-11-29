@@ -155,7 +155,7 @@ public class Campeonato implements Serializable {
                     
     }
                 
-    public void mostrarCartela() {
+    public void mostrarCartela() { // Mostra a Cartela do Jogo General
         System.out.println("-- Cartela de Resultados --");
         System.out.print("Jogada\t");
 
@@ -190,6 +190,7 @@ public class Campeonato implements Serializable {
     }
 
     public void mostrarSaldo(){
+        System.out.println("");
 
     }
 

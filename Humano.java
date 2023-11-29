@@ -42,7 +42,7 @@ public class Humano extends Jogador implements JogarComoHumano{
     @Override
     public int escolherJogo() {
           int opcao = 0;
-          if(super.saldo <=0.0){
+          if(super.getSaldo() <=0.0){
             System.out.println("Saldo insufíciente");
             return 0;
           }
@@ -58,16 +58,17 @@ public class Humano extends Jogador implements JogarComoHumano{
             teclado.nextLine();
 
             if(opcao==1){
-                    //função que inicia general
+                return 1;   //inicia general
             }
             else if(opcao==2){
-                //função que inicia o jogo de azr
+                return 2;//inicia o jogo de azar
             }
             else{
                 System.out.println("Opção inválida!");
                 opcao = 0;
             }
-        }while(opcao==1||opcao==2);
+            super.jogosRealizados++;//atualiza a guantidade de jogos feitos
+        }while((opcao==1||opcao==2)&& super.getSaldo()>0 && super.jogosRealizados<10);
         return 0;
     }
 }

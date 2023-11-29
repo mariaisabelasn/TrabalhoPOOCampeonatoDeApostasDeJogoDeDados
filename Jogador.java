@@ -32,8 +32,8 @@ public abstract class Jogador implements Serializable{
         return this.saldo;
     }
 
-    public void setSaldo(double valorAposta){//função para setar saldo
-        this.valorAposta=valorAposta;
+    public void setSaldo(double valorAtualizado){//função para setar saldo
+        this.saldo=valorAtualizado; //atualiza o valor ganho ou perdido do saldo
 
     }
 

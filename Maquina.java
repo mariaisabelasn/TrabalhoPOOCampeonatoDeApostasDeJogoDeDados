@@ -12,7 +12,7 @@ public class Maquina extends Jogador implements JogarComoMaquina {
 
     public int sorteiaJogo() { //como cada jogo é individual e nehum jogador joga com outro é necessário um método pra maquina "entrar" em um jogo
         int opcao = 0;
-      if(super.saldo <=0.0){
+      if(super.getSaldo() <=0.0){
         System.out.println("Saldo insufíciente");
         return 0;
       }
@@ -27,22 +27,18 @@ public class Maquina extends Jogador implements JogarComoMaquina {
           opcao = random.nextInt(2)+1; //sorteia 1 ou 2 pra máquina jogar
 
           if(opcao==1){
-                  //função que inicia general
+            return 1;// inicia general
           }
           else if(opcao==2){
-              //função que inicia o jogo de azar
+             return 2; //inicia o jogo de azar
           }
-          else{
-              System.out.println("Opção inválida!");
-              opcao = 0;
-          }
-          jogosRealizados++;
-      }while((opcao==1||opcao==2)&& this.saldo>0 && this.jogosRealizados<10); //   BOTAR MAIS UM EE PRA QUANDO JÁ TIVER SIDO JOGADO 10 JOGOS
+          super.jogosRealizados++;//atualiza a guantidade de jogos feitos
+      }while((opcao==1||opcao==2)&& super.getSaldo()>0 && super.jogosRealizados<10);
       return 0;
   }
 
     @Override
-    public int aplicarEstrategia() {
+    public int aplicarEstrategia() { //aplica a estratégia para o jogo general
         int opcao=0;
             int melhorPontuacao = 0;
             int melhorJogada=0;
@@ -74,13 +70,15 @@ public class Maquina extends Jogador implements JogarComoMaquina {
         return 0;
     }
 
-    public double quantoApostar(){
+    public double quantoApostar(){//define o qunato a máquina vai apostar
         double apostaMaq;
-        if(super.getSaldo()>0){
+        if(super.getSaldo()>0){//se o saldo for maior q 0 a máquina sempre vai apostar 10% do que ela tem
             apostaMaq=(0.10*super.getSaldo());
             return apostaMaq;
         }
-        else
+        else{
+            return 0;
+        }
         
     }
 }
