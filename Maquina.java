@@ -70,7 +70,7 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             System.out.println("1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)");
             super.mostrarJogadasExecutadas();
             System.out.println("Jogada que a maquina escolheu: "+ (melhorJogada+1));//retorna a jogada feita pela maquina melhorjogada(posição do vet)+1(pra ficar o "nome" da jogada certinho)
-        
+
         return 0;
     }
 

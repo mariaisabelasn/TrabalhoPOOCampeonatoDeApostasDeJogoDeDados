@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class JogoGeneral extends JogoDados implements Serializable{
     private Dado[] dados;
     private int[] jogadas;
+    private int[] cont;
     private Jogador[] players;
     private int i, contJogadores;
     private Scanner teclado;
@@ -13,6 +14,7 @@ public class JogoGeneral extends JogoDados implements Serializable{
 
         dados = new Dado[5];
         jogadas = new int[13];
+        cont = new int[numFaces];
 
         for (int i = 0; i < 5; i++) {
             this.dados[i] = new Dado(); // cria os 5 dados
@@ -23,12 +25,12 @@ public class JogoGeneral extends JogoDados implements Serializable{
     }
 
     public void iniciarJogoGeneral(){
-        double valorAposta;
+        double valorAposta=0;
         do{
             if(getValorAposta()>players[i].getSaldo()){
                 System.out.println("Saldo insuficiente! Aposte outro valor");
                 valorAposta = teclado.nextFloat();
-                setSaldo(valorAposta);
+                players[i].setSaldo(valorAposta);
             }
         }while(getValorAposta()>players[i].getSaldo());
 
@@ -43,14 +45,15 @@ public class JogoGeneral extends JogoDados implements Serializable{
                 System.out.println(">>Rolando dados para " + players[i].getNome());
                 System.out.print("Valores obtidos: ");// imprime sem pular a linha pros dados ficarem do lado
                 players[i].getJogo().rolarDados();
+                //cont[i] = somarFacesSorteadas(dados);
                 players[i].getJogo().mostrarDados();
                 int opcao = 0;
 
-                if(players[i] instanceof Humano){ //faz a parada se jogar se o player for humano
+                if(players[i] instanceof Humano){ //faz a parada só jogar se o player for humano
                     Humano humano = (Humano) players[i];
                     humano.escolherJogada();
                 }
-                else if(players[i] instanceof Maquina){ ///faz a parada se jogar se o player for maquina
+                else if(players[i] instanceof Maquina){ ///faz a parada só jogar se o player for maquina
                     Maquina maquina = (Maquina) players[i];
                     maquina.aplicarEstrategia();
                 }
@@ -108,8 +111,30 @@ public class JogoGeneral extends JogoDados implements Serializable{
                     // players[i].mostrarJogadasExecutadas();
                     // System.out.println("Jogada que a maquina escolheu: "+ (melhorJogada+1));//retorna a jogada feita pela maquina melhorjogada(posição do vet)+1(pra ficar o "nome" da jogada certinho)
                 //}
+
+                int soma=0;
+                for(int i=0;i<13;i++){
+                    soma += players[i].getJogo().getJogadas(i);
+                }
+                double novoSaldo = 0;
+                if(soma>(2*players[i].getJogo().getJogadas(13))){
+                    System.out.println("Você ganhou a rodada!");
+                    System.out.printf("Seu saldo era de R$ %.2d%n", players[i].getSaldo());
+                    novoSaldo = valorAposta*2;
+                    players[i].setSaldo(novoSaldo);
+                    System.out.printf("Seu saldo atual é de R$ %.2d%n", players[i].getSaldo());
+                }
+                else{
+                    System.out.println("Você perdeu a rodada!");
+                    System.out.printf("Seu saldo era de R$ %.2d%n", players[i].getSaldo());
+                    novoSaldo = players[i].getSaldo() - valorAposta;
+                    players[i].setSaldo(novoSaldo);
+                    System.out.printf("Seu saldo atual é de R$ %.2d%n", players[i].getSaldo());
+                }
             }
         }
+
+
     }
 
     
@@ -140,10 +165,10 @@ public class JogoGeneral extends JogoDados implements Serializable{
         return result;
     }
 
-    @Override
-    public int[] somarFacesSorteadas(Dado[] dados) {
-        return super.somarFacesSorteadas(dados);
-    }
+    // @Override
+    // public int[] somarFacesSorteadas(Dado[] dados) {
+    //     return super.somarFacesSorteadas(dados);
+    // }
 
     public Boolean validarJogada(int njogada) { // vai verificar se a jogada escolhida é valida retorna
         int i = 0;
