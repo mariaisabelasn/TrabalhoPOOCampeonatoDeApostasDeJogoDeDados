@@ -133,8 +133,8 @@ public class Campeonato implements Serializable {
                 }
             }while(valorAposta==0);
             
-            jogoGeneral = new JogoGeneral(valorAposta);
-            jogoGeneral.iniciarJogoGeneral();
+            this.jogoGeneral = new JogoGeneral(valorAposta);
+            players[i].jogoGeneral.iniciarJogoGeneral();
             mostrarCartela();
 
         }
@@ -149,7 +149,7 @@ public class Campeonato implements Serializable {
             }while(valorAposta==0);
             
             jogoAzar = new JogoAzar(valorAposta);
-            jogoAzar.executarRegrasJogo();
+            //players[i].jogoAzar.executarRegrasJogo();
         }
 
                     

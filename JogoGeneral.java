@@ -26,6 +26,7 @@ public class JogoGeneral extends JogoDados implements Serializable{
 
     public void iniciarJogoGeneral(){
         double valorAposta=0;
+        int i=0;
         do{
             if(getValorAposta()>players[i].getSaldo()){
                 System.out.println("Saldo insuficiente! Aposte outro valor");
@@ -113,7 +114,7 @@ public class JogoGeneral extends JogoDados implements Serializable{
                 //}
 
                 int soma=0;
-                for(int i=0;i<13;i++){
+                for(i=0;i<13;i++){
                     soma += players[i].getJogo().getJogadas(i);
                 }
                 double novoSaldo = 0;
