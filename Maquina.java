@@ -73,4 +73,14 @@ public class Maquina extends Jogador implements JogarComoMaquina {
         
         return 0;
     }
+
+    public double quantoApostar(){
+        double apostaMaq;
+        if(super.getSaldo()>0){
+            apostaMaq=(0.10*super.getSaldo());
+            return apostaMaq;
+        }
+        else
+        
+    }
 }
