@@ -154,9 +154,9 @@ public class Campeonato implements Serializable {
                 players[i].setJogoDados(j, players[i].getJogadasRealizadas());
 
                 if (players[i] instanceof Humano){
-                       humano=(Humano) players[i];
+                    //    humano=(Humano) players[i];
                     //    humano.setJogoGeneral(jogoGeneral);
-                       humano.getJogoDados(humano.getJogadasRealizadas()).iniciarJogoGeneral();
+                      players[i].getJogoDados(humano.getJogadasRealizadas()).iniciarJogoGeneral();
                        mostrarCartela();
                     i++; //passa pro outra casa do vetor
                 }
