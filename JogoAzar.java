@@ -11,6 +11,7 @@ public class JogoAzar extends JogoDados{
         teclado = new Scanner(System.in);// scanf do java
         dados = new Dado[2];
 
+
         // Inicialize cada elemento do array dados
         for (int i = 0; i < 2; i++) {
             this.dados[i] = new Dado(); // Ou use o construtor apropriado de Dado, se existir
@@ -104,12 +105,6 @@ public class JogoAzar extends JogoDados{
 
     public String toString() {    
         return dados[0].getSideUp() + " + " + dados[1].getSideUp();
-    }
-    public static void main(String[] args){
-        JogoAzar jogoAzar = new JogoAzar( 100);
-        
-
-        jogoAzar.executarRegrasJogo();
     }
     
     
