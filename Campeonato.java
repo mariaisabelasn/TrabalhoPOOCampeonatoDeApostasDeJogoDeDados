@@ -19,6 +19,7 @@ public class Campeonato implements Serializable {
     private JogoAzar jogoAzar;
     private String[] jogos;
     private int vet[];
+    private JogoDados jogoDados;
 
 
     // CONSTRUTOR
@@ -271,6 +272,7 @@ public class Campeonato implements Serializable {
 
     }
 
+
     public void mostrarEstatistica(){
         System.out.println("------- Estatícticas -------");
         System.out.println("Deseja imprimir as estatísticas para qual das opções abaixo?");
@@ -287,7 +289,7 @@ public class Campeonato implements Serializable {
                     opcao=teclado.nextLine();
 
                     if(opcao.equals("h")){
-                        //chamar função das estatísticas de humano
+                        System.out.println(humano.getJogo().somaEstatistica());
 
                     }
                     else if(opcao.equals("m")){
@@ -297,13 +299,27 @@ public class Campeonato implements Serializable {
 
             break;
             case "b":
+                do{
+                    System.out.println("Jogo Azar (a) ou Jogo General (g)? ");
+                    opcao=teclado.nextLine();
+
+                    if(opcao.equals("a")){
+                        System.out.printf("Jogo Azar: %d%n",jogoAzar.somaEstatistica());
+
+                    }
+                    else if(opcao.equals("g")){
+                        System.out.printf("Jogo General: %d%n",jogoGeneral.somaEstatistica());
+                    }
+                }while(!opcao.equals("a")|| !opcao.equals("g"));
 
                 break;
             case "c":
                 
+                System.out.printf("Jogo Azar: %d%n",jogoAzar.somaEstatistica());
+                System.out.printf("Jogo General: %d%n",jogoGeneral.somaEstatistica());
                 break;
             case "d":
-
+                System.out.printf("Total do Campeonato: %d%n",jogoGeneral.somaEstatistica()+jogoAzar.somaEstatistica());
                 break;
         
             default:

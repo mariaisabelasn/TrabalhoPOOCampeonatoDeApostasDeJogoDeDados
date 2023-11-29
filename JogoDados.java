@@ -11,6 +11,7 @@ public abstract class JogoDados implements Estatistica{
         this.dados = dados;
         this.valorAposta = valorAposta;
         cont = new int[numFaces];
+        //this.numFaces = numFaces;
     }
 
     // Sobrecarga
@@ -41,9 +42,21 @@ public abstract class JogoDados implements Estatistica{
         this.valorAposta = valorAposta;
     }
 
-    public int[] getCont(){
-        return this.cont;
+    public int getCont(int i){
+        return this.cont[i];
     }
+
+    public int somaEstatistica(){
+        int soma=0;
+        for(int i=0;i<6;i++){
+            soma += getCont(i);
+        }
+        return soma;
+    }
+
+    // public int getNumFaces(){
+    //     return this.numFaces;
+    // }
 
     public void rolarDados() { // resultados dos dados
         for (int i = 0; i < 1; i++) {
