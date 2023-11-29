@@ -4,7 +4,6 @@ public abstract class Jogador implements Serializable{
     String tipoJogador = new String();
     JogoGeneral jogoGeneral;
     double saldo;
-    double saldo;
     int jogosRealizados= 0;
     double valorAposta;
    
