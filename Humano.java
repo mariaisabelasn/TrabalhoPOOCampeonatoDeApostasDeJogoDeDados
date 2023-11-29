@@ -7,7 +7,7 @@ public class Humano extends Jogador implements JogarComoHumano{
     private Jogador[] players; // referência para os jogadores
     private Scanner teclado;
 
-    public Humano(String nome, String tipoJogador, String cpf,float saldo){
+    public Humano(String nome, String tipoJogador, String cpf,double saldo){
         super(nome, tipoJogador, saldo);
         this.cpf = cpf;
         this.agencia = "2567-8";
