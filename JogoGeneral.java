@@ -46,7 +46,7 @@ public class JogoGeneral extends JogoDados implements Serializable{
                 System.out.println(">>Rolando dados para " + players[i].getNome());
                 System.out.print("Valores obtidos: ");// imprime sem pular a linha pros dados ficarem do lado
                 players[i].getJogoG().rolarDados();
-                //cont[i] = somarFacesSorteadas(dados);
+                qtdFaces = somarFacesSorteadas(dados);
                 players[i].getJogoG().mostrarDados();
                 int opcao = 0;
 
