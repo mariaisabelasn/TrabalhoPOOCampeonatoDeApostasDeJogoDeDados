@@ -37,7 +37,7 @@ public class JogoGeneral extends JogoDados implements Serializable{
 
         for(i = 0; i < contJogadores; i++) { // para iniciar ou resetar as jogadas e poder começar o campeonato novamente jogo general
             for(int j = 0; j < 13; j++){
-                players[i].getJogo().setJogadas(j, -1);
+                players[i].getJogoG().setJogadas(j, -1);
             }
         }
          
@@ -45,9 +45,9 @@ public class JogoGeneral extends JogoDados implements Serializable{
             for (i = 0; i < contJogadores; i++) {
                 System.out.println(">>Rolando dados para " + players[i].getNome());
                 System.out.print("Valores obtidos: ");// imprime sem pular a linha pros dados ficarem do lado
-                players[i].getJogo().rolarDados();
-                qtdFaces = somarFacesSorteadas(dados);
-                players[i].getJogo().mostrarDados();
+                players[i].getJogoG().rolarDados();
+                //cont[i] = somarFacesSorteadas(dados);
+                players[i].getJogoG().mostrarDados();
                 int opcao = 0;
 
                 if(players[i] instanceof Humano){ //faz a parada só jogar se o player for humano
@@ -115,10 +115,10 @@ public class JogoGeneral extends JogoDados implements Serializable{
 
                 int soma=0;
                 for(i=0;i<13;i++){
-                    soma += players[i].getJogo().getJogadas(i);
+                    soma += players[i].getJogoG().getJogadas(i);
                 }
                 double novoSaldo = 0;
-                if(soma>(2*players[i].getJogo().getJogadas(13))){
+                if(soma>(2*players[i].getJogoG().getJogadas(13))){
                     System.out.println("Você ganhou a rodada!");
                     System.out.printf("Seu saldo era de R$ %.2d%n", players[i].getSaldo());
                     novoSaldo = valorAposta*2;

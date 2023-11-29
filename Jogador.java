@@ -3,9 +3,12 @@ public abstract class Jogador implements Serializable{
     String nome = new String();
     String tipoJogador = new String();
     JogoGeneral jogoGeneral;
+    JogoAzar jogoAzar;
     double saldo;
+    JogoDados[] jogoDados;
     int jogosRealizados= 0;
     double valorAposta;
+    int i=0;
    
 
     // Construtor
@@ -18,6 +21,7 @@ public abstract class Jogador implements Serializable{
         else{
             this.saldo=saldo;
         }
+        jogoDados =new JogoDados[10];//dez jogos dados
     }
 
     public String getNome() {// Função para pegar o nome dos respectivos jogadores.
@@ -41,14 +45,33 @@ public abstract class Jogador implements Serializable{
         return this.jogoGeneral.getJogadas(i);
     }
 
-    public JogoGeneral getJogo() { //para acessar por outra classe o jogo de cada jogador
+    public JogoGeneral getJogoG() { //para acessar por outra classe o jogo de cada jogador
         return this.jogoGeneral;
     }
+    
+    public JogoAzar getJogoA(){//para acessar de outra classe o jogo azar de cada jogador
+        return this.jogoAzar;
+    }
+    public void setJogoGeneral(JogoGeneral jogoGeneral){//seta jogo general colocando ele no array de jogoDados
+        this.jogoGeneral=jogoGeneral;
+        this.jogoDados[i]=jogoGeneral;
+        i++;
+    }
+
+    public void setJogoAzar(JogoAzar jogoAzar){//seta jogo azar colocando ele no array de jogoDados
+        this.jogoAzar=jogoAzar;
+        this.jogoDados[i]=jogoAzar;
+        i++;
+    }
+
 
     public void dell(){ //deleta os dados do jogador
         this.nome=null;
         this.tipoJogador=null;
         this.jogoGeneral=null;
+        this.jogoAzar=null;
+        this.saldo=0;
+        this.jogoDados=null;
     }
 
     public void mostrarJogadasExecutadas() {
