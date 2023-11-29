@@ -16,7 +16,7 @@ public class Maquina extends Jogador implements JogarComoMaquina {
         System.out.println("Saldo insufíciente, você faliu!");
         return 0;
       }
-      if(super.jogosRealizados>=10){
+      if(super.maquinasRealizadas>=10){
         System.out.println("Você atingiu o limite máximo de jogatina no Cassino M&M, volte amanhã!");
         return 0;
       }
@@ -34,8 +34,8 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             System.out.println("Jogo escolhido: Azar");
              return 2; //inicia o jogo de azar
           }
-          super.jogosRealizados++;//atualiza a guantidade de jogos feitos
-      }while((opcao==1||opcao==2)&& super.getSaldo()>0 && super.jogosRealizados<10);
+          super.maquinasRealizadas++;//atualiza a guantidade de jogos feitos
+      }while((opcao==1||opcao==2)&& super.getSaldo()>0 && super.maquinasRealizadas<10);
       return 0;
   }
 

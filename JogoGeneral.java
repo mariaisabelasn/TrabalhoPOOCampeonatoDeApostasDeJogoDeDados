@@ -7,6 +7,7 @@ public class JogoGeneral extends JogoDados implements Serializable{
     private Jogador[] players;
     private int i, contJogadores;
     private Scanner teclado;
+    private JogoDados jogoDados;
 
 
     public JogoGeneral(double valorAposta) {
