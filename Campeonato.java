@@ -125,8 +125,13 @@ public class Campeonato implements Serializable {
 
         if(jogo==1){
             float valorAposta;
-            System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
-            valorAposta= teclado.nextFloat();
+            do{
+                System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
+                valorAposta = teclado.nextFloat();
+                if(valorAposta==0){
+                    System.out.println("Aposte algum valor!");
+                }
+            }while(valorAposta==0);
             
             jogoGeneral = new JogoGeneral(valorAposta);
             jogoGeneral.iniciarJogoGeneral();
@@ -135,8 +140,13 @@ public class Campeonato implements Serializable {
         }
         else if(jogo==2){
             float valorAposta;
-            System.out.println("Qual o valor que deseja apostar? ");
-            valorAposta= teclado.nextFloat();
+             do{
+                System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
+                valorAposta = teclado.nextFloat();
+                if(valorAposta==0){
+                    System.out.println("Aposte algum valor!");
+                }
+            }while(valorAposta==0);
             
             jogoAzar = new JogoAzar(valorAposta);
             jogoAzar.executarRegrasJogo();

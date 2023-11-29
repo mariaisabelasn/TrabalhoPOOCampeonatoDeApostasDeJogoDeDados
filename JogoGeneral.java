@@ -1,11 +1,14 @@
 import java.io.Serializable;
+import java.util.Scanner;
 public class JogoGeneral extends JogoDados implements Serializable{
     private Dado[] dados;
     private int[] jogadas;
     private Jogador[] players;
     private int i, contJogadores;
+    private Scanner teclado;
 
-    public JogoGeneral(float valorAposta) {
+
+    public JogoGeneral(double valorAposta) {
         super(5, "Jogo General", valorAposta);
 
         dados = new Dado[5];
@@ -20,6 +23,15 @@ public class JogoGeneral extends JogoDados implements Serializable{
     }
 
     public void iniciarJogoGeneral(){
+        double valorAposta;
+        do{
+            if(getValorAposta()>players[i].getSaldo()){
+                System.out.println("Saldo insuficiente! Aposte outro valor");
+                valorAposta = teclado.nextFloat();
+                setSaldo(valorAposta);
+            }
+        }while(getValorAposta()>players[i].getSaldo());
+
         for(i = 0; i < contJogadores; i++) { // para iniciar ou resetar as jogadas e poder começar o campeonato novamente jogo general
             for(int j = 0; j < 13; j++){
                 players[i].getJogo().setJogadas(j, -1);

@@ -4,7 +4,7 @@ public class JogoAzar extends JogoDados{
     private Dado[] dados;
     private Scanner teclado;
 
-    public JogoAzar(float valorAposta){
+    public JogoAzar(double valorAposta){
         super(2, "Jogo Azar", valorAposta);
         
         teclado = new Scanner(System.in);// scanf do java
