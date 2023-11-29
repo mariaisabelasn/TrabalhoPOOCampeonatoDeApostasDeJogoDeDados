@@ -344,7 +344,7 @@ public class Campeonato implements Serializable {
                     opcao=teclado.nextLine();
 
                     if(opcao.equals("h")){
-                        System.out.println(humano.getJogo().somaEstatistica());
+                        System.out.println();
 
                     }
                     else if(opcao.equals("m")){
