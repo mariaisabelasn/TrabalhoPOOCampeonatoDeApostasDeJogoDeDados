@@ -34,7 +34,7 @@ public class JogoAzar extends JogoDados{
         }while(getValorAposta()>players[i].getSaldo());
 
         rolarDados(2);
-        int cont[] = somarFacesSorteadas(dados);
+        int qtdFaces[] = somarFacesSorteadas(dados);
 
         System.out.println("1º Lançamento");
 
@@ -64,7 +64,7 @@ public class JogoAzar extends JogoDados{
             i = 2;
             do {
                 rolarDados(2);
-                cont = somarFacesSorteadas(dados);
+                qtdFaces = somarFacesSorteadas(dados);
 
                 novaSoma = dados[0].getSideUp()+dados[1].getSideUp();
 

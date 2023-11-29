@@ -3,12 +3,14 @@ public abstract class JogoDados implements Estatistica{
     private double valorAposta;
     private String nomeJogo;
     private Dado[] dados;
+    private int[] cont;// Inicializa o array cont
 
     public JogoDados(int nDados, String nomeJogo, Dado[] dados, double valorAposta){
         this.nDados = nDados;
         this.nomeJogo = nomeJogo;
         this.dados = dados;
         this.valorAposta = valorAposta;
+        cont = new int[numFaces];
     }
 
     // Sobrecarga
@@ -20,6 +22,7 @@ public abstract class JogoDados implements Estatistica{
             dados[i] = new Dado();
         }
         this.valorAposta = valorAposta;
+        cont = new int[numFaces];
     }
 
     public String getNomeJogo(){
@@ -38,6 +41,10 @@ public abstract class JogoDados implements Estatistica{
         this.valorAposta = valorAposta;
     }
 
+    public int[] getCont(){
+        return this.cont;
+    }
+
     public void rolarDados() { // resultados dos dados
         for (int i = 0; i < 1; i++) {
             this.dados[i].roll(numFaces);
@@ -47,7 +54,6 @@ public abstract class JogoDados implements Estatistica{
     @Override
     public int[] somarFacesSorteadas(Dado[] dados) { // método para verificar quantas vezes a face do dado caiu
         int i = 0;
-        int[] cont = new int[numFaces]; // Inicializa o array cont
     
         while (i < dados.length) {
             if(dados[i].getSideUp()==1){

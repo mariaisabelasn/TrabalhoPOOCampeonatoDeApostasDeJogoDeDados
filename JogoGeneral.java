@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class JogoGeneral extends JogoDados implements Serializable{
     private Dado[] dados;
     private int[] jogadas;
-    private int[] cont;
+    private int[] qtdFaces;
     private Jogador[] players;
     private int i, contJogadores;
     private Scanner teclado;
@@ -14,7 +14,7 @@ public class JogoGeneral extends JogoDados implements Serializable{
 
         dados = new Dado[5];
         jogadas = new int[13];
-        cont = new int[numFaces];
+        qtdFaces = new int[numFaces];
 
         for (int i = 0; i < 5; i++) {
             this.dados[i] = new Dado(); // cria os 5 dados
@@ -46,7 +46,7 @@ public class JogoGeneral extends JogoDados implements Serializable{
                 System.out.println(">>Rolando dados para " + players[i].getNome());
                 System.out.print("Valores obtidos: ");// imprime sem pular a linha pros dados ficarem do lado
                 players[i].getJogo().rolarDados();
-                //cont[i] = somarFacesSorteadas(dados);
+                qtdFaces = somarFacesSorteadas(dados);
                 players[i].getJogo().mostrarDados();
                 int opcao = 0;
 
