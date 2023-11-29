@@ -13,6 +13,7 @@ public class Humano extends Jogador implements JogarComoHumano{
         this.agencia = "2567-8";
         this.conta = "2564987";
         this.numeroBanco = 007; 
+        this.teclado=new Scanner(System.in);
     }
 
     @Override
@@ -23,19 +24,19 @@ public class Humano extends Jogador implements JogarComoHumano{
                 System.out.println("1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)");
                 super.mostrarJogadasExecutadas();
 
-                while(opcao<=0|| opcao>13 || super.getJogo().getJogadas(opcao-1)!=-1){//caso o usuário tente escolher uma opcao inexistente ou alguma jogada já feita de novo
+                while(opcao<=0|| opcao>13 || super.getJogoG().getJogadas(opcao-1)!=-1){//caso o usuário tente escolher uma opcao inexistente ou alguma jogada já feita de novo
                     opcao = teclado.nextInt();
                     teclado.nextLine(); // Limpar o buffer de entrada após a leitura do inteiro
                    
-                    if(opcao<=0||opcao>13 || super.getJogo().getJogadas(opcao-1)!=-1){
+                    if(opcao<=0||opcao>13 || super.getJogoG().getJogadas(opcao-1)!=-1){
                          System.out.println("Jogada inválida, escolha outra.");
                     }
                     }
 
-                     if (super.getJogo().getJogadas(opcao-1)==-1) { //se a jogada ainda nao tiver sido feita
-                        super.getJogo().setJogadas(opcao-1, super.getJogo().pontuarJogada(opcao));
+                     if (super.getJogoG().getJogadas(opcao-1)==-1) { //se a jogada ainda nao tiver sido feita
+                        super.getJogoG().setJogadas(opcao-1, super.getJogoG().pontuarJogada(opcao));
                     } 
-                } while (super.getJogo().getJogadas(opcao-1)==-1);
+                } while (super.getJogoG().getJogadas(opcao-1)==-1);
       return 0;
     }
 
@@ -43,7 +44,7 @@ public class Humano extends Jogador implements JogarComoHumano{
     public int escolherJogo() {
           int opcao = 0;
           if(super.getSaldo() <=0.0){
-            System.out.println("Saldo insufíciente");
+            System.out.println("Saldo insufíciente, você faliu!");
             return 0;
           }
           if(super.jogosRealizados>=10){
@@ -55,7 +56,7 @@ public class Humano extends Jogador implements JogarComoHumano{
             System.out.println("1 - Jogo General");
             System.out.println("2 - Jogo Azar");
             opcao = teclado.nextInt();
-            teclado.nextLine();
+            
 
             if(opcao==1){
                 return 1;   //inicia general

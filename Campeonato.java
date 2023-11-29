@@ -7,7 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 public class Campeonato implements Serializable {
-    private int n = 10;
+    private int n = 10, i=0;
     private Jogador[] players; 
     private int contJogadores;
     private Scanner teclado;
@@ -32,6 +32,9 @@ public class Campeonato implements Serializable {
         for (int i = 0; i < players.length; i++) {
             players[i] = null; // Define cada elemento como nulo
         }
+
+        jogoGeneral=new JogoGeneral(0);
+        jogoAzar =new JogoAzar(0);
     }
 
     public void incluirjogador() {
@@ -46,6 +49,7 @@ public class Campeonato implements Serializable {
                 biotipo = teclado.nextLine();
 
                 if(biotipo.equals("H") || biotipo.equals("h")){
+                    System.out.println("Insira seu cpf:");
                     cpf=teclado.nextLine();
                 }
     
@@ -112,46 +116,97 @@ public class Campeonato implements Serializable {
         //PODE SE UMA FUNÇÃO CHAMNDO A ESCOLHER JOGO DO HUMANO SE FOR HUMANO E DO MAQ SE FOR MAQ
         //JÁ COMEÇAR O SETSALDO COM 100 PILA
         
-        int jogo=0,i=0;
-        if(players[i] instanceof Humano){
-            Humano humano = (Humano) players[i];
-            jogo = humano.escolherJogo();
-        }
+        int jogo=0;
         
-        else if(players[i] instanceof Maquina){
-            Maquina maquina = (Maquina) players[i];
-            jogo = maquina.sorteiaJogo();
-        }
-
-        if(jogo==1){
-            float valorAposta;
-            do{
-                System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
-                valorAposta = teclado.nextFloat();
-                if(valorAposta==0){
-                    System.out.println("Aposte algum valor!");
-                }
-            }while(valorAposta==0);
+        if(players[i]!=null){
+            if(players[i] instanceof Humano){
+                Humano humano = (Humano) players[i];
+                jogo = humano.escolherJogo();
+            }
             
-            this.jogoGeneral = new JogoGeneral(valorAposta);
-            players[i].jogoGeneral.iniciarJogoGeneral();
-            mostrarCartela();
+            else if(players[i] instanceof Maquina){
+                Maquina maquina = (Maquina) players[i];
+                jogo = maquina.sorteiaJogo();
+            }
+        
+            if(jogo==1){
+                double valorAposta=0;
+                do{
+                    if (players[i] instanceof Humano){
+                        System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
+                        valorAposta = teclado.nextDouble();
 
-        }
-        else if(jogo==2){
-            float valorAposta;
-             do{
-                System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
-                valorAposta = teclado.nextFloat();
-                if(valorAposta==0){
-                    System.out.println("Aposte algum valor!");
+                        if(valorAposta==0){
+                        System.out.println("Aposte algum valor!");
+                    }
+                    }
+                    else if(players[i] instanceof Maquina){
+                        maquina=(Maquina) players[i];
+                        valorAposta= maquina.quantoApostar();//para ver quanto a maquina aposta
+                        System.out.println("Valor apostado pela máquina: R$"+valorAposta);//mostra o valor que a máquina apostou
+                    }
+                    
+                }while(valorAposta==0);
+                
+                jogoGeneral = new JogoGeneral(valorAposta);
+
+                if (players[i] instanceof Humano){
+                       humano=(Humano) players[i];
+                       humano.setJogoGeneral(jogoGeneral);
+                       humano.getJogoG().iniciarJogoGeneral();
+                       mostrarCartela();
+                    i++; //passa pro outra casa do vetor
                 }
-            }while(valorAposta==0);
-            
-            jogoAzar = new JogoAzar(valorAposta);
-            //players[i].jogoAzar.executarRegrasJogo();
-        }
+                
+                else if(players[i] instanceof Maquina){
+                    maquina=(Maquina) players[i];
+                    maquina.setJogoGeneral(jogoGeneral);
+                    maquina.getJogoG().iniciarJogoGeneral();
+                    mostrarCartela();
+                    i++;
+                }
+                // players[i].jogoGeneral.iniciarJogoGeneral();
+                // mostrarCartela();
 
+            }
+            else if(jogo==2){
+                double valorAposta=0;
+                do{
+                    if (players[i] instanceof Humano){
+                        System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
+                        valorAposta = teclado.nextDouble();
+
+                        if(valorAposta==0){
+                        System.out.println("Aposte algum valor!");
+                    }
+                    }
+                    else if(players[i] instanceof Maquina){
+                        maquina=(Maquina) players[i];
+                        valorAposta= maquina.quantoApostar();//para ver quanto a maquina aposta
+                        System.out.println("Valor apostado pela máquina: R$"+valorAposta);//mostra o valor que a máquina apostou
+                    }
+                }while(valorAposta==0);
+                
+                jogoAzar = new JogoAzar(valorAposta);
+
+                if (players[i] instanceof Humano){
+                       humano=(Humano) players[i];
+                       humano.setJogoAzar(jogoAzar);
+                       humano.getJogoA().executarRegrasJogo();
+                    i++; //passa pro outra casa do vetor
+                }
+                
+                else if(players[i] instanceof Maquina){
+                    maquina.setJogoAzar(jogoAzar);
+                    maquina=(Maquina) players[i];
+                    maquina.getJogoA().executarRegrasJogo();
+                    i++;
+                }
+            
+               // players[i].jogoAzar.executarRegrasJogo();
+                // i++; //passa pro outra casa do vetor
+            }
+        }
                     
     }
                 
