@@ -41,9 +41,10 @@ public abstract class Jogador implements Serializable{
 
     }
 
-    public int getJogoGeneral(int i) { // Função para pegar as jogadas da "ficha" dos respectivos jogadores.
-        return this.getJogoDados(i).getJogadas(i);
+    public int getJogoGeneral(int i, Jogador player) { // Função para pegar as jogadas da "ficha" dos respectivos jogadores.
+        return player.getJogoDados(player.getJogadasRealizadas()).getJogadas(i);
     }
+
 
     // public JogoGeneral getJogoG() { //para acessar por outra classe o jogo de cada jogador
     //     return this.jogoGeneral;
@@ -76,8 +77,8 @@ public abstract class Jogador implements Serializable{
     public void dell(){ //deleta os dados do jogador
         this.nome=null;
         this.tipoJogador=null;
-        this.jogoGeneral=null;
-        this.jogoAzar=null;
+        // this.jogoGeneral=null;
+        // this.jogoAzar=null;
         this.saldo=0;
         this.jogoDados=null;
     }
@@ -85,10 +86,10 @@ public abstract class Jogador implements Serializable{
     public void mostrarJogadasExecutadas() {
         // Jogadas já feitas
 		for (int i = 0 ; i < 13 ; i++) { 
-			if(this.jogoGeneral.getJogadas(i) !=-1) {
-				System.out.printf("%d\t", this.jogoGeneral.getJogadas(i)); 
+			if(getJogoDados(getJogadasRealizadas()).getJogadas(i) !=-1) {
+				System.out.printf("%d\t", getJogoDados(getJogadasRealizadas()).getJogadas(i)); 
 			} 
-            else if(this.jogoGeneral.getJogadas(i) ==-1) {
+            else if(getJogoDados(getJogadasRealizadas()).getJogadas(i) ==-1) {
 				System.out.print("-\t");
 			}
 		}

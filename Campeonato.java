@@ -151,21 +151,21 @@ public class Campeonato implements Serializable {
                 }while(valorAposta==0);
                 
                 // jogoGeneral = new JogoGeneral(valorAposta);
-                JogoDados j =new JogoGeneral(valorAposta);//outro indice
-                players[i].setJogoDados(j, players[i].getJogadasRealizadas());
+                JogoDados jg =new JogoGeneral(valorAposta);//outro indice
+                players[i].setJogoDados(jg, players[i].getJogadasRealizadas());
 
                 if (players[i] instanceof Humano){
                     //    humano=(Humano) players[i];
                     //    humano.setJogoGeneral(jogoGeneral);
-                      players[i].getJogoDados(humano.getJogadasRealizadas()).iniciarJogoGeneral();
+                      players[i].getJogoDados(players[i].getJogadasRealizadas()).iniciarJogoGeneral();
                        mostrarCartela();
                     i++; //passa pro outra casa do vetor
                 }
                 
                 else if(players[i] instanceof Maquina){
-                    maquina=(Maquina) players[i];
+                    // maquina=(Maquina) players[i];
                     // maquina.setJogoGeneral(jogoGeneral);
-                    maquina.getJogoG().iniciarJogoGeneral();
+                     players[i].getJogoDados(players[i].getJogadasRealizadas()).iniciarJogoGeneral();
                     mostrarCartela();
                     i++;
                 }
@@ -191,19 +191,20 @@ public class Campeonato implements Serializable {
                     }
                 }while(valorAposta==0);
                 
-                jogoAzar = new JogoAzar(valorAposta);
+                JogoDados ja =new JogoAzar(valorAposta);//outro indice
+                players[i].setJogoDados(ja, players[i].getJogadasRealizadas());
 
                 if (players[i] instanceof Humano){
-                       humano=(Humano) players[i];
-                       humano.setJogoAzar(jogoAzar);
-                       humano.getJogoA().executarRegrasJogo();
+                    //    humano=(Humano) players[i];
+                    //    humano.setJogoAzar(jogoAzar);
+                    players[i].getJogoDados(players[i].getJogadasRealizadas()).executarRegrasJogo();
                     i++; //passa pro outra casa do vetor
                 }
                 
                 else if(players[i] instanceof Maquina){
-                    maquina.setJogoAzar(jogoAzar);
-                    maquina=(Maquina) players[i];
-                    maquina.getJogoA().executarRegrasJogo();
+                    // maquina.setJogoAzar(jogoAzar);
+                    // maquina=(Maquina) players[i];
+                    players[i].getJogoDados(players[i].getJogadasRealizadas()).executarRegrasJogo();
                     i++;
                 }
             

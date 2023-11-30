@@ -1,7 +1,5 @@
 import java.util.Scanner;
-import java.io.Serializable;
-
-public class JogoAzar extends JogoDados implements Serializable{
+public class JogoAzar extends JogoDados{
     private Dado[] dados;
     private Scanner teclado;
     private Jogador[] players;

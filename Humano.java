@@ -4,8 +4,10 @@ public class Humano extends Jogador implements JogarComoHumano{
     private String agencia;
     private String conta;
     private int numeroBanco;
-    private Jogador[] players; // referência para os jogadores
+    //private Jogador[] players; // referência para os jogadores
     private Scanner teclado;
+    private Jogador humano;
+
 
     public Humano(String nome, String tipoJogador, String cpf,double saldo){
         super(nome, tipoJogador, saldo);
@@ -24,19 +26,19 @@ public class Humano extends Jogador implements JogarComoHumano{
                 System.out.println("1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)");
                 super.mostrarJogadasExecutadas();
 
-                while(opcao<=0|| opcao>13 || super.getJogoG().getJogadas(opcao-1)!=-1){//caso o usuário tente escolher uma opcao inexistente ou alguma jogada já feita de novo
+                while(opcao<=0|| opcao>13 || super.getJogoDados(getJogadasRealizadas()).getJogadas(opcao-1)!=-1){//caso o usuário tente escolher uma opcao inexistente ou alguma jogada já feita de novo
                     opcao = teclado.nextInt();
                     teclado.nextLine(); // Limpar o buffer de entrada após a leitura do inteiro
                    
-                    if(opcao<=0||opcao>13 || super.getJogoG().getJogadas(opcao-1)!=-1){
+                    if(opcao<=0||opcao>13 || super.getJogoDados(getJogadasRealizadas()).getJogadas(opcao-1)!=-1){
                          System.out.println("Jogada inválida, escolha outra.");
                     }
                     }
 
-                     if (super.getJogoG().getJogadas(opcao-1)==-1) { //se a jogada ainda nao tiver sido feita
-                        super.getJogoG().setJogadas(opcao-1, super.getJogoG().pontuarJogada(opcao));
+                     if (super.getJogoDados(getJogadasRealizadas()).getJogadas(opcao-1)==-1) { //se a jogada ainda nao tiver sido feita
+                        super.getJogoDados(getJogadasRealizadas()).setJogadas(opcao-1, super.getJogoDados(getJogadasRealizadas()).pontuarJogada(opcao));
                     } 
-                } while (super.getJogoG().getJogadas(opcao-1)==-1);
+                } while (super.getJogoDados(getJogadasRealizadas()).getJogadas(opcao-1)==-1);
       return 0;
     }
 
@@ -47,7 +49,7 @@ public class Humano extends Jogador implements JogarComoHumano{
             System.out.println("Saldo insufíciente, você faliu!");
             return 0;
           }
-          if(super.jogosRealizados>=10){
+          if(getJogadasRealizadas()==10){
             System.out.println("Você atingiu o limite máximo de jogatina no Cassino M&M, volte amanhã!");
             return 0;
           }
@@ -68,8 +70,8 @@ public class Humano extends Jogador implements JogarComoHumano{
                 System.out.println("Opção inválida!");
                 opcao = 0;
             }
-            super.jogosRealizados++;//atualiza a guantidade de jogos feitos
-        }while((opcao==1||opcao==2)&& super.getSaldo()>0 && super.jogosRealizados<10);
+            // getJogadasRealizadas()++;//atualiza a guantidade de jogos feitos
+        }while((opcao==1||opcao==2)&& super.getSaldo()>0 && getJogadasRealizadas()<10);
         return 0;
     }
 }

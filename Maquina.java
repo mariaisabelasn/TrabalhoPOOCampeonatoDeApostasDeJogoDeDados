@@ -18,7 +18,7 @@ public class Maquina extends Jogador implements JogarComoMaquina {
         System.out.println("Saldo insufíciente, você faliu!");
         return 0;
       }
-      if(super.maquinasRealizadas>=10){
+      if(super.getJogadasRealizadas()>=10){
         System.out.println("Você atingiu o limite máximo de jogatina no Cassino M&M, volte amanhã!");
         return 0;
       }
@@ -36,8 +36,8 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             System.out.println("Jogo escolhido: Azar");
              return 2; //inicia o jogo de azar
           }
-          super.maquinasRealizadas++;//atualiza a guantidade de jogos feitos
-      }while((opcao==1||opcao==2)&& super.getSaldo()>0 && super.maquinasRealizadas<10);
+        //   super.maquinasRealizadas++;//atualiza a guantidade de jogos feitos
+      }while((opcao==1||opcao==2)&& super.getSaldo()>0 && super.getJogadasRealizadas()<10);
       return 0;
   }
 
@@ -47,8 +47,8 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             int melhorPontuacao = 0;
             int melhorJogada=0;
                 while(opcao<13){//basicamente vai ver para aquela rodada qual vai ser a jogada com maior pontuação
-                if(super.getJogoG().getJogadas(opcao)==-1){//se já não for ocupada a jogada
-                    int pontuacao = super.getJogoG().pontuarJogada(opcao+1);
+                if(super.getJogoDados(getJogadasRealizadas()).getJogadas(opcao)==-1){//se já não for ocupada a jogada
+                    int pontuacao = super.getJogoDados(getJogadasRealizadas()).pontuarJogada(opcao+1);
                     
                     if(pontuacao>=melhorPontuacao){//serve p achar a melhor jogada mas vai acabar preenchendo todas as outras do vetor jogadas tbm
                         melhorPontuacao=pontuacao;
@@ -62,11 +62,11 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             }
             
             for (int k=0; k<13; k++){
-                if(super.getJogoG().getJogadas(k)!= melhorPontuacao && vet[k]!=1){
-                    super.getJogoG().setJogadas(k, -1); //resolve o problema de preenchimento de outras jogadas
+                if(super.getJogoDados(getJogadasRealizadas()).getJogadas(k)!= melhorPontuacao && vet[k]!=1){
+                    super.getJogoDados(getJogadasRealizadas()).setJogadas(k, -1); //resolve o problema de preenchimento de outras jogadas
                 }
             }  
-            super.getJogoG().setJogadas(melhorJogada, melhorPontuacao);//pontua para a máquina             
+            super.getJogoDados(getJogadasRealizadas()).setJogadas(melhorJogada, melhorPontuacao);//pontua para a máquina             
             System.out.println("1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)");
             super.mostrarJogadasExecutadas();
             System.out.println("Jogada que a maquina escolheu: "+ (melhorJogada+1));//retorna a jogada feita pela maquina melhorjogada(posição do vet)+1(pra ficar o "nome" da jogada certinho)
