@@ -5,6 +5,7 @@ public abstract class JogoDados implements Estatistica, Serializable{
     private String nomeJogo;
     private Dado[] dados;
     private int[] cont;// Inicializa o array cont
+    private int[] jogadas;
 
     public JogoDados(int nDados, String nomeJogo, Dado[] dados, double valorAposta){
         this.nDados = nDados;
@@ -55,12 +56,23 @@ public abstract class JogoDados implements Estatistica, Serializable{
         return soma;
     }
 
+    public Dado[] getdados (){
+        return this.dados;
+        
+    }
+
     // public int getNumFaces(){
     //     return this.numFaces;
     // }
-    public abstract int getJogadas(int i);
+    // public abstract int getJogadas(int i);
 
-    public abstract void setJogadas(int i, int x);
+    // public int getJogadas(int i){//pega as jogadas já feitas do vetor jogadas jogo general
+    //     return this.jogadas[i];
+    // }
+
+    // public void setJogadas(int i, int x) {//vai colocar a pontuação das jogadas jogo general
+    //     jogadas[i] = x;
+    // }
 
     public void rolarDados(int nDados) { // resultados dos dados
         for (int i = 0; i < nDados; i++) {

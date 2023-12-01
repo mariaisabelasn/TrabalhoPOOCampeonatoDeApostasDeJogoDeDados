@@ -17,8 +17,8 @@ public class JogoAzar extends JogoDados{
         }
     }
 
-    public boolean executarRegrasJogo(){
-        int i=0;
+    public boolean executarRegrasJogo(int i){
+        // int i=0;
         int soma=0;
         double novoSaldo = 0;
 

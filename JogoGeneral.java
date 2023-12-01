@@ -2,7 +2,7 @@ import java.io.Serializable;
 import java.util.Scanner;
 public class JogoGeneral extends JogoDados implements Serializable{
     private Dado[] dados;
-    private int[] jogadas;
+    private int[] jogadas;  
     private int[] qtdFaces;
     private Jogador[] players;
     private int i, contJogadores;
@@ -26,9 +26,10 @@ public class JogoGeneral extends JogoDados implements Serializable{
         }
     }
 
-    public void iniciarJogoGeneral(){//vai ter que passar um valor i pro jogaor
+    /*public void iniciarJogoGeneral(int i){//vai ter que passar um valor i pro jogaor
         double valorAposta=0;
-        int i=0;
+        // int i=0;
+        JogoGeneral jogoGeneral = (JogoGeneral) players[i].getJogoDados(players[i].getJogadasRealizadas());
         do{
             if(getValorAposta()>players[i].getSaldo()){
                 System.out.println("Saldo insuficiente! Aposte outro valor");
@@ -37,14 +38,14 @@ public class JogoGeneral extends JogoDados implements Serializable{
             }
         }while(getValorAposta()>players[i].getSaldo());
 
-        for(i = 0; i < contJogadores; i++) { // para iniciar ou resetar as jogadas e poder começar o campeonato novamente jogo general
-            for(int j = 0; j < 13; j++){
-                players[i].getJogoDados(players[i].getJogadasRealizadas()).setJogadas(j, -1);
+       // for(i = 0; i < contJogadores; i++) { // para iniciar ou resetar as jogadas e poder começar o campeonato novamente jogo general
+            for(int j = 0; j < 13; j++){// para iniciar ou resetar as jogadas e poder começar o campeonato novamente jogo general
+                jogoGeneral.setJogadas(j, -1);
             }
-        }
+        //}
          
         for (int j = 0; j < 13; j++) {
-            for (i = 0; i < contJogadores; i++) {//NÃO DEVE EXISTIR PQ É UM UNICO JOGADOR POR VEZ
+           // for (i = 0; i < contJogadores; i++) {//NÃO DEVE EXISTIR PQ É UM UNICO JOGADOR POR VEZ
                 System.out.println(">>Rolando dados para " + players[i].getNome());
                 System.out.print("Valores obtidos: ");// imprime sem pular a linha pros dados ficarem do lado
                 players[i].getJogoDados(players[i].getJogadasRealizadas()).rolarDados(5);
@@ -63,11 +64,11 @@ public class JogoGeneral extends JogoDados implements Serializable{
                 }
 
                 int soma=0;
-                for(i=0;i<13;i++){//não pode ser i por causa do player[i]
-                    soma += players[i].getJogoGeneral(i, players[i]);
+                for(int k=0;k<13;k++){
+                    soma += players[i].getJogoGeneral(k, players[i]);
                 }
                 double novoSaldo = 0;
-                if(soma>(2*players[i].getJogoDados(players[i].getJogadasRealizadas()).getJogadas(13))){
+                if(soma>(2*jogoGeneral.getJogadas(13))){
                     System.out.println("Você ganhou a rodada!");
                     System.out.printf("Seu saldo era de R$ %.2d%n", players[i].getSaldo());
                     novoSaldo = valorAposta*2;
@@ -81,11 +82,11 @@ public class JogoGeneral extends JogoDados implements Serializable{
                     players[i].setSaldo(novoSaldo);
                     System.out.printf("Seu saldo atual é de R$ %.2d%n", players[i].getSaldo());
                 }
-            }
+            //}
         }
 
 
-    }
+     }*/
 
     
     
@@ -94,18 +95,17 @@ public class JogoGeneral extends JogoDados implements Serializable{
     //         this.dados[i].roll(numFaces);
     //     }
     // }
-    @Override
-    public int getJogadas(int i){//pega as jogadas já feitas do vetor jogadas
-        return this.jogadas[i];
-    }
     
     // public int getJogoGeneral(int i, Jogador player) { // Função para pegar as jogadas da "ficha" dos respectivos jogadores.
         
     //     return player.getJogoDados(player.getJogadasRealizadas()).getJogadas(i);
     // }
 
-    @Override
-    public void setJogadas(int i, int x) {//vai colocar a pontuação das jogadas
+    public int getJogadas(int i){//pega as jogadas já feitas do vetor jogadas jogo general
+        return this.jogadas[i];
+    }
+
+    public void setJogadas(int i, int x) {//vai colocar a pontuação das jogadas jogo general
         jogadas[i] = x;
     }
     

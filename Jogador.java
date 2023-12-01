@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.Scanner;
 public abstract class Jogador implements Serializable{
     private String nome = new String();
     private String tipoJogador = new String();
@@ -9,6 +10,10 @@ public abstract class Jogador implements Serializable{
     private int jogosRealizados= 0;
     private double valorAposta;
     private int i=0;
+    private Dado dados;
+    private transient Scanner teclado;
+    private int[] qtdFaces;
+
    
 
     // Construtor
@@ -22,6 +27,8 @@ public abstract class Jogador implements Serializable{
             this.saldo=saldo;
         }
         jogoDados =new JogoDados[10];//dez jogos dados
+        teclado =new Scanner(System.in);
+        qtdFaces=new int[6];
     }
 
     public String getNome() {// Função para pegar o nome dos respectivos jogadores.
@@ -42,8 +49,11 @@ public abstract class Jogador implements Serializable{
     }
 
     public int getJogoGeneral(int i, Jogador player) { // Função para pegar as jogadas da "ficha" dos respectivos jogadores.
-        return player.getJogoDados(player.getJogadasRealizadas()).getJogadas(i);
+        JogoGeneral jogoGeneral = (JogoGeneral) player.getJogoDados(player.getJogadasRealizadas());
+        return  jogoGeneral.getJogadas(i);
     }
+
+    public abstract void iniciarCassino(Jogador player, int jogo, int i);
 
 
     // public JogoGeneral getJogoG() { //para acessar por outra classe o jogo de cada jogador
@@ -60,7 +70,7 @@ public abstract class Jogador implements Serializable{
         jogosRealizados++;
     }
     public JogoDados getJogoDados (int i){
-        return jogoDados[i];
+        return this.jogoDados[i];
     }
 
     public int getJogadasRealizadas(){
@@ -69,7 +79,7 @@ public abstract class Jogador implements Serializable{
 
     // public void setJogoAzar(JogoAzar jogoAzar){//seta jogo azar colocando ele no array de jogoDados
     //     this.jogoAzar=jogoAzar;
-    //     this.jogoDados[i]=jogoAzar;
+    //     this.jogoDado=jogoAzar;
     //     i++;
     // }
 
@@ -83,18 +93,84 @@ public abstract class Jogador implements Serializable{
         this.jogoDados=null;
     }
 
-    public void mostrarJogadasExecutadas() {
+    public void mostrarJogadasExecutadas() {//mostra jogadas executadas do jogo general
         // Jogadas já feitas
-		for (int i = 0 ; i < 13 ; i++) { 
-			if(getJogoDados(getJogadasRealizadas()).getJogadas(i) !=-1) {
-				System.out.printf("%d\t", getJogoDados(getJogadasRealizadas()).getJogadas(i)); 
-			} 
-            else if(getJogoDados(getJogadasRealizadas()).getJogadas(i) ==-1) {
-				System.out.print("-\t");
-			}
-		}
-		System.out.println("");
+        if(getJogoDados(getJogadasRealizadas()) instanceof JogoGeneral){
+            JogoGeneral jogoGeneral = (JogoGeneral) getJogoDados(getJogadasRealizadas());
+            for (int i = 0 ; i < 13 ; i++) { 
+                if(jogoGeneral.getJogadas(i) !=-1) {
+                    System.out.printf("%d\t", jogoGeneral.getJogadas(i)); 
+                } 
+                else if(jogoGeneral.getJogadas(i) ==-1) {
+                    System.out.print("-\t");
+                }
+            }
+            System.out.println("");
     }
+    }
+
+    public void iniciarJogoGeneral(int i, Jogador player){//vai ter que passar um valor i pro jogaor
+        double valorAposta=0;
+        // int i=0;
+        JogoGeneral jogoGeneral = (JogoGeneral) player.getJogoDados(player.getJogadasRealizadas());
+        do{
+            if(player.getJogoDados(player.getJogadasRealizadas()).getValorAposta()>player.getSaldo()){
+                System.out.println("Saldo insuficiente! Aposte outro valor");
+                valorAposta = teclado.nextDouble();
+                player.setSaldo(valorAposta);
+            }
+        }while(player.getJogoDados(player.getJogadasRealizadas()).getValorAposta()>player.getSaldo());
+
+       // for(i = 0; i < contJogadores; i++) { // para iniciar ou resetar as jogadas e poder começar o campeonato novamente jogo general
+            for(int j = 0; j < 13; j++){// para iniciar ou resetar as jogadas e poder começar o campeonato novamente jogo general
+                jogoGeneral.setJogadas(j, -1);
+            }
+        //}
+         
+        for (int j = 0; j < 13; j++) {
+           // for (i = 0; i < contJogadores; i++) {//NÃO DEVE EXISTIR PQ É UM UNICO JOGADOR POR VEZ
+                System.out.println(">>Rolando dados para " + player.getNome());
+                System.out.print("Valores obtidos: ");// imprime sem pular a linha pros dados ficarem do lado
+                player.getJogoDados(player.getJogadasRealizadas()).rolarDados(5);
+                qtdFaces = player.getJogoDados(player.getJogadasRealizadas()).somarFacesSorteadas(player.getJogoDados(player.getJogadasRealizadas()).getdados());
+                //player.getJogoDados(player.getJogadasRealizadas()).
+                jogoGeneral.mostrarDados();//tava grudado na linha de cima
+                int opcao = 0;
+
+                if(player instanceof Humano){ //faz a parada só jogar se o player for humano
+                    Humano humano = (Humano) player;
+                    humano.escolherJogada();
+                }
+                else if(player instanceof Maquina){ ///faz a parada só jogar se o player for maquina
+                    Maquina maquina = (Maquina) player;
+                    maquina.aplicarEstrategia();
+                }
+
+                int soma=0;
+                for(int k=0;k<13;k++){
+                    soma += player.getJogoGeneral(k, player);
+                }
+                double novoSaldo = 0;
+                if(soma>(2*jogoGeneral.getJogadas(13))){
+                    System.out.println("Você ganhou a rodada!");
+                    System.out.printf("Seu saldo era de R$ %.2d%n", player.getSaldo());
+                    novoSaldo = valorAposta*2;
+                    player.setSaldo(novoSaldo);
+                    System.out.printf("Seu saldo atual é de R$ %.2d%n", player.getSaldo());
+                }
+                else{
+                    System.out.println("Você perdeu a rodada!");
+                    System.out.printf("Seu saldo era de R$ %.2d%n", player.getSaldo());
+                    novoSaldo = player.getSaldo() - valorAposta;
+                    player.setSaldo(novoSaldo);
+                    System.out.printf("Seu saldo atual é de R$ %.2d%n", player.getSaldo());
+                }
+            //}
+        }
+
+
+     }
+
 
     //fazer uma função para armazenar dez jogos(azar ou general)
 

@@ -10,7 +10,7 @@ public class Campeonato implements Serializable {
     private int n = 10, i=0;
     private Jogador[] players; 
     private int contJogadores;
-    private Scanner teclado;
+    private transient Scanner teclado;
     private String nome, biotipo, cpf, opcao;
     private Humano humano;
     private Maquina maquina;
@@ -35,8 +35,8 @@ public class Campeonato implements Serializable {
             players[i] = null; // Define cada elemento como nulo
         }
 
-        jogoGeneral=new JogoGeneral(0);
-        jogoAzar =new JogoAzar(0);
+        // jogoGeneral=new JogoGeneral(0);
+        // jogoAzar =new JogoAzar(0);
     }
 
     public void incluirjogador() {
@@ -74,146 +74,71 @@ public class Campeonato implements Serializable {
 
     public void removerJogador() {
         System.out.println("Jogadores:");
-
-        for (int i = 0; i <= contJogadores; i++) { // printar o nome dos jogadores
-            if(contJogadores==0){
-                System.out.println("Não há jogadores para excluir");
-                break;
-            }
-            System.out.println(i+" - "+ players[i].getNome());
-        }
-        System.out.println("Digite o nome do jogador:");
-        nome = teclado.nextLine();
-        int i=0;
-        int j;
-        boolean verifica=false;
-        do{
-            if (nome.equals(players[i].getNome())) {
-                players[i].dell();
-                for (j = i; j < (contJogadores); j++) {
-                    if(j+1!=n){//se não for o final, pra não puxar lixo
-                         players[j] = players[j+1];// vai "puxando" os que vem depois pro lugar do excluindo e reordenando
-                    }
-                }
-                players[j-1]=null;//zera o ultimo indice
-                contJogadores--;// diminui a quantidade total de jogadores para que, se o usuario quiser, possa adicionar outro
-                verifica=true;//verifica que teve um jogador
-                break;
-            }
-            i++;
-        }while(i!=contJogadores);
-        
-        
-        if (verifica==false){//caso não haja o jogador
-                System.out.println("Jogador(a) inexistente");
+        if(contJogadores==0){
+            System.out.println("Não há jogadores para excluir");
+            
         }
         else{
-            System.out.println("Jogador(a) excluido com sucesso");
+            for (int i = 0; i <contJogadores; i++) { // printar o nome dos jogadores
+                
+                System.out.println(i+" - "+ players[i].getNome());
+            }
+            System.out.println("Digite o nome do jogador:");
+            nome = teclado.nextLine();
+            int i=0;
+            int j;
+            boolean verifica=false;
+            do{
+                if (nome.equals(players[i].getNome())) {
+                    players[i].dell();
+                    for (j = i; j < (contJogadores)-1; j++) {
+                        if(j+1!=n){//se não for o final, pra não puxar lixo
+                            players[j] = players[j+1];// vai "puxando" os que vem depois pro lugar do excluindo e reordenando
+                        }
+                    }
+                    players[contJogadores-1]=null;//zera o ultimo indice
+                    contJogadores--;// diminui a quantidade total de jogadores para que, se o usuario quiser, possa adicionar outro
+                    verifica=true;//verifica que teve um jogador
+                    break;
+                }
+                i++;
+            }while(i<contJogadores);
+            
+            
+            if (verifica==false){//caso não haja o jogador
+                    System.out.println("Jogador(a) inexistente");
+            }
+            else{
+                System.out.println("Jogador(a) excluido com sucesso");
+            }
         }
-
     }
 
     public void iniciarCampeonato() {//inicia ou reinicia um campeonato
 
         //PODE SE UMA FUNÇÃO CHAMNDO A ESCOLHER JOGO DO HUMANO SE FOR HUMANO E DO MAQ SE FOR MAQ
         //JÁ COMEÇAR O SETSALDO COM 100 PILA
-        
-        int jogo=0;
-        
-        if(players[i]!=null){
-            if(players[i] instanceof Humano){
-                Humano humano = (Humano) players[i];
-                jogo = humano.escolherJogo();
-            }
+        for (i=0; i<contJogadores; i++){//percorre o vetor de players pra todos jogarem uma vez antes de voltar ao menu
+            int jogo=0;
             
-            else if(players[i] instanceof Maquina){
-                Maquina maquina = (Maquina) players[i];
-                jogo = maquina.sorteiaJogo();
-            }
-        
-            if(jogo==1){
-                double valorAposta=0;
-                do{
-                    if (players[i] instanceof Humano){
-                        System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
-                        valorAposta = teclado.nextDouble();
-
-                        if(valorAposta==0){
-                        System.out.println("Aposte algum valor!");
-                    }
-                    }
-                    else if(players[i] instanceof Maquina){
-                        maquina=(Maquina) players[i];
-                        valorAposta= maquina.quantoApostar();//para ver quanto a maquina aposta
-                        System.out.println("Valor apostado pela máquina: R$"+valorAposta);//mostra o valor que a máquina apostou
-                    }
-                    
-                }while(valorAposta==0);
-                
-                // jogoGeneral = new JogoGeneral(valorAposta);
-                JogoDados jg =new JogoGeneral(valorAposta);//outro indice
-                players[i].setJogoDados(jg, players[i].getJogadasRealizadas());
-
-                if (players[i] instanceof Humano){
-                    //    humano=(Humano) players[i];
-                    //    humano.setJogoGeneral(jogoGeneral);
-                      players[i].getJogoDados(players[i].getJogadasRealizadas()).iniciarJogoGeneral();
-                       mostrarCartela();
-                    i++; //passa pro outra casa do vetor
+            if(players[i]!=null){
+                if(players[i] instanceof Humano){
+                    Humano humano = (Humano) players[i];
+                    jogo = humano.escolherJogo();
+                    humano.iniciarCassino(players[i], jogo, i);
                 }
                 
                 else if(players[i] instanceof Maquina){
-                    // maquina=(Maquina) players[i];
-                    // maquina.setJogoGeneral(jogoGeneral);
-                     players[i].getJogoDados(players[i].getJogadasRealizadas()).iniciarJogoGeneral();
-                    mostrarCartela();
-                    i++;
-                }
-                // players[i].jogoGeneral.iniciarJogoGeneral();
-                // mostrarCartela();
-
-            }
-            else if(jogo==2){
-                double valorAposta=0;
-                do{
-                    if (players[i] instanceof Humano){
-                        System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
-                        valorAposta = teclado.nextDouble();
-
-                        if(valorAposta==0){
-                        System.out.println("Aposte algum valor!");
-                    }
-                    }
-                    else if(players[i] instanceof Maquina){
-                        maquina=(Maquina) players[i];
-                        valorAposta= maquina.quantoApostar();//para ver quanto a maquina aposta
-                        System.out.println("Valor apostado pela máquina: R$"+valorAposta);//mostra o valor que a máquina apostou
-                    }
-                }while(valorAposta==0);
-                
-                JogoDados ja =new JogoAzar(valorAposta);//outro indice
-                players[i].setJogoDados(ja, players[i].getJogadasRealizadas());
-
-                if (players[i] instanceof Humano){
-                    //    humano=(Humano) players[i];
-                    //    humano.setJogoAzar(jogoAzar);
-                    players[i].getJogoDados(players[i].getJogadasRealizadas()).executarRegrasJogo();
-                    i++; //passa pro outra casa do vetor
-                }
-                
-                else if(players[i] instanceof Maquina){
-                    // maquina.setJogoAzar(jogoAzar);
-                    // maquina=(Maquina) players[i];
-                    players[i].getJogoDados(players[i].getJogadasRealizadas()).executarRegrasJogo();
-                    i++;
+                    Maquina maquina = (Maquina) players[i];
+                    jogo = maquina.sorteiaJogo();
+                    maquina.iniciarCassino(players[i], jogo, i);
                 }
             
-               // players[i].jogoAzar.executarRegrasJogo();
-                // i++; //passa pro outra casa do vetor
             }
-        }
-                    
+        }               
     }
+
+    
                 
     public void mostrarCartela() { // Mostra a Cartela do Jogo General
         System.out.println("-- Cartela de Resultados --");
@@ -230,7 +155,7 @@ public class Campeonato implements Serializable {
             System.out.print(type[j]+"\t");//imprime os nomes das jogadas
             
             for(int k=0; k<contJogadores; k++){
-                System.out.print(players[k].getJogoGeneral(j)+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
+                System.out.print(players[k].getJogoGeneral(j, players[k])+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
             }
             System.out.print("\n");
         }
@@ -389,7 +314,8 @@ public class Campeonato implements Serializable {
     public int somaJogadas(int jogante){
             int soma=0;
             for(int j=0; j<13; j++){//pra percorrer todos os jogos de cada jogador
-                soma+=players[jogante].getJogoGeneral(j);
+                soma+=players[jogante].getJogoGeneral(j, players[jogante]);
+
             }  
             return soma; 
     }
