@@ -44,26 +44,29 @@ public class Humano extends Jogador implements JogarComoHumano{
             // jogoGeneral = new JogoGeneral(valorAposta);
             JogoDados jg =new JogoGeneral(valorAposta);//outro indice
             player.setJogoDados(jg, player.getJogadasRealizadas());
+            
 
             //JogoGeneral jogoGeneral = (JogoGeneral) players[i].getJogoDados(players[i].getJogadasRealizadas()); //conversão pra jogo general
 
             if (player instanceof Humano){
                 //    humano=(Humano) players[i];
                 //    humano.setJogoGeneral(jogoGeneral);
-                player.iniciarJogoGeneral(i, player);
+                player.iniciarJogoGeneral(player);
                 //players[i].getJogoDados(jogoGeneral).
                 // iniciarJogoGeneral(i);
                 campeonato.mostrarCartela();
                 i++; //passa pro outra casa do vetor
+                player.setJogadasRealizadas();
             }
             
             else if(player instanceof Maquina){
                 // maquina=(Maquina) players[i];
                 // maquina.setJogoGeneral(jogoGeneral);
                // jogoGeneral.iniciarJogoGeneral(i);
-               player.iniciarJogoGeneral(i, player);
+               player.iniciarJogoGeneral(player);
                campeonato.mostrarCartela();
                 i++;
+                player.setJogadasRealizadas();
             }
             // players[i].jogoGeneral.iniciarJogoGeneral();
             // mostrarCartela();
@@ -95,15 +98,17 @@ public class Humano extends Jogador implements JogarComoHumano{
             if (player instanceof Humano){
                 //    humano=(Humano) players[i];
                 //    humano.setJogoAzar(jogoAzar);
-            jogoAzar.executarRegrasJogo(i);
+                 jogoAzar.executarRegrasJogo(i, player);
                 i++; //passa pro outra casa do vetor
+                player.setJogadasRealizadas();
             }
             
             else if(player instanceof Maquina){
                 // maquina.setJogoAzar(jogoAzar);
                 // maquina=(Maquina) players[i];
-            jogoAzar.executarRegrasJogo(i);
+                jogoAzar.executarRegrasJogo(i,player);
                 i++;
+                player.setJogadasRealizadas();
             }
         
         // players[i].jogoAzar.executarRegrasJogo();
@@ -121,7 +126,7 @@ public class Humano extends Jogador implements JogarComoHumano{
                     System.out.println("1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)");
                     super.mostrarJogadasExecutadas();
 
-                    while(opcao<=0|| opcao>13 || jogoGeneral.getJogadas(opcao-1)!=-1){//caso o usuário tente escolher uma opcao inexistente ou alguma jogada já feita de novo
+                    while (opcao<=0|| opcao>13 || jogoGeneral.getJogadas(opcao-1)!=-1){//caso o usuário tente escolher uma opcao inexistente ou alguma jogada já feita de novo
                         opcao = teclado.nextInt();
                         teclado.nextLine(); // Limpar o buffer de entrada após a leitura do inteiro
                     
@@ -133,7 +138,7 @@ public class Humano extends Jogador implements JogarComoHumano{
                         if (jogoGeneral.getJogadas(opcao-1)==-1) { //se a jogada ainda nao tiver sido feita
                             jogoGeneral.setJogadas(opcao-1, jogoGeneral.pontuarJogada(opcao));
                         } 
-                    } while (jogoGeneral.getJogadas(opcao-1)==-1);
+                } while (jogoGeneral.getJogadas(opcao-1)==-1);
         }
       return 0;
     }

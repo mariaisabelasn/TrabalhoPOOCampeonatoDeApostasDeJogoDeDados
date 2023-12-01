@@ -61,6 +61,10 @@ public abstract class JogoDados implements Estatistica, Serializable{
         
     }
 
+    public String toString() {
+        return "Nome do jogo: " + nomeJogo + ", Valor da aposta: " + valorAposta + ", Número de dados: " + nDados;
+    }
+
     // public int getNumFaces(){
     //     return this.numFaces;
     // }

@@ -67,14 +67,19 @@ public abstract class Jogador implements Serializable{
         // this.jogoGeneral=jogoGeneral;
         this.jogosRealizados=i;
         this.jogoDados[jogosRealizados]=jogoDados;
-        jogosRealizados++;
+        //jogosRealizados++;
     }
     public JogoDados getJogoDados (int i){
         return this.jogoDados[i];
+        //return this.jogoDados[i].toString();
     }
 
     public int getJogadasRealizadas(){
         return jogosRealizados;
+    }
+
+    public void setJogadasRealizadas(){
+         this.jogosRealizados++;
     }
 
     // public void setJogoAzar(JogoAzar jogoAzar){//seta jogo azar colocando ele no array de jogoDados
@@ -109,7 +114,7 @@ public abstract class Jogador implements Serializable{
     }
     }
 
-    public void iniciarJogoGeneral(int i, Jogador player){//vai ter que passar um valor i pro jogaor
+    public void iniciarJogoGeneral(Jogador player){//vai ter que passar um valor i pro jogaor
         double valorAposta=0;
         // int i=0;
         JogoGeneral jogoGeneral = (JogoGeneral) player.getJogoDados(player.getJogadasRealizadas());
@@ -117,7 +122,7 @@ public abstract class Jogador implements Serializable{
             if(player.getJogoDados(player.getJogadasRealizadas()).getValorAposta()>player.getSaldo()){
                 System.out.println("Saldo insuficiente! Aposte outro valor");
                 valorAposta = teclado.nextDouble();
-                player.setSaldo(valorAposta);
+                player.getJogoDados(player.getJogadasRealizadas()).setValorAposta(valorAposta); 
             }
         }while(player.getJogoDados(player.getJogadasRealizadas()).getValorAposta()>player.getSaldo());
 
@@ -150,21 +155,22 @@ public abstract class Jogador implements Serializable{
                 for(int k=0;k<13;k++){
                     soma += player.getJogoGeneral(k, player);
                 }
-                double novoSaldo = 0;
+                double novoSaldo;
                 if(soma>(2*jogoGeneral.getJogadas(13))){
                     System.out.println("Você ganhou a rodada!");
-                    System.out.printf("Seu saldo era de R$ %.2d%n", player.getSaldo());
-                    novoSaldo = valorAposta*2;
+                    System.out.printf("Seu saldo era de R$ %.2f\n", player.getSaldo());
+                    novoSaldo = player.getSaldo() + player.getJogoDados(player.getJogadasRealizadas()).getValorAposta();
                     player.setSaldo(novoSaldo);
-                    System.out.printf("Seu saldo atual é de R$ %.2d%n", player.getSaldo());
+                    System.out.printf("Seu saldo atual é de R$ %.2f\n", player.getSaldo());
                 }
                 else{
                     System.out.println("Você perdeu a rodada!");
-                    System.out.printf("Seu saldo era de R$ %.2d%n", player.getSaldo());
-                    novoSaldo = player.getSaldo() - valorAposta;
+                    System.out.printf("Seu saldo era de R$ %.2f\n", player.getSaldo());
+                    novoSaldo = player.getSaldo() - player.getJogoDados(player.getJogadasRealizadas()).getValorAposta();
                     player.setSaldo(novoSaldo);
-                    System.out.printf("Seu saldo atual é de R$ %.2d%n", player.getSaldo());
+                    System.out.printf("Seu saldo atual é de R$ %.2f\n", player.getSaldo());
                 }
+
             //}
         }
 

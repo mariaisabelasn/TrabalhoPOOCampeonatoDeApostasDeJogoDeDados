@@ -47,20 +47,22 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             if (player instanceof Humano){
                 //    humano=(Humano) players[i];
                 //    humano.setJogoGeneral(jogoGeneral);
-                player.iniciarJogoGeneral(i, player);
+                player.iniciarJogoGeneral(player);
                 //players[i].getJogoDados(jogoGeneral).
                 // iniciarJogoGeneral(i);
                 campeonato.mostrarCartela();
                 i++; //passa pro outra casa do vetor
+                player.setJogadasRealizadas();
             }
             
             else if(player instanceof Maquina){
                 // maquina=(Maquina) players[i];
                 // maquina.setJogoGeneral(jogoGeneral);
                // jogoGeneral.iniciarJogoGeneral(i);
-               player.iniciarJogoGeneral(i, player);
-               campeonato.mostrarCartela();
+                player.iniciarJogoGeneral(player);
+                campeonato.mostrarCartela();
                 i++;
+                player.setJogadasRealizadas();
             }
             // players[i].jogoGeneral.iniciarJogoGeneral();
             // mostrarCartela();
@@ -92,15 +94,17 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             if (player instanceof Humano){
                 //    humano=(Humano) players[i];
                 //    humano.setJogoAzar(jogoAzar);
-            jogoAzar.executarRegrasJogo(i);
+                jogoAzar.executarRegrasJogo(i);
                 i++; //passa pro outra casa do vetor
+                player.setJogadasRealizadas();
             }
             
             else if(player instanceof Maquina){
                 // maquina.setJogoAzar(jogoAzar);
                 // maquina=(Maquina) players[i];
-            jogoAzar.executarRegrasJogo(i);
+                jogoAzar.executarRegrasJogo(i);
                 i++;
+                player.setJogadasRealizadas();
             }
         }
         // players[i].jogoAzar.executarRegrasJogo();
