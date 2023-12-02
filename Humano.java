@@ -39,8 +39,8 @@ public class Humano extends Jogador implements JogarComoHumano{
                 
             }while(valorAposta==0);
             
-            JogoDados jg =new JogoGeneral(valorAposta);//outro indice
-            player.setJogoDados(jg, player.getJogadasRealizadas());
+            JogoDados jg =new JogoGeneral(valorAposta);//outro indice polimorfismo aqui
+            player.setJogoDados(jg, player.getJogadasRealizadas());//seta o jogo para o player
             
 
             if (player instanceof Humano){
@@ -74,18 +74,18 @@ public class Humano extends Jogador implements JogarComoHumano{
                 }
             }while(valorAposta==0);
             
-            JogoDados ja =new JogoAzar(valorAposta);//outro indice
-            player.setJogoDados(ja, player.getJogadasRealizadas());
+            JogoDados ja =new JogoAzar(valorAposta);//outro indice polimorfismo aqui
+            player.setJogoDados(ja, player.getJogadasRealizadas());//seta o jogo para o player
             
             JogoAzar jogoAzar =(JogoAzar) player.getJogoDados(player.getJogadasRealizadas()); //converte jogo dados em jogo azar
 
             if (player instanceof Humano){
-                jogoAzar.executarRegrasJogo(player);
+                jogoAzar.executarRegrasJogo(player);//executa o jogo de azar 
                 player.setJogadasRealizadas();
             }
             
             else if(player instanceof Maquina){
-                jogoAzar.executarRegrasJogo(player);
+                jogoAzar.executarRegrasJogo(player);//executa o jogo de azar
                 player.setJogadasRealizadas();
             }
         }
@@ -138,7 +138,7 @@ public class Humano extends Jogador implements JogarComoHumano{
             
 
             if(opcao==1){
-                return 1;   //inicia general
+                return 1;//inicia general
             }
             else if(opcao==2){
                 return 2;//inicia o jogo de azar
