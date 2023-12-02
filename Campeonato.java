@@ -18,7 +18,7 @@ public class Campeonato implements Serializable {
     private String[] jogos;
     private int vet[];
     private JogoDados[] jogoDados;
-
+//linha pra comitar p mabel
 
     // CONSTRUTOR
     public Campeonato() {
