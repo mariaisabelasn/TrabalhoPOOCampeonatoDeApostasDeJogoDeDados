@@ -12,13 +12,12 @@ public class Campeonato implements Serializable {
     private int contJogadores;
     private transient Scanner teclado;
     private String nome, biotipo, cpf, opcao;
-    private Humano humano;
-    private Maquina maquina;
+    private Humano humano; //verificar
+    private Maquina maquina;//verificar
     private double saldo;
-    private String[] jogos;
+    private String[] jogos;//verificar
     private int vet[];
-    private JogoDados[] jogoDados;
-//linha pra comitar p mabel
+    private JogoDados[] jogoDados; //array polimorfo
 
     // CONSTRUTOR
     public Campeonato() {
@@ -74,7 +73,7 @@ public class Campeonato implements Serializable {
         else{
             for (int i = 0; i <contJogadores; i++) { // printar o nome dos jogadores
                 
-                System.out.println(i+" - "+ players[i].getNome());
+                System.out.println((i+1)+" - "+ players[i].getNome());
             }
             System.out.println("Digite o nome do jogador:");
             nome = teclado.nextLine();
@@ -178,7 +177,7 @@ public class Campeonato implements Serializable {
             System.out.printf("Seu saldo atual é de R$ %.2f\n", player.getSaldo());
         }
         System.out.print("\n");
-
+        System.out.println(player.getJogoDados(player.getJogadasRealizadas()).somaEstatistica());
     }
 
     public void mostrarSaldo(){
@@ -364,13 +363,12 @@ public class Campeonato implements Serializable {
 
             for (Jogador p : players) {
                 if(p!=null){ 
-                    System.out.println("Nome do jogador(a) "+i+ ":"+p.getNome().toString());
-                    System.out.println("Tipo do jogador(a) "+i+":"+p.getTipoJogador().toString());
+                    System.out.println("Nome do jogador(a) "+i+ ": "+p.getNome().toString());
+                    System.out.println("Tipo do jogador(a) "+i+": "+p.getTipoJogador().toString());
                     i++;
                 }
             }
             contJogadores = i-1;
-            //mostrarCartela();//mostra a cartela dos jogos 
         } catch (Exception ex) {
             System.err.println("erro: " + ex.toString());
         }

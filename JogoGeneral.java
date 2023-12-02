@@ -4,10 +4,10 @@ public class JogoGeneral extends JogoDados implements Serializable{
     private Dado[] dados;
     private int[] jogadas;  
     private int[] qtdFaces;
-    private Jogador[] players;
-    private int i, contJogadores;
-    private transient Scanner teclado;
-    private JogoDados[] jogoDados;
+    private Jogador[] players; // verificar
+    private int i, contJogadores;// verificar
+    private transient Scanner teclado;// verificar
+    private JogoDados[] jogoDados;// verificar
 
 
     public JogoGeneral(double valorAposta) {
@@ -47,6 +47,7 @@ public class JogoGeneral extends JogoDados implements Serializable{
         return result;
     }
 
+    @Override
     public void rolarDados(int nDados) { // resultados dos 2 dados
         for (int i = 0; i < nDados; i++) {
             if (this.dados[i] == null) {
@@ -383,4 +384,5 @@ public class JogoGeneral extends JogoDados implements Serializable{
         }
         return false;
     }
+    // esse resultadoJogoGeneral nao esta sendo usasdo entao da pra excluir
 }

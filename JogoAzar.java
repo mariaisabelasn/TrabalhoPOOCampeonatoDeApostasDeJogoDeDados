@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class JogoAzar extends JogoDados{
     private Dado[] dados;
     private transient Scanner teclado;
-    private Jogador[] players;
+    private Jogador[] players; //verificar
 
     public JogoAzar(double valorAposta){
         super(2, "Jogo Azar", valorAposta);
@@ -17,7 +17,7 @@ public class JogoAzar extends JogoDados{
         }
     }
 
-    public boolean executarRegrasJogo( Jogador player){
+    public void executarRegrasJogo( Jogador player){
         int soma=0;
         double novoSaldo = 0;
 
@@ -50,8 +50,6 @@ public class JogoAzar extends JogoDados{
             player.setSaldo(novoSaldo);
             System.out.printf("Seu saldo atual é de R$ %.2f\n", player.getSaldo());
             System.out.print("\n");
-            return true;
-
         } else if (soma == 2 || soma == 3 || soma == 12) {
             System.out.println("Jogador perdeu! [encerra jogada]");
             System.out.printf("Seu saldo era de R$ %.2f\n", player.getSaldo());
@@ -59,7 +57,6 @@ public class JogoAzar extends JogoDados{
             player.setSaldo(novoSaldo);
             System.out.printf("Seu saldo atual é de R$ %.2f\n", player.getSaldo());
             System.out.print("\n");
-            return false;
         } else {
             System.out.printf("Número a ser buscado: %d\n", soma);
 
@@ -82,7 +79,7 @@ public class JogoAzar extends JogoDados{
                     player.setSaldo(novoSaldo);
                     System.out.printf("Seu saldo atual é de R$ %.2f\n", player.getSaldo());
                     System.out.print("\n");
-                    return true;
+                    break;
                 } else if (novaSoma == 2 || novaSoma == 3 || novaSoma == 12) {
                     System.out.println("Jogador perdeu! [encerra jogada]");
                     System.out.printf("Seu saldo era de R$ %.2f\n", player.getSaldo());
@@ -90,16 +87,17 @@ public class JogoAzar extends JogoDados{
                     player.setSaldo(novoSaldo);
                     System.out.printf("Seu saldo atual é de R$ %.2f\n", player.getSaldo());
                     System.out.print("\n");
-                    return false;
+                    break;
                 }
                 i++;
-                    System.out.println("1: "+qtdFaces[0] +" 2: "+qtdFaces[1]+" 3: "+qtdFaces[2] +" 4: "+qtdFaces[3]+" 5: "+qtdFaces[4] +" 6: "+qtdFaces[5]);
+                    //System.out.println("1: "+qtdFaces[0] +" 2: "+qtdFaces[1]+" 3: "+qtdFaces[2] +" 4: "+qtdFaces[3]+" 5: "+qtdFaces[4] +" 6: "+qtdFaces[5]);
             } while (novaSoma != soma || (novaSoma == 2 || novaSoma == 3 || novaSoma == 12));
         }
-        return false;
     }
 
 
+
+    @Override
     public void rolarDados(int nDados) { // resultados dos 2 dados
         for (int i = 0; i < nDados; i++) {
             if (this.dados[i] == null) {

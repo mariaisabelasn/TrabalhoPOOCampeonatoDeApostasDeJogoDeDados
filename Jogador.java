@@ -4,11 +4,11 @@ public abstract class Jogador implements Serializable{
     private String nome = new String();
     private String tipoJogador = new String();
     private double saldo;
-    private JogoDados[] jogoDados;
+    private JogoDados[] jogoDados; //Array polimorfo
     private int jogosRealizados= 0;
-    private double valorAposta;
-    private int i=0;
-    private Dado dados;
+    private double valorAposta; //verificar
+    private int i=0;//verificar
+    private Dado dados;//verificar
     private transient Scanner teclado;
     private int[] qtdFaces;
 
@@ -64,7 +64,7 @@ public abstract class Jogador implements Serializable{
         return jogosRealizados;
     }
 
-    public void setJogadasRealizadas(){
+    public void setJogadasRealizadas(){ 
          this.jogosRealizados++;
     }
 
