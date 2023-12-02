@@ -4,7 +4,6 @@ public class Humano extends Jogador implements JogarComoHumano{
     private String agencia;
     private String conta;
     private int numeroBanco,i;
-    //private Jogador[] players; // referência para os jogadores
     private transient Scanner teclado;
     private Jogador humano;
     private Campeonato campeonato;
@@ -41,35 +40,21 @@ public class Humano extends Jogador implements JogarComoHumano{
                 
             }while(valorAposta==0);
             
-            // jogoGeneral = new JogoGeneral(valorAposta);
             JogoDados jg =new JogoGeneral(valorAposta);//outro indice
             player.setJogoDados(jg, player.getJogadasRealizadas());
             
 
-            //JogoGeneral jogoGeneral = (JogoGeneral) players[i].getJogoDados(players[i].getJogadasRealizadas()); //conversão pra jogo general
-
             if (player instanceof Humano){
-                //    humano=(Humano) players[i];
-                //    humano.setJogoGeneral(jogoGeneral);
                 player.iniciarJogoGeneral(player);
-                //players[i].getJogoDados(jogoGeneral).
-                // iniciarJogoGeneral(i);
-                campeonato.mostrarCartela();
-                i++; //passa pro outra casa do vetor
+                campeonato.mostrarCartela(player);
                 player.setJogadasRealizadas();
             }
             
             else if(player instanceof Maquina){
-                // maquina=(Maquina) players[i];
-                // maquina.setJogoGeneral(jogoGeneral);
-               // jogoGeneral.iniciarJogoGeneral(i);
                player.iniciarJogoGeneral(player);
-               campeonato.mostrarCartela();
-                i++;
+               campeonato.mostrarCartela(player);
                 player.setJogadasRealizadas();
             }
-            // players[i].jogoGeneral.iniciarJogoGeneral();
-            // mostrarCartela();
 
         }
         else if(jogo==2){
@@ -96,23 +81,14 @@ public class Humano extends Jogador implements JogarComoHumano{
             JogoAzar jogoAzar =(JogoAzar) player.getJogoDados(player.getJogadasRealizadas()); //converte jogo dados em jogo azar
 
             if (player instanceof Humano){
-                //    humano=(Humano) players[i];
-                //    humano.setJogoAzar(jogoAzar);
-                 jogoAzar.executarRegrasJogo(i, player);
-                i++; //passa pro outra casa do vetor
+                jogoAzar.executarRegrasJogo(player);
                 player.setJogadasRealizadas();
             }
             
             else if(player instanceof Maquina){
-                // maquina.setJogoAzar(jogoAzar);
-                // maquina=(Maquina) players[i];
-                jogoAzar.executarRegrasJogo(i,player);
-                i++;
+                jogoAzar.executarRegrasJogo(player);
                 player.setJogadasRealizadas();
             }
-        
-        // players[i].jogoAzar.executarRegrasJogo();
-            // i++; //passa pro outra casa do vetor
         }
     }
 
@@ -133,11 +109,12 @@ public class Humano extends Jogador implements JogarComoHumano{
                         if(opcao<=0||opcao>13 || jogoGeneral.getJogadas(opcao-1)!=-1){
                             System.out.println("Jogada inválida, escolha outra.");
                         }
-                }
+                    } 
 
-                        if (jogoGeneral.getJogadas(opcao-1)==-1) { //se a jogada ainda nao tiver sido feita
-                            jogoGeneral.setJogadas(opcao-1, jogoGeneral.pontuarJogada(opcao));
-                        } 
+                    if (jogoGeneral.getJogadas(opcao-1)==-1) { //se a jogada ainda nao tiver sido feita
+                        jogoGeneral.setJogadas(opcao-1, jogoGeneral.pontuarJogada(opcao));
+                    } 
+                    
                 } while (jogoGeneral.getJogadas(opcao-1)==-1);
         }
       return 0;
@@ -171,7 +148,6 @@ public class Humano extends Jogador implements JogarComoHumano{
                 System.out.println("Opção inválida!");
                 opcao = 0;
             }
-            // getJogadasRealizadas()++;//atualiza a guantidade de jogos feitos
         }while((opcao==1||opcao==2)&& super.getSaldo()>0 && getJogadasRealizadas()<10);
         return 0;
     }

@@ -13,7 +13,6 @@ public abstract class JogoDados implements Estatistica, Serializable{
         this.dados = dados;
         this.valorAposta = valorAposta;
         cont = new int[numFaces];
-        //this.numFaces = numFaces;
     }
 
     // Sobrecarga
@@ -65,24 +64,8 @@ public abstract class JogoDados implements Estatistica, Serializable{
         return "Nome do jogo: " + nomeJogo + ", Valor da aposta: " + valorAposta + ", Número de dados: " + nDados;
     }
 
-    // public int getNumFaces(){
-    //     return this.numFaces;
-    // }
-    // public abstract int getJogadas(int i);
-
-    // public int getJogadas(int i){//pega as jogadas já feitas do vetor jogadas jogo general
-    //     return this.jogadas[i];
-    // }
-
-    // public void setJogadas(int i, int x) {//vai colocar a pontuação das jogadas jogo general
-    //     jogadas[i] = x;
-    // }
-
-    public void rolarDados(int nDados) { // resultados dos dados
-        for (int i = 0; i < nDados; i++) {
-            this.dados[i].roll(numFaces);
-        }
-    }
+    public abstract void rolarDados(int nDados);
+    
     
     @Override
     public int[] somarFacesSorteadas(Dado[] dados) { // método para verificar quantas vezes a face do dado caiu

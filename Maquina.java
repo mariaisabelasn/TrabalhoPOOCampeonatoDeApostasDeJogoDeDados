@@ -2,14 +2,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Maquina extends Jogador implements JogarComoMaquina {
-    // private Jogador players = new Jogador();
-    // private JogoDados jDados = new JogoDados();
     private int[] vet;
     private Random random;
-    private Scanner teclado;
+    private transient Scanner teclado;
     private Campeonato campeonato;
 
-    public Maquina(String nome, String tipoJogador, float saldo){
+    public Maquina(String nome, String tipoJogador, double saldo){
         super(nome, tipoJogador, saldo);
         vet=new int[13];
         random =new Random();
@@ -38,36 +36,25 @@ public class Maquina extends Jogador implements JogarComoMaquina {
                 
             }while(valorAposta==0);
             
-            // jogoGeneral = new JogoGeneral(valorAposta);
             JogoDados jg =new JogoGeneral(valorAposta);//outro indice
             player.setJogoDados(jg, player.getJogadasRealizadas());
 
-            //JogoGeneral jogoGeneral = (JogoGeneral) players[i].getJogoDados(players[i].getJogadasRealizadas()); //conversão pra jogo general
-
             if (player instanceof Humano){
-                //    humano=(Humano) players[i];
-                //    humano.setJogoGeneral(jogoGeneral);
                 player.iniciarJogoGeneral(player);
-                //players[i].getJogoDados(jogoGeneral).
-                // iniciarJogoGeneral(i);
-                campeonato.mostrarCartela();
+                campeonato.mostrarCartela(player);
                 i++; //passa pro outra casa do vetor
                 player.setJogadasRealizadas();
             }
             
             else if(player instanceof Maquina){
-                // maquina=(Maquina) players[i];
-                // maquina.setJogoGeneral(jogoGeneral);
-               // jogoGeneral.iniciarJogoGeneral(i);
                 player.iniciarJogoGeneral(player);
-                campeonato.mostrarCartela();
+                campeonato.mostrarCartela(player);
                 i++;
                 player.setJogadasRealizadas();
             }
-            // players[i].jogoGeneral.iniciarJogoGeneral();
-            // mostrarCartela();
 
         }
+
         else if(jogo==2){
             double valorAposta=0;
             do{
@@ -92,23 +79,17 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             JogoAzar jogoAzar =(JogoAzar) player.getJogoDados(player.getJogadasRealizadas()); //converte jogo dados em jogo azar
 
             if (player instanceof Humano){
-                //    humano=(Humano) players[i];
-                //    humano.setJogoAzar(jogoAzar);
-                jogoAzar.executarRegrasJogo(i);
+                jogoAzar.executarRegrasJogo(player);
                 i++; //passa pro outra casa do vetor
                 player.setJogadasRealizadas();
             }
             
             else if(player instanceof Maquina){
-                // maquina.setJogoAzar(jogoAzar);
-                // maquina=(Maquina) players[i];
-                jogoAzar.executarRegrasJogo(i);
+                jogoAzar.executarRegrasJogo(player);
                 i++;
                 player.setJogadasRealizadas();
             }
         }
-        // players[i].jogoAzar.executarRegrasJogo();
-            // i++; //passa pro outra casa do vetor
         
     }
         
@@ -138,7 +119,6 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             System.out.println("Jogo escolhido: Azar");
              return 2; //inicia o jogo de azar
           }
-        //   super.maquinasRealizadas++;//atualiza a guantidade de jogos feitos
       }while((opcao==1||opcao==2)&& super.getSaldo()>0 && super.getJogadasRealizadas()<10);
       return 0;
   }

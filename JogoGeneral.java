@@ -6,7 +6,7 @@ public class JogoGeneral extends JogoDados implements Serializable{
     private int[] qtdFaces;
     private Jogador[] players;
     private int i, contJogadores;
-    private Scanner teclado;
+    private transient Scanner teclado;
     private JogoDados[] jogoDados;
 
 
@@ -26,80 +26,6 @@ public class JogoGeneral extends JogoDados implements Serializable{
         }
     }
 
-    /*public void iniciarJogoGeneral(int i){//vai ter que passar um valor i pro jogaor
-        double valorAposta=0;
-        // int i=0;
-        JogoGeneral jogoGeneral = (JogoGeneral) players[i].getJogoDados(players[i].getJogadasRealizadas());
-        do{
-            if(getValorAposta()>players[i].getSaldo()){
-                System.out.println("Saldo insuficiente! Aposte outro valor");
-                valorAposta = teclado.nextFloat();
-                players[i].setSaldo(valorAposta);
-            }
-        }while(getValorAposta()>players[i].getSaldo());
-
-       // for(i = 0; i < contJogadores; i++) { // para iniciar ou resetar as jogadas e poder começar o campeonato novamente jogo general
-            for(int j = 0; j < 13; j++){// para iniciar ou resetar as jogadas e poder começar o campeonato novamente jogo general
-                jogoGeneral.setJogadas(j, -1);
-            }
-        //}
-         
-        for (int j = 0; j < 13; j++) {
-           // for (i = 0; i < contJogadores; i++) {//NÃO DEVE EXISTIR PQ É UM UNICO JOGADOR POR VEZ
-                System.out.println(">>Rolando dados para " + players[i].getNome());
-                System.out.print("Valores obtidos: ");// imprime sem pular a linha pros dados ficarem do lado
-                players[i].getJogoDados(players[i].getJogadasRealizadas()).rolarDados(5);
-                qtdFaces = somarFacesSorteadas(dados);
-                // players[i].getJogoDados(players[i].getJogadasRealizadas()).
-                mostrarDados();//tava grudado na linha de cima
-                int opcao = 0;
-
-                if(players[i] instanceof Humano){ //faz a parada só jogar se o player for humano
-                    Humano humano = (Humano) players[i];
-                    humano.escolherJogada();
-                }
-                else if(players[i] instanceof Maquina){ ///faz a parada só jogar se o player for maquina
-                    Maquina maquina = (Maquina) players[i];
-                    maquina.aplicarEstrategia();
-                }
-
-                int soma=0;
-                for(int k=0;k<13;k++){
-                    soma += players[i].getJogoGeneral(k, players[i]);
-                }
-                double novoSaldo = 0;
-                if(soma>(2*jogoGeneral.getJogadas(13))){
-                    System.out.println("Você ganhou a rodada!");
-                    System.out.printf("Seu saldo era de R$ %.2d%n", players[i].getSaldo());
-                    novoSaldo = valorAposta*2;
-                    players[i].setSaldo(novoSaldo);
-                    System.out.printf("Seu saldo atual é de R$ %.2d%n", players[i].getSaldo());
-                }
-                else{
-                    System.out.println("Você perdeu a rodada!");
-                    System.out.printf("Seu saldo era de R$ %.2d%n", players[i].getSaldo());
-                    novoSaldo = players[i].getSaldo() - valorAposta;
-                    players[i].setSaldo(novoSaldo);
-                    System.out.printf("Seu saldo atual é de R$ %.2d%n", players[i].getSaldo());
-                }
-            //}
-        }
-
-
-     }*/
-
-    
-    
-    // public void rolarDados(int nDados) { // resultados dos 5 dados
-    //     for (int i = 0; i < nDados; i++) {
-    //         this.dados[i].roll(numFaces);
-    //     }
-    // }
-    
-    // public int getJogoGeneral(int i, Jogador player) { // Função para pegar as jogadas da "ficha" dos respectivos jogadores.
-        
-    //     return player.getJogoDados(player.getJogadasRealizadas()).getJogadas(i);
-    // }
 
     public int getJogadas(int i){//pega as jogadas já feitas do vetor jogadas jogo general
         return this.jogadas[i];
@@ -121,10 +47,14 @@ public class JogoGeneral extends JogoDados implements Serializable{
         return result;
     }
 
-    // @Override
-    // public int[] somarFacesSorteadas(Dado[] dados) {
-    //     return super.somarFacesSorteadas(dados);
-    // }
+    public void rolarDados(int nDados) { // resultados dos 2 dados
+        for (int i = 0; i < nDados; i++) {
+            if (this.dados[i] == null) {
+                this.dados[i] = new Dado(); // ou use o construtor apropriado de Dado, se existir
+            }
+            this.dados[i].roll(numFaces);
+        }
+    }
 
     public Boolean validarJogada(int njogada) { // vai verificar se a jogada escolhida é valida retorna
         int i = 0;

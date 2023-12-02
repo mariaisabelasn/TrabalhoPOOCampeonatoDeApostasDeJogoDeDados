@@ -14,13 +14,10 @@ public class Campeonato implements Serializable {
     private String nome, biotipo, cpf, opcao;
     private Humano humano;
     private Maquina maquina;
-    private float saldo;
-    // private JogoGeneral jogoGeneral;
-    // private JogoAzar jogoAzar;
+    private double saldo;
     private String[] jogos;
     private int vet[];
-    private JogoDados jogoDados;
-
+    private JogoDados[] jogoDados;
 
 
     // CONSTRUTOR
@@ -34,9 +31,6 @@ public class Campeonato implements Serializable {
         for (int i = 0; i < players.length; i++) {
             players[i] = null; // Define cada elemento como nulo
         }
-
-        // jogoGeneral=new JogoGeneral(0);
-        // jogoAzar =new JogoAzar(0);
     }
 
     public void incluirjogador() {
@@ -63,7 +57,6 @@ public class Campeonato implements Serializable {
             else{
                 players[contJogadores] = new Maquina(nome, biotipo, saldo);
             }
-            //players[contJogadores] = jogador;
             contJogadores++;
 
         } else {
@@ -116,8 +109,6 @@ public class Campeonato implements Serializable {
 
     public void iniciarCampeonato() {//inicia ou reinicia um campeonato
 
-        //PODE SE UMA FUNÇÃO CHAMNDO A ESCOLHER JOGO DO HUMANO SE FOR HUMANO E DO MAQ SE FOR MAQ
-        //JÁ COMEÇAR O SETSALDO COM 100 PILA
         for (i=0; i<contJogadores; i++){//percorre o vetor de players pra todos jogarem uma vez antes de voltar ao menu
             int jogo=0;
             
@@ -140,23 +131,18 @@ public class Campeonato implements Serializable {
 
     
                 
-    public void mostrarCartela() { // Mostra a Cartela do Jogo General
+    public void mostrarCartela(Jogador player) { // Mostra a Cartela do Jogo General
         System.out.println("-- Cartela de Resultados --");
         System.out.print("Jogada\t");
 
-        for(int i=0; i<contJogadores; i++){
-            System.out.print(players[i].getNome()+"("+players[i].getTipoJogador()+")\t\t");
-        } // vai imprimir o nome e o tipo de todos os players lado a lado
+        System.out.print(player.getNome()+"("+player.getTipoJogador()+")\t\t");
         System.out.print("\n"); //pula linha quando os nomes terminam
 
         String[] type={"1", "2", "3", "4", "5", "6", "7(T)", "8(Q)", "9(F)", "10(S+)", "11(S-)", "12(G)", "13(X)"};//string com os "nomes" das jogadas
         
         for(int j=0; j<13;j++){
             System.out.print(type[j]+"\t");//imprime os nomes das jogadas
-            
-            for(int k=0; k<contJogadores; k++){
-                System.out.print(players[k].getJogoGeneral(j, players[k])+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
-            }
+            System.out.print(player.getJogoGeneral(j, player)+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
             System.out.print("\n");
         }
         if(contJogadores<=5){//para imprimir linha fofa 
@@ -167,8 +153,29 @@ public class Campeonato implements Serializable {
         }
         System.out.print("Total\t");
 
-        for(int k=0; k<contJogadores; k++){
-            System.out.print(somaJogadas(k)+"\t\t");
+        System.out.print(somaJogadas(player)+"\t\t");
+        System.out.print("\n");
+
+        int soma=0;
+        for(int k=0;k<13;k++){
+            soma += player.getJogoGeneral(k, player);
+        }
+        JogoGeneral jogoGeneral = (JogoGeneral)player.getJogoDados(player.getJogadasRealizadas());
+
+        double novoSaldo;
+        if(soma>(2*jogoGeneral.getJogadas(12))){
+            System.out.println("Você ganhou a rodada!");
+            System.out.printf("Seu saldo era de R$ %.2f\n", player.getSaldo());
+            novoSaldo = player.getSaldo() + player.getJogoDados(player.getJogadasRealizadas()).getValorAposta();
+            player.setSaldo(novoSaldo);
+            System.out.printf("Seu saldo atual é de R$ %.2f\n", player.getSaldo());
+        }
+        else{
+            System.out.println("Você perdeu a rodada!");
+            System.out.printf("Seu saldo era de R$ %.2f\n", player.getSaldo());
+            novoSaldo = player.getSaldo() - player.getJogoDados(player.getJogadasRealizadas()).getValorAposta();
+            player.setSaldo(novoSaldo);
+            System.out.printf("Seu saldo atual é de R$ %.2f\n", player.getSaldo());
         }
         System.out.print("\n");
 
@@ -183,29 +190,29 @@ public class Campeonato implements Serializable {
         
         switch (opcao) {
             case "a":
-            for (Jogador p : players) {//printa o saldo de todos os jogadores
-                if(p!=null){
-                    System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                for (Jogador p : players) {//printa o saldo de todos os jogadores
+                    if(p!=null){
+                        System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                    }
                 }
-            }
                 
                 break;
 
             case "b":
                 for (Jogador p : players) {//printa o saldo de todos os humanos
-                if(p!=null && p instanceof Humano){
-                    System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                    if(p!=null && p instanceof Humano){
+                        System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                    }
                 }
-            }
 
                 break;
             
             case "c":
-             for (Jogador p : players) {//printa o saldo de todas as maquinas
-                if(p!=null && p instanceof Maquina){
-                    System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                for (Jogador p : players) {//printa o saldo de todas as maquinas
+                    if(p!=null && p instanceof Maquina){
+                        System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                    }
                 }
-            }
                 break;
         
             default:
@@ -215,8 +222,8 @@ public class Campeonato implements Serializable {
 
     }
 
-    public void mostrarExtratos(){
-        System.out.println("Deseja imprimir saldo para quem?");
+    public void mostrarExtratos(){ //(valores das jogadas [jogo general], valor apostado, ganho ou perda)
+        System.out.println("Deseja imprimir extrato para quem?");
         System.out.println("a) Para todos os Jogadores");
         System.out.println("b) Apenas para os jogadores humanos");
         System.out.println("c) Apenas para os jogadores máquinas");
@@ -224,29 +231,27 @@ public class Campeonato implements Serializable {
         
         switch (opcao) {
             case "a":
-            for (Jogador p : players) {//printa o saldo de todos os jogadores
-                if(p!=null){
-                    System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                for (Jogador p : players) {//printa o saldo de todos os jogadores
+                    if(p!=null){
+                        System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                    }
                 }
-            }
-                
                 break;
 
             case "b":
                 for (Jogador p : players) {//printa o saldo de todos os humanos
-                if(p!=null && p instanceof Humano){
-                    System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                    if(p!=null && p instanceof Humano){
+                        System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                    }
                 }
-            }
-
                 break;
             
             case "c":
-             for (Jogador p : players) {//printa o saldo de todas as maquinas
-                if(p!=null && p instanceof Maquina){
-                    System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                for (Jogador p : players) {//printa o saldo de todas as maquinas
+                    if(p!=null && p instanceof Maquina){
+                        System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                    }
                 }
-            }
                 break;
         
             default:
@@ -258,7 +263,7 @@ public class Campeonato implements Serializable {
 
 
     public void mostrarEstatistica(){
-        System.out.println("------- Estatícticas -------");
+        System.out.println("------- Estatísticas -------");
         System.out.println("Deseja imprimir as estatísticas para qual das opções abaixo?");
         System.out.println("a) Por tipo de Jogador[humano ou máquina]");
         System.out.println("b) Por tipo de jogo[general ou de azar] escolhido por um jogador [específico]");
@@ -288,33 +293,37 @@ public class Campeonato implements Serializable {
                     opcao=teclado.nextLine();
 
                     if(opcao.equals("a")){
-                        System.out.printf("Jogo Azar: %d%n",jogoAzar.somaEstatistica());
-
+                        for (JogoDados j : jogoDados) {//printa o saldo de todas as maquinas
+                            if(j!=null && j instanceof JogoAzar){
+                                System.out.println("Jogo Azar: "+j.somaEstatistica());
+                            }
+                         }
+                        
                     }
-                    else if(opcao.equals("g")){
-                        System.out.printf("Jogo General: %d%n",jogoGeneral.somaEstatistica());
-                    }
+                    // else if(opcao.equals("g")){
+                    //     System.out.printf("Jogo General: %d%n",jogoDados.somaEstatistica());
+                    // }
                 }while(!opcao.equals("a")|| !opcao.equals("g"));
 
                 break;
-            case "c":
+            // case "c":
                 
-                System.out.printf("Jogo Azar: %d%n",jogoAzar.somaEstatistica());
-                System.out.printf("Jogo General: %d%n",jogoGeneral.somaEstatistica());
-                break;
-            case "d":
-                System.out.printf("Total do Campeonato: %d%n",jogoGeneral.somaEstatistica()+jogoAzar.somaEstatistica());
-                break;
+            //     System.out.printf("Jogo Azar: %d%n",jogoDados.somaEstatistica());
+            //     System.out.printf("Jogo General: %d%n",jogoDados.somaEstatistica());
+            //     break;
+            // case "d":
+            //     System.out.printf("Total do Campeonato: %d%n",jogoDados.somaEstatistica()+jogoDados.somaEstatistica());
+            //     break;
         
             default:
                 System.out.println ("Opcao invalida. Tente novamente");
         }
     }
 
-    public int somaJogadas(int jogante){
+    public int somaJogadas(Jogador player){
             int soma=0;
             for(int j=0; j<13; j++){//pra percorrer todos os jogos de cada jogador
-                soma+=players[jogante].getJogoGeneral(j, players[jogante]);
+                soma+=player.getJogoGeneral(j, player);
 
             }  
             return soma; 
