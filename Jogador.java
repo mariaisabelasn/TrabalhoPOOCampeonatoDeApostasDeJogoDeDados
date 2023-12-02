@@ -65,9 +65,8 @@ public abstract class Jogador implements Serializable{
     // }
     public void setJogoDados(JogoDados jogoDados, int i ){//seta jogo general colocando ele no array de jogoDados
         // this.jogoGeneral=jogoGeneral;
-        this.jogosRealizados=i;
+        this.jogosRealizados = i;
         this.jogoDados[jogosRealizados]=jogoDados;
-        jogosRealizados++;
     }
     public JogoDados getJogoDados (int i){
         return this.jogoDados[i];
@@ -109,9 +108,10 @@ public abstract class Jogador implements Serializable{
     }
     }
 
-    public void iniciarJogoGeneral(int i, Jogador player){//vai ter que passar um valor i pro jogaor
+    public void iniciarJogoGeneral(int i, Jogador player){//vai ter que passar um valor i pro jogador
         double valorAposta=0;
         // int i=0;
+        System.out.println(player.getClass());
         JogoGeneral jogoGeneral = (JogoGeneral) player.getJogoDados(player.getJogadasRealizadas());
         do{
             if(player.getJogoDados(player.getJogadasRealizadas()).getValorAposta()>player.getSaldo()){
@@ -151,19 +151,19 @@ public abstract class Jogador implements Serializable{
                     soma += player.getJogoGeneral(k, player);
                 }
                 double novoSaldo = 0;
-                if(soma>(2*jogoGeneral.getJogadas(13))){
+                if(soma>(2*jogoGeneral.getJogadas(12))){
                     System.out.println("Você ganhou a rodada!");
-                    System.out.printf("Seu saldo era de R$ %.2d%n", player.getSaldo());
+                    System.out.printf("Seu saldo era de R$ %.2f\n", player.getSaldo());
                     novoSaldo = valorAposta*2;
                     player.setSaldo(novoSaldo);
-                    System.out.printf("Seu saldo atual é de R$ %.2d%n", player.getSaldo());
+                    System.out.printf("Seu saldo atual é de R$ %.2f\n", player.getSaldo());
                 }
                 else{
                     System.out.println("Você perdeu a rodada!");
-                    System.out.printf("Seu saldo era de R$ %.2d%n", player.getSaldo());
+                    System.out.printf("Seu saldo era de R$ %.2f \n", player.getSaldo());
                     novoSaldo = player.getSaldo() - valorAposta;
                     player.setSaldo(novoSaldo);
-                    System.out.printf("Seu saldo atual é de R$ %.2d%n", player.getSaldo());
+                    System.out.printf("Seu saldo atual é de R$ %.2f \n", player.getSaldo());
                 }
             //}
         }

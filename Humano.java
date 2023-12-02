@@ -8,6 +8,7 @@ public class Humano extends Jogador implements JogarComoHumano{
     private transient Scanner teclado;
     private Jogador humano;
     private Campeonato campeonato;
+    private Dado[] dados;
 
 
     public Humano(String nome, String tipoJogador, String cpf,double saldo){
@@ -18,6 +19,7 @@ public class Humano extends Jogador implements JogarComoHumano{
         this.numeroBanco = 007; 
         this.teclado=new Scanner(System.in);
         this.campeonato=new Campeonato();
+        dados=new Dado[5];
     }
 
     @Override
@@ -42,7 +44,7 @@ public class Humano extends Jogador implements JogarComoHumano{
             }while(valorAposta==0);
             
             // jogoGeneral = new JogoGeneral(valorAposta);
-            JogoDados jg =new JogoGeneral(valorAposta);//outro indice
+            JogoDados jg =new JogoGeneral(valorAposta, dados);//outro indice
             player.setJogoDados(jg, player.getJogadasRealizadas());
 
             //JogoGeneral jogoGeneral = (JogoGeneral) players[i].getJogoDados(players[i].getJogadasRealizadas()); //conversão pra jogo general
@@ -128,12 +130,12 @@ public class Humano extends Jogador implements JogarComoHumano{
                         if(opcao<=0||opcao>13 || jogoGeneral.getJogadas(opcao-1)!=-1){
                             System.out.println("Jogada inválida, escolha outra.");
                         }
-                }
-
+                    }
+                    
                         if (jogoGeneral.getJogadas(opcao-1)==-1) { //se a jogada ainda nao tiver sido feita
                             jogoGeneral.setJogadas(opcao-1, jogoGeneral.pontuarJogada(opcao));
                         } 
-                    } while (jogoGeneral.getJogadas(opcao-1)==-1);
+                } while (jogoGeneral.getJogadas(opcao-1)==-1);
         }
       return 0;
     }

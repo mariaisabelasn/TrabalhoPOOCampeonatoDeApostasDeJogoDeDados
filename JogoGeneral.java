@@ -2,12 +2,12 @@ import java.io.Serializable;
 import java.util.Scanner;
 public class JogoGeneral extends JogoDados implements Serializable{
     private Dado[] dados;
-    private int[] jogadas;  
+    private int[] jogadas;
     private int[] qtdFaces;
     private Jogador[] players;
     private int i, contJogadores;
     private Scanner teclado;
-    private JogoDados[] jogoDados;
+    private JogoDados jogoDados;
 
 
     public JogoGeneral(double valorAposta) {
@@ -26,68 +26,98 @@ public class JogoGeneral extends JogoDados implements Serializable{
         }
     }
 
-    /*public void iniciarJogoGeneral(int i){//vai ter que passar um valor i pro jogaor
-        double valorAposta=0;
-        // int i=0;
-        JogoGeneral jogoGeneral = (JogoGeneral) players[i].getJogoDados(players[i].getJogadasRealizadas());
-        do{
-            if(getValorAposta()>players[i].getSaldo()){
-                System.out.println("Saldo insuficiente! Aposte outro valor");
-                valorAposta = teclado.nextFloat();
-                players[i].setSaldo(valorAposta);
-            }
-        }while(getValorAposta()>players[i].getSaldo());
+    // public void iniciarJogoGeneral(){
+    //     double valorAposta=0;
+    //     int i=0;
+    //     do{
+    //         if(getValorAposta()>players[i].getSaldo()){
+    //             System.out.println("Saldo insuficiente! Aposte outro valor");
+    //             valorAposta = teclado.nextDouble();
+    //             teclado.nextLine();
+    //             players[i].setSaldo(valorAposta);
+    //         }
+    //     }while(getValorAposta()>players[i].getSaldo());
 
-       // for(i = 0; i < contJogadores; i++) { // para iniciar ou resetar as jogadas e poder começar o campeonato novamente jogo general
-            for(int j = 0; j < 13; j++){// para iniciar ou resetar as jogadas e poder começar o campeonato novamente jogo general
-                jogoGeneral.setJogadas(j, -1);
-            }
-        //}
+    //     for(i = 0; i < contJogadores; i++) { // para iniciar ou resetar as jogadas e poder começar o campeonato novamente jogo general
+    //         for(int j = 0; j < 13; j++){
+    //             players[i].getJogoGeneral(i).setJogadas(j, -1);
+    //         }
+    //     }
          
-        for (int j = 0; j < 13; j++) {
-           // for (i = 0; i < contJogadores; i++) {//NÃO DEVE EXISTIR PQ É UM UNICO JOGADOR POR VEZ
-                System.out.println(">>Rolando dados para " + players[i].getNome());
-                System.out.print("Valores obtidos: ");// imprime sem pular a linha pros dados ficarem do lado
-                players[i].getJogoDados(players[i].getJogadasRealizadas()).rolarDados(5);
-                qtdFaces = somarFacesSorteadas(dados);
-                // players[i].getJogoDados(players[i].getJogadasRealizadas()).
-                mostrarDados();//tava grudado na linha de cima
-                int opcao = 0;
+    //     for (int j = 0; j < 13; j++) {
+    //         for (i = 0; i < contJogadores; i++) {
+    //             System.out.println(">>Rolando dados para " + players[i].getNome());
+    //             System.out.print("Valores obtidos: ");// imprime sem pular a linha pros dados ficarem do lado
+    //             players[i].getJogoDados(i).rolarDados(5);
+    //             qtdFaces = somarFacesSorteadas(dados);
+    //             mostrarDados();
+    //             int opcao = 0;
 
-                if(players[i] instanceof Humano){ //faz a parada só jogar se o player for humano
-                    Humano humano = (Humano) players[i];
-                    humano.escolherJogada();
-                }
-                else if(players[i] instanceof Maquina){ ///faz a parada só jogar se o player for maquina
-                    Maquina maquina = (Maquina) players[i];
-                    maquina.aplicarEstrategia();
-                }
+    //             if(players[i] instanceof Humano){ //faz a parada só jogar se o player for humano
+    //                 Humano humano = (Humano) players[i];
+    //                 humano.escolherJogada();
+    //             }
+    //             else if(players[i] instanceof Maquina){ ///faz a parada só jogar se o player for maquina
+    //                 Maquina maquina = (Maquina) players[i];
+    //                 maquina.aplicarEstrategia();
+    //             }
 
-                int soma=0;
-                for(int k=0;k<13;k++){
-                    soma += players[i].getJogoGeneral(k, players[i]);
-                }
-                double novoSaldo = 0;
-                if(soma>(2*jogoGeneral.getJogadas(13))){
-                    System.out.println("Você ganhou a rodada!");
-                    System.out.printf("Seu saldo era de R$ %.2d%n", players[i].getSaldo());
-                    novoSaldo = valorAposta*2;
-                    players[i].setSaldo(novoSaldo);
-                    System.out.printf("Seu saldo atual é de R$ %.2d%n", players[i].getSaldo());
-                }
-                else{
-                    System.out.println("Você perdeu a rodada!");
-                    System.out.printf("Seu saldo era de R$ %.2d%n", players[i].getSaldo());
-                    novoSaldo = players[i].getSaldo() - valorAposta;
-                    players[i].setSaldo(novoSaldo);
-                    System.out.printf("Seu saldo atual é de R$ %.2d%n", players[i].getSaldo());
-                }
-            //}
-        }
+                //PARTE DO JOGADOR hUMANO
+                //if (players[i].getTipoJogador().equals("H")|| players[i].getTipoJogador().equals("h")) {
+                    
+                    
+                    // opcao=0;
+                    // do {
+                    //     System.out.println("Para qual jogada deseja marcar: [1-13] " + players[i].getNome() + "?");
+                    //     System.out.println("1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)");
+                    //     players[i].mostrarJogadasExecutadas();
+
+                    //     while(opcao<=0|| opcao>13 || players[i].getJogo().getJogadas(opcao-1)!=-1){//caso o usuário tente escolher uma opcao inexistente ou alguma jogada já feita de novo
+                    //         opcao = teclado.nextInt();
+                    //         teclado.nextLine(); // Limpar o buffer de entrada após a leitura do inteiro
+                    //         if(opcao<=0||opcao>13 || players[i].getJogo().getJogadas(opcao-1)!=-1){
+                    //             System.out.println("Jogada inválida, escolha outra.");
+                    //         }
+                    //     }
+                    //     if (players[i].getJogo().getJogadas(opcao-1)==-1) { //se a jogada ainda nao tiver sido feita
+                    //         this.players[i].getJogo().setJogadas(opcao-1, this.players[i].getJogo().pontuarJogada(opcao));
+                    //     } 
+                    // } while (players[i].getJogo().getJogadas(opcao-1)==-1);INS
 
 
-     }*/
+                //}
+                //else if (players[i].getTipoJogador().equals("M")|| players[i].getTipoJogador().equals("m")){   // Se for do tipo máquina irá escolher a melhor jogada
+                    // opcao=0;
+                    // int melhorPontuacao = 0;
+                    // int melhorJogada=0;
+                    //     while(opcao<13){//basicamente vai ver para aquela rodada qual vai ser a jogada com maior pontuação
+                    //     if(this.players[i].getJogo().getJogadas(opcao)==-1){//se já não for ocupada a jogada
+                    //         int pontuacao = this.players[i].getJogo().pontuarJogada(opcao+1);
+                            
+                    //         if(pontuacao>=melhorPontuacao){//serve p achar a melhor jogada mas vai acabar preenchendo todas as outras do vetor jogadas tbm
+                    //             melhorPontuacao=pontuacao;
+                    //             melhorJogada=opcao;
+                    //             vet[melhorJogada] = 1;//se a jogada já tiver sido usada anteriormente é marcada como 1;
+                    //         }
+                            
+                    //     }
+                       
+                    //     opcao++;
+                    // }
+                    
+                    // for (int k=0; k<13; k++){
+                    //     if(this.players[i].getJogo().getJogadas(k)!= melhorPontuacao && vet[k]!=1){
+                    //         this.players[i].getJogo().setJogadas(k, -1); //resolve o problema de preenchimento de outras jogadas
+                    //     }
+                    // }  
+                    // this.players[i].getJogo().setJogadas(melhorJogada, melhorPontuacao);//pontua para a máquina             
+                    // System.out.println("1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)");
+                    // players[i].mostrarJogadasExecutadas();
+                    // System.out.println("Jogada que a maquina escolheu: "+ (melhorJogada+1));//retorna a jogada feita pela maquina melhorjogada(posição do vet)+1(pra ficar o "nome" da jogada certinho)
+                //}
 
+    //           a
+    
     
     
     // public void rolarDados(int nDados) { // resultados dos 5 dados
@@ -95,17 +125,15 @@ public class JogoGeneral extends JogoDados implements Serializable{
     //         this.dados[i].roll(numFaces);
     //     }
     // }
-    
-    // public int getJogoGeneral(int i, Jogador player) { // Função para pegar as jogadas da "ficha" dos respectivos jogadores.
-        
-    //     return player.getJogoDados(player.getJogadasRealizadas()).getJogadas(i);
-    // }
 
-    public int getJogadas(int i){//pega as jogadas já feitas do vetor jogadas jogo general
+    public int getJogadas(int i){//pega as jogadas já feitas do vetor jogadas
         return this.jogadas[i];
     }
+    public int getJogoGeneral(int i) { // Função para pegar as jogadas da "ficha" dos respectivos jogadores.
+        return this.getJogadas(i);
+    }
 
-    public void setJogadas(int i, int x) {//vai colocar a pontuação das jogadas jogo general
+    public void setJogadas(int i, int x) {//vai colocar a pontuação das jogadas
         jogadas[i] = x;
     }
     

@@ -130,7 +130,8 @@ public class Campeonato implements Serializable {
                 
                 else if(players[i] instanceof Maquina){
                     Maquina maquina = (Maquina) players[i];
-                    jogo = maquina.sorteiaJogo();
+                    //jogo = maquina.sorteiaJogo();
+                    jogo = 1;
                     maquina.iniciarCassino(players[i], jogo, i);
                 }
             

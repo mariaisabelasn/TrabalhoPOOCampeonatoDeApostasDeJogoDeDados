@@ -8,6 +8,7 @@ public class Maquina extends Jogador implements JogarComoMaquina {
     private Random random;
     private Scanner teclado;
     private Campeonato campeonato;
+    private Dado[] dados;
 
     public Maquina(String nome, String tipoJogador, float saldo){
         super(nome, tipoJogador, saldo);
@@ -15,6 +16,7 @@ public class Maquina extends Jogador implements JogarComoMaquina {
         random =new Random();
         this.teclado=new Scanner(System.in);
         this.campeonato=new Campeonato();
+        dados =new Dado[5];
     }
 
     @Override
@@ -39,7 +41,7 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             }while(valorAposta==0);
             
             // jogoGeneral = new JogoGeneral(valorAposta);
-            JogoDados jg =new JogoGeneral(valorAposta);//outro indice
+            JogoDados jg =new JogoGeneral(valorAposta, dados);//outro indice
             player.setJogoDados(jg, player.getJogadasRealizadas());
 
             //JogoGeneral jogoGeneral = (JogoGeneral) players[i].getJogoDados(players[i].getJogadasRealizadas()); //conversão pra jogo general
@@ -85,6 +87,7 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             }while(valorAposta==0);
             
             JogoDados ja =new JogoAzar(valorAposta);//outro indice
+
             player.setJogoDados(ja, player.getJogadasRealizadas());
             
             JogoAzar jogoAzar =(JogoAzar) player.getJogoDados(player.getJogadasRealizadas()); //converte jogo dados em jogo azar
