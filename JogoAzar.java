@@ -13,7 +13,7 @@ public class JogoAzar extends JogoDados{
 
         // Inicialize cada elemento do array dados
         for (int i = 0; i < 2; i++) {
-            this.dados[i] = new Dado(); // Ou use o construtor apropriado de Dado, se existir
+            this.dados[i] = new Dado(); // Ou use o construtor apropriado de Dado, se existir.
         }
     }
 
