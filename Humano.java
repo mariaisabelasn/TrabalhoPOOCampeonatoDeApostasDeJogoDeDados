@@ -3,9 +3,8 @@ public class Humano extends Jogador implements JogarComoHumano{
     private String cpf;
     private String agencia;
     private String conta;
-    private int numeroBanco,i; // verificar i
+    private int numeroBanco; 
     private transient Scanner teclado;
-    private Jogador humano; // verificar
     private Campeonato campeonato;
 
 

@@ -12,12 +12,9 @@ public class Campeonato implements Serializable {
     private int contJogadores;
     private transient Scanner teclado;
     private String nome, biotipo, cpf, opcao;
-    private Humano humano; //verificar
-    private Maquina maquina;//verificar
     private double saldo;
-    private String[] jogos;//verificar
-    private int vet[];
-    private JogoDados[] jogoDados; //array polimorfo
+    private int vet[];//VER PRA QUE SERVIA NO CÓDIGO ANTIGO
+    private JogoDados[] jogoDados; //array polimorfo que recebe instancia do tipo JogoAzar e JogoGeneral
 
     // CONSTRUTOR
     public Campeonato() {

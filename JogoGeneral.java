@@ -1,13 +1,13 @@
-import java.io.Serializable;
-import java.util.Scanner;
-public class JogoGeneral extends JogoDados implements Serializable{
+//import java.io.Serializable;
+//import java.util.Scanner;
+public class JogoGeneral extends JogoDados{
     private Dado[] dados;
     private int[] jogadas;  
     private int[] qtdFaces;
-    private Jogador[] players; // verificar
-    private int i, contJogadores;// verificar
-    private transient Scanner teclado;// verificar
-    private JogoDados[] jogoDados;// verificar
+   // private Jogador[] players; // verificar
+    //private int i, contJogadores;// verificar
+   // private transient Scanner teclado;// verificar
+    //private JogoDados[] jogoDados;// verificar
 
 
     public JogoGeneral(double valorAposta) {
@@ -16,7 +16,7 @@ public class JogoGeneral extends JogoDados implements Serializable{
         dados = new Dado[5];
         jogadas = new int[13];
         qtdFaces = new int[numFaces];
-        teclado = new Scanner(System.in);// scanf do java
+       // teclado = new Scanner(System.in);// scanf do java
 
         for (int i = 0; i < 5; i++) {
             this.dados[i] = new Dado(); // cria os 5 dados
@@ -371,18 +371,4 @@ public class JogoGeneral extends JogoDados implements Serializable{
         System.out.print("\n");
     }
 
-    public boolean resultadoJogoGeneral(){
-        int soma = 0;
-        for (int i = 0 ; i < 12 ; i++) { 
-			if(this.getJogadas(i) !=-1) {
-				soma = this.getJogadas(i); 
-			} 
-		}
-        if(soma>(2*this.getJogadas(13))){
-            //atualizar saldo da aposta
-            return true;
-        }
-        return false;
-    }
-    // esse resultadoJogoGeneral nao esta sendo usasdo entao da pra excluir
 }

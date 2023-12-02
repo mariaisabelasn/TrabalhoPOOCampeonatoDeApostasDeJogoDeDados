@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class JogoAzar extends JogoDados{
     private Dado[] dados;
     private transient Scanner teclado;
-    private Jogador[] players; //verificar
+    //private Jogador[] players; //verificar
 
     public JogoAzar(double valorAposta){
         super(2, "Jogo Azar", valorAposta);

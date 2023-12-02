@@ -5,7 +5,7 @@ public abstract class JogoDados implements Estatistica, Serializable{
     private String nomeJogo;
     private Dado[] dados;
     private int[] cont;// Inicializa o array cont
-    private int[] jogadas; //verificar
+    //private int[] jogadas; //verificar
 
     public JogoDados(int nDados, String nomeJogo, Dado[] dados, double valorAposta){
         this.nDados = nDados;
