@@ -115,6 +115,7 @@ public class Humano extends Jogador implements JogarComoHumano{
                     } 
                     
                 } while (jogoGeneral.getJogadas(opcao-1)==-1);
+                jogoGeneral.setSalvarJogadasG(super.getJogadasRealizadas());//vai passar pro salvador o array de todas as jogadas do jogo
         }
       return 0;
     }

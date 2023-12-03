@@ -65,6 +65,15 @@ public abstract class JogoDados implements Estatistica, Serializable{
     }
 
     public abstract void rolarDados(int nDados);
+
+    // public void setSalvarJogadasG(int j, Jogador player){
+    //     //array de array pra salvar o array de jogadas do general
+    //     //vai ficar na linha 114 Em Humano em baixo do setar no método escolher jogada provelmente em máquina tbm//vai ter que ser antes de recetar
+    //     //j++ 
+    //     JogoGeneral jogoGeneral= (JogoGeneral)player.getJogoDados(j);
+    //     jogoGeneral.jogadasSalvasG[j][]=jogoGeneral.jogadas;
+    
+    // }
     
     
     @Override

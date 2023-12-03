@@ -41,6 +41,8 @@ public class Maquina extends Jogador implements JogarComoMaquina {
 
             if (player instanceof Humano){
                 player.iniciarJogoGeneral(player);
+                JogoGeneral jogoGeneral=(JogoGeneral) player.getJogoDados(player.getJogadasRealizadas());
+                jogoGeneral.setSalvarJogadasG(super.getJogadasRealizadas());//vai passar pro salvador o array de todas as jogadas do jogo general
                 campeonato.mostrarCartela(player);
                 i++; //passa pro outra casa do vetor
                 player.setJogadasRealizadas();
@@ -48,6 +50,8 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             
             else if(player instanceof Maquina){
                 player.iniciarJogoGeneral(player);
+                JogoGeneral jogoGeneral=(JogoGeneral) player.getJogoDados(player.getJogadasRealizadas());
+                jogoGeneral.setSalvarJogadasG(super.getJogadasRealizadas());//vai passar pro salvador o array de todas as jogadas do jogo general 
                 campeonato.mostrarCartela(player);
                 i++;
                 player.setJogadasRealizadas();
@@ -157,6 +161,7 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             System.out.println("Jogada que a maquina escolheu: "+ (melhorJogada+1));//retorna a jogada feita pela maquina melhorjogada(posição do vet)+1(pra ficar o "nome" da jogada certinho)
 
         }
+        
         return 0;
     }
 
