@@ -11,13 +11,10 @@ public class Campeonato implements Serializable {
     private Jogador[] players; 
     private int contJogadores;
     private transient Scanner teclado;
-    private String nome, biotipo, cpf, opcao;
-    private Humano humano; //verificar
-    private Maquina maquina;//verificar
+    private String nome, biotipo, cpf, opcao, opcao1, opcao2, opcao3;
     private double saldo;
-    private String[] jogos;//verificar
-    private int vet[];
-    //private JogoDados[] jogoDados; //array polimorfo
+    private int vet[];//VER PRA QUE SERVIA NO CÓDIGO ANTIGO
+    private JogoDados[] jogoDados; //array polimorfo que recebe instancia do tipo JogoAzar e JogoGeneral
 
     // CONSTRUTOR
     public Campeonato() {
@@ -181,6 +178,68 @@ public class Campeonato implements Serializable {
         System.out.println(jogoDados.somaEstatistica());
     }
 
+    public void mostrarExtratoJG(Jogador player, int i) { // Mostra a Cartela dos extartos do jogo general
+        System.out.println("-- Cartela de Resultados --");
+        System.out.print("Jogada\t");
+
+        System.out.print(player.getNome()+"("+player.getTipoJogador()+")\t\t");
+        System.out.print("\n"); //pula linha quando os nomes terminam
+
+        String[] type={"1", "2", "3", "4", "5", "6", "7(T)", "8(Q)", "9(F)", "10(S+)", "11(S-)", "12(G)", "13(X)"};//string com os "nomes" das jogadas
+        
+        //for(int i=0; i<contJogadores; i++){
+            JogoGeneral jogoGeneral = (JogoGeneral) player.getJogoDados(i);
+            int soma=0;
+            for(int j=0; j<13;j++){
+                System.out.print(type[j]+"\t");//imprime os nomes das jogadas
+                System.out.print(jogoGeneral.getSalvarJogadasG(i, j)+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
+                System.out.print("\n");
+            }
+            soma=somaJogadasDoExtrato(i, jogoGeneral);
+            // }
+        if(contJogadores<=5){//para imprimir linha fofa 
+            System.out.println("-------------------<3-------------------<3-------------------<3-------------------");
+        }
+        else if(contJogadores>5){
+            System.out.println("-------------------<3-------------------<3-------------------<3-------------------<3------------------<3-------------------<3------------------");
+        }
+        System.out.print("Total\t");
+
+        System.out.print(soma+"\t\t");
+        System.out.print("\n");
+    }
+
+    public void mostrarExtratoJG(Jogador player, int i) { // Mostra a Cartela dos extartos do jogo general
+        System.out.println("-- Cartela de Resultados --");
+        System.out.print("Jogada\t");
+
+        System.out.print(player.getNome()+"("+player.getTipoJogador()+")\t\t");
+        System.out.print("\n"); //pula linha quando os nomes terminam
+
+        String[] type={"1", "2", "3", "4", "5", "6", "7(T)", "8(Q)", "9(F)", "10(S+)", "11(S-)", "12(G)", "13(X)"};//string com os "nomes" das jogadas
+        
+        //for(int i=0; i<contJogadores; i++){
+            JogoGeneral jogoGeneral = (JogoGeneral) player.getJogoDados(i);
+            int soma=0;
+            for(int j=0; j<13;j++){
+                System.out.print(type[j]+"\t");//imprime os nomes das jogadas
+                System.out.print(jogoGeneral.getSalvarJogadasG(i, j)+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
+                System.out.print("\n");
+            }
+            soma=somaJogadasDoExtrato(i, jogoGeneral);
+            // }
+        if(contJogadores<=5){//para imprimir linha fofa 
+            System.out.println("-------------------<3-------------------<3-------------------<3-------------------");
+        }
+        else if(contJogadores>5){
+            System.out.println("-------------------<3-------------------<3-------------------<3-------------------<3------------------<3-------------------<3------------------");
+        }
+        System.out.print("Total\t");
+
+        System.out.print(soma+"\t\t");
+        System.out.print("\n");
+    }
+
     public void mostrarSaldo(){
         System.out.println("Deseja imprimir saldo para quem?");
         System.out.println("a) Para todos os Jogadores");
@@ -223,22 +282,108 @@ public class Campeonato implements Serializable {
     }
 
     public void mostrarExtratos(){ //(valores das jogadas [jogo general], valor apostado, ganho ou perda)
-        System.out.println("Deseja imprimir extrato para quem?");
-        System.out.println("a) Para todos os Jogadores");
-        System.out.println("b) Apenas para os jogadores humanos");
-        System.out.println("c) Apenas para os jogadores máquinas");
+        System.out.println("Deseja imprimir extrato de qual jogo?");
+        System.out.println("a) Para o Jogo General");
+        System.out.println("b) Para o Jogo de Azar");
+        System.out.println("c) Para ambos os jogos");
         opcao = teclado.nextLine();
         
         switch (opcao) {
             case "a":
-                for (Jogador p : players) {//printa o saldo de todos os jogadores
-                    if(p!=null){
-                        System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
-                    }
+                System.out.println("Deseja imprimir extrato de qual tipo de jogador?");
+                System.out.println("a) Para todos os jogadores");
+                System.out.println("b) Para jogadores humanos");
+                System.out.println("c) Para jogadores máquinas");
+                opcao1 = teclado.nextLine();
+
+                switch (opcao1) {
+                    case "a"://imprime o extrato do jogo general para todos os jogadores
+                        
+                        break;
+                    case "b"://imprime o extrato do general para todos os jogadores humanos
+                        for (Jogador p : players) {
+                                if(p!=null && p instanceof Humano){
+                                    System.out.println("-> Nome do jogador: "+ p.getNome());
+                                    for (int i=0; i<contJogadores; i++){
+                                        if(p.getJogoDados(i) instanceof JogoGeneral){
+                                            System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
+                                            System.out.println("Esse foi o jogo feito: \n");
+                                            mostrarExtratoJG(p, i);
+                                            
+                                        }
+                                    }
+                                }
+                            }
+
+                        
+                        break;
+                    case "c"://imprime o extrato do general para todos os jogadores máquina
+                    for (Jogador p : players) {
+                                if(p!=null && p instanceof Maquina){
+                                    System.out.println("-> Nome do jogador: "+ p.getNome());
+                                    //for (int i=0; i<contJogadores; i++){
+                                    for(int j=0; j<10; j++){
+                                            if(p.getJogoDados(j) instanceof JogoGeneral){
+                                                System.out.println("Jogo General, "+(j+1)+"º jogo realizado");
+                                                System.out.println("Esse foi o jogo feito: \n");
+                                                mostrarExtratoJG(p, j);
+                                                
+                                            }
+                                        }
+                                  //  }
+                                }
+                            }
+                        
+                        break;
+                
+                
+                    default:
+                        break;
                 }
+
+
+                // for (Jogador p : players) {//imprime o extrato do jogo general
+                //     if(p!=null){
+                //         System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                //     }
+                // }
                 break;
 
             case "b":
+                System.out.println("Deseja imprimir extrato de qual tipo de jogador?");
+                System.out.println("a) Para todos os jogadores");
+                System.out.println("b) Para jogadores humanos");
+                System.out.println("c) Para jogadores máquinas");
+                opcao1 = teclado.nextLine();
+
+                switch (opcao1) {
+                    case "a"://imprime o extrato do jogo azar para todos os jogadores
+                        
+                        break;
+                    case "b"://imprime o extrato do jogo azar para todos os jogadores humanos
+                        
+                        break;
+                    case "c"://imprime o extrato do jogo azar para todos os jogadores máquina
+                        for (Jogador p : players) {
+                            if(p!=null && p instanceof Maquina){
+                                System.out.println("-> Nome do jogador: "+ p.getNome());
+                                for (int i=0; i<10; i++){
+                                    if(p.getJogoDados(i) instanceof JogoAzar){
+                                        System.out.println("Jogo Azar, "+i+"º jogo realizado");
+                                        System.out.println("Valor apostado:");//vaomos precisar de um array de apostas feitas em cada jogada
+                                        System.out.println("Valor Ganho/Perdido: "); //vamo precisar de um array que grave um se na posição se o jogador ganhar o jogo e -1 se perder
+                                    }
+                                }
+                            }
+                        }
+                        
+                        break;
+                
+                
+                    default:
+                        break;
+                }
+
                 for (Jogador p : players) {//printa o saldo de todos os humanos
                     if(p!=null && p instanceof Humano){
                         System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
@@ -247,11 +392,32 @@ public class Campeonato implements Serializable {
                 break;
             
             case "c":
-                for (Jogador p : players) {//printa o saldo de todas as maquinas
-                    if(p!=null && p instanceof Maquina){
-                        System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
-                    }
+                System.out.println("Deseja imprimir extrato de qual tipo de jogador?");
+                System.out.println("a) Para todos os jogadores");
+                System.out.println("b) Para jogadores humanos");
+                System.out.println("c) Para jogadores máquinas");
+                opcao1 = teclado.nextLine();
+
+                switch (opcao1) {
+                    case "a"://imprime o extrato dos dois jogos  para todos os jogadores
+                        
+                        break;
+                    case "b"://imprime o extrato dos dois jogos para todos os jogadores humanos
+                        
+                        break;
+                    case "c"://imprime o extrato do dos dois jogos para todos os jogadores máquina
+                        
+                        break;
+                
+                
+                    default:
+                        break;
                 }
+                // for (Jogador p : players) {//printa o saldo de todas as maquinas
+                //     if(p!=null && p instanceof Maquina){
+                //         System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                //     }
+                // }
                 break;
         
             default:
@@ -339,6 +505,15 @@ public class Campeonato implements Serializable {
                 soma+=player.getJogoGeneral(j, player);
 
             }  
+            return soma; 
+    }
+
+    public int somaJogadasDoExtrato(int i, JogoGeneral jogoGeneral){
+            int soma=0;
+            for(int j=0; j<13; j++){//pra percorrer todos os jogos de cada jogador
+                soma+=jogoGeneral.getSalvarJogadasG(i, j);
+
+           }  
             return soma; 
     }
 

@@ -1,22 +1,18 @@
-import java.io.Serializable;
-import java.util.Scanner;
-public class JogoGeneral extends JogoDados implements Serializable{
+//import java.io.Serializable;
+//import java.util.Scanner;
+public class JogoGeneral extends JogoDados{
     private Dado[] dados;
     private int[] jogadas;  
     private int[] qtdFaces;
-    private Jogador[] players; // verificar
-    private int i, contJogadores;// verificar
-    private transient Scanner teclado;// verificar
-    private JogoDados[] jogoDados;// verificar
-
-
+    private int[][] jogadasSalvasG;
+ 
     public JogoGeneral(double valorAposta) {
         super(5, "Jogo General", valorAposta);
 
         dados = new Dado[5];
         jogadas = new int[13];
         qtdFaces = new int[numFaces];
-        teclado = new Scanner(System.in);// scanf do java
+        jogadasSalvasG = new int[13][13];//array de array pra salvar todas as jogadas de todos os jogos generais
 
         for (int i = 0; i < 5; i++) {
             this.dados[i] = new Dado(); // cria os 5 dados
@@ -33,6 +29,17 @@ public class JogoGeneral extends JogoDados implements Serializable{
 
     public void setJogadas(int i, int x) {//vai colocar a pontuação das jogadas jogo general
         jogadas[i] = x;
+    }
+
+    public void setSalvarJogadasG(int j){
+        //array de array pra salvar o array de jogadas do general
+        //vai ficar na linha 114 Em Humano em baixo do setar no método escolher jogada provelmente em máquina tbm//vai ter que ser antes de recetar
+        //j++ 
+        this.jogadasSalvasG[j]=jogadas;
+    
+    }
+    public int getSalvarJogadasG(int i, int j){
+        return this.jogadasSalvasG[i][j];          
     }
     
     public String toString() { //transforma o array de dados em uma string

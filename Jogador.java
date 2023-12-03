@@ -6,9 +6,10 @@ public abstract class Jogador implements Serializable{
     private double saldo;
     private JogoDados[] jogoDados; //Array polimorfo
     private int jogosRealizados= 0;
-    private double valorAposta; //verificar
-    private int i=0;//verificar
-    private Dado dados;//verificar
+    private double valorAposta; 
+   // private int opcao;
+    //private int i=0;//verificar
+   // private Dado dados;//verificar
     private transient Scanner teclado;
     private int[] qtdFaces;
 
@@ -73,6 +74,8 @@ public abstract class Jogador implements Serializable{
         this.tipoJogador=null;
         this.saldo=0;
         this.jogoDados=null;
+
+        //BOTAR UM IF PRA HUMANO PROVAVEL TER QUE PASSAR O PLAYER, PRA TIRAR AGENCIA CPF CONTA, ou um dell pra cada com override em humano e máquina
     }
 
     public void mostrarJogadasExecutadas() {//mostra jogadas executadas do jogo general
@@ -92,7 +95,7 @@ public abstract class Jogador implements Serializable{
     }
 
     public void iniciarJogoGeneral(Jogador player){//vai ter que passar um valor i pro jogaor
-        double valorAposta=0;
+        valorAposta=0;
         JogoGeneral jogoGeneral = (JogoGeneral) player.getJogoDados(player.getJogadasRealizadas());
         do{
             if(player.getJogoDados(player.getJogadasRealizadas()).getValorAposta()>player.getSaldo()){
@@ -117,7 +120,7 @@ public abstract class Jogador implements Serializable{
                 //player.getJogoDados(player.getJogadasRealizadas()).setCont(qtdFaces);
                 //player.getJogoDados(player.getJogadasRealizadas()).setCont(qtdFaces);
                 jogoGeneral.mostrarDados();//tava grudado na linha de cima
-                int opcao = 0;
+               
 
                 if(player instanceof Humano){ //faz a parada só jogar se o player for humano
                     Humano humano = (Humano) player;
