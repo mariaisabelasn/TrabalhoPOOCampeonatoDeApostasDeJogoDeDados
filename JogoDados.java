@@ -28,6 +28,7 @@ public abstract class JogoDados implements Estatistica, Serializable{
         }
         this.valorAposta = valorAposta;
         cont = new int[numFaces];
+        armazenadorDeApostas=new double[10][10];
     }
 
     public String getNomeJogo(){
