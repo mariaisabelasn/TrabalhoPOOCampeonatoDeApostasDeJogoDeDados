@@ -33,12 +33,10 @@ public class JogoGeneral extends JogoDados{
 
     public void setSalvarJogadasG(int j){
         //array de array pra salvar o array de jogadas do general
-        //vai ficar na linha 114 Em Humano em baixo do setar no método escolher jogada provelmente em máquina tbm//vai ter que ser antes de recetar
-        //j++ 
         this.jogadasSalvasG[j]=jogadas;
     
     }
-    public int getSalvarJogadasG(int i, int j){
+    public int getSalvarJogadasG(int i, int j){ //recebe o indice do jogador e da jogada
         return this.jogadasSalvasG[i][j];          
     }
     

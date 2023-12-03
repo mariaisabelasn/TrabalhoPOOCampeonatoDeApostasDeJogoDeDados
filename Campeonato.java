@@ -291,7 +291,7 @@ public class Campeonato implements Serializable {
         opcao = teclado.nextLine();
         
         switch (opcao) {
-            case "a":
+            case "a"://JOGO GENERAL
                 System.out.println("Deseja imprimir extrato de qual tipo de jogador?");
                 System.out.println("a) Para todos os jogadores");
                 System.out.println("b) Para jogadores humanos");
@@ -300,13 +300,30 @@ public class Campeonato implements Serializable {
 
                 switch (opcao1) {
                     case "a"://imprime o extrato do jogo general para todos os jogadores
+                        for (Jogador p : players){
+                                  if(p!=null){
+                                    System.out.println("-> Nome do jogador: "+ p.getNome());
+                                    for(int j=0; j<contJogadores; j++){
+                                        for (int i=0; i<10; i++){
+                                            if(p.getJogoDados(i) instanceof JogoGeneral){
+                                                System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
+                                            // p.getJogoDados(i).setArmazenarAposta(i, p.getJogoDados(i).getArrayAposta());
+                                                System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                                System.out.println("Esse foi o jogo feito: \n");
+                                                mostrarExtratoJG(p, i);
+                                                
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         
                         break;
                     case "b"://imprime o extrato do general para todos os jogadores humanos
                         for (Jogador p : players) {
                                 if(p!=null && p instanceof Humano){
                                     System.out.println("-> Nome do jogador: "+ p.getNome());
-                                    for (int i=0; i<contJogadores; i++){
+                                    for (int i=0; i<10; i++){
                                         if(p.getJogoDados(i) instanceof JogoGeneral){
                                             System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
                                             System.out.println("Esse foi o jogo feito: \n");
@@ -343,15 +360,9 @@ public class Campeonato implements Serializable {
                         break;
                 }
 
-
-                // for (Jogador p : players) {//imprime o extrato do jogo general
-                //     if(p!=null){
-                //         System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
-                //     }
-                // }
                 break;
 
-            case "b":
+            case "b"://JOGO AZAR
                 System.out.println("Deseja imprimir extrato de qual tipo de jogador?");
                 System.out.println("a) Para todos os jogadores");
                 System.out.println("b) Para jogadores humanos");
