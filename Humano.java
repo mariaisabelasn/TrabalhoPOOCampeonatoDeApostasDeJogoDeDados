@@ -26,7 +26,7 @@ public class Humano extends Jogador implements JogarComoHumano{
                 if (player instanceof Humano){
                     System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
                     valorAposta = teclado.nextDouble();
-
+                    player.getJogoDados(player.getJogadasRealizadas()).setArrayAposta(valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                     if(valorAposta==0){
                     System.out.println("Aposte algum valor!");
                 }
@@ -34,6 +34,7 @@ public class Humano extends Jogador implements JogarComoHumano{
                 else if(player instanceof Maquina){
                     Maquina maquina=(Maquina) player;
                     valorAposta= maquina.quantoApostar();//para ver quanto a maquina aposta
+                    player.getJogoDados(player.getJogadasRealizadas()).setArrayAposta(valorAposta, player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                     System.out.println("Valor apostado pela máquina: R$"+valorAposta);//mostra o valor que a máquina apostou
                 }
                 
@@ -62,7 +63,7 @@ public class Humano extends Jogador implements JogarComoHumano{
                 if (player instanceof Humano){
                     System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
                     valorAposta = teclado.nextDouble();
-
+                    player.getJogoDados(player.getJogadasRealizadas()).setArrayAposta(valorAposta, player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo                   
                     if(valorAposta==0){
                     System.out.println("Aposte algum valor!");
                 }
@@ -70,6 +71,7 @@ public class Humano extends Jogador implements JogarComoHumano{
                 else if(player instanceof Maquina){
                     Maquina maquina=(Maquina) player;
                     valorAposta= maquina.quantoApostar();//para ver quanto a maquina aposta
+                    player.getJogoDados(player.getJogadasRealizadas()).setArrayAposta(valorAposta, player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                     System.out.println("Valor apostado pela máquina: R$"+valorAposta);//mostra o valor que a máquina apostou
                 }
             }while(valorAposta==0);

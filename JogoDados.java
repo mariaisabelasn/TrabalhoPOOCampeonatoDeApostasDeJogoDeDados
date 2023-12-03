@@ -5,7 +5,8 @@ public abstract class JogoDados implements Estatistica, Serializable{
     private String nomeJogo;
     private Dado[] dados;
     private int[] cont;// Inicializa o array cont
-    //private int[] jogadas; //verificar
+    private double[][] armazenadorDeApostas;
+    private double[] arrayApostas;
 
     public JogoDados(int nDados, String nomeJogo, Dado[] dados, double valorAposta){
         this.nDados = nDados;
@@ -13,6 +14,8 @@ public abstract class JogoDados implements Estatistica, Serializable{
         this.dados = dados;
         this.valorAposta = valorAposta;
         cont = new int[numFaces];
+        armazenadorDeApostas=new double[10][10];
+        arrayApostas=new double[10];
     }
 
     // Sobrecarga
@@ -41,6 +44,24 @@ public abstract class JogoDados implements Estatistica, Serializable{
 
     public void setValorAposta(double valorAposta){
         this.valorAposta = valorAposta;
+    }
+
+    public void setArrayAposta(double valorAposta, int i){//recebe o numero do jogo
+        this.arrayApostas[i]=valorAposta;
+
+    }
+
+    public double[] getArrayAposta(){
+        return arrayApostas;
+    }
+
+    public void setArmazenarAposta(int i, double valorAposta, int j){//recebe indice do player e o array de apostas, indice jogo
+        this.armazenadorDeApostas[i][j]=valorAposta;
+
+    }
+
+    public double getArmazenadorDeApostas(int i, int j) {//recebe o indice do player e o indice do jogo
+        return this.armazenadorDeApostas[i][j];
     }
 
     public int getCont(int i){
