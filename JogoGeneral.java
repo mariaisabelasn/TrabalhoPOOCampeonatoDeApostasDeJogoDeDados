@@ -62,6 +62,8 @@ public class JogoGeneral extends JogoDados{
             }
             this.dados[i].roll(numFaces);
         }
+        int[] qtd = somarFacesSorteadas(dados);
+        setCont(qtd);
     }
 
     public Boolean validarJogada(int njogada) { // vai verificar se a jogada escolhida é valida retorna

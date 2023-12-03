@@ -5,6 +5,7 @@ public abstract class JogoDados implements Estatistica, Serializable{
     private String nomeJogo;
     private Dado[] dados;
     private int[] cont;// Inicializa o array cont
+    private int[][] arrayCont;
     //private int[] jogadas; //verificar
 
     public JogoDados(int nDados, String nomeJogo, Dado[] dados, double valorAposta){
@@ -13,6 +14,7 @@ public abstract class JogoDados implements Estatistica, Serializable{
         this.dados = dados;
         this.valorAposta = valorAposta;
         cont = new int[numFaces];
+        arrayCont = new int[2][10];
     }
 
     // Sobrecarga
@@ -25,6 +27,7 @@ public abstract class JogoDados implements Estatistica, Serializable{
         }
         this.valorAposta = valorAposta;
         cont = new int[numFaces];
+        arrayCont = new int[2][10];
     }
 
     public String getNomeJogo(){
@@ -55,12 +58,24 @@ public abstract class JogoDados implements Estatistica, Serializable{
         this.cont[5] = qtdFaces[5];
     }
 
-    public String somaEstatistica(){
+    public int[] getCont2(){
+        return this.cont;
+    }
+
+    public int getArrayCont(int i , int j) {
+        return this.arrayCont[i][j];
+    }
+
+    public void setArrayCont(int i, int[] cont) {
+        this.arrayCont[i] = cont;
+    }
+
+    public int somaEstatistica(){
         int soma=0;
         for(int i=0;i<6;i++){
             soma += getCont(i);
         }
-        return "Face 1: "+getCont(0)+" Face 2: "+getCont(1)+" Face 3: "+getCont(2)+" Face 4: "+getCont(3)+" Face 5:"+getCont(4)+" Face 6: "+getCont(5)+" Total: "+soma;
+        return soma;//"Face 1: "+getCont(0)+" Face 2: "+getCont(1)+" Face 3: "+getCont(2)+" Face 4: "+getCont(3)+" Face 5:"+getCont(4)+" Face 6: "+getCont(5)+" Total: "+soma;
     }
 
     public Dado[] getdados (){

@@ -23,6 +23,8 @@ public class Campeonato implements Serializable {
         contJogadores = 0;
         teclado = new Scanner(System.in);// scanf do java
         vet = new int[13];
+        jogoDados = new JogoDados[10];
+
 
         for (int i = 0; i < players.length; i++) {
             players[i] = null; // Define cada elemento como nulo
@@ -178,36 +180,36 @@ public class Campeonato implements Serializable {
         System.out.println(jogoDados.somaEstatistica());
     }
 
-    public void mostrarExtratoJG(Jogador player, int i) { // Mostra a Cartela dos extartos do jogo general
-        System.out.println("-- Cartela de Resultados --");
-        System.out.print("Jogada\t");
+    // public void mostrarExtratoJG(Jogador player, int i) { // Mostra a Cartela dos extartos do jogo general
+    //     System.out.println("-- Cartela de Resultados --");
+    //     System.out.print("Jogada\t");
 
-        System.out.print(player.getNome()+"("+player.getTipoJogador()+")\t\t");
-        System.out.print("\n"); //pula linha quando os nomes terminam
+    //     System.out.print(player.getNome()+"("+player.getTipoJogador()+")\t\t");
+    //     System.out.print("\n"); //pula linha quando os nomes terminam
 
-        String[] type={"1", "2", "3", "4", "5", "6", "7(T)", "8(Q)", "9(F)", "10(S+)", "11(S-)", "12(G)", "13(X)"};//string com os "nomes" das jogadas
+    //     String[] type={"1", "2", "3", "4", "5", "6", "7(T)", "8(Q)", "9(F)", "10(S+)", "11(S-)", "12(G)", "13(X)"};//string com os "nomes" das jogadas
         
-        //for(int i=0; i<contJogadores; i++){
-            JogoGeneral jogoGeneral = (JogoGeneral) player.getJogoDados(i);
-            int soma=0;
-            for(int j=0; j<13;j++){
-                System.out.print(type[j]+"\t");//imprime os nomes das jogadas
-                System.out.print(jogoGeneral.getSalvarJogadasG(i, j)+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
-                System.out.print("\n");
-            }
-            soma=somaJogadasDoExtrato(i, jogoGeneral);
-            // }
-        if(contJogadores<=5){//para imprimir linha fofa 
-            System.out.println("-------------------<3-------------------<3-------------------<3-------------------");
-        }
-        else if(contJogadores>5){
-            System.out.println("-------------------<3-------------------<3-------------------<3-------------------<3------------------<3-------------------<3------------------");
-        }
-        System.out.print("Total\t");
+    //     //for(int i=0; i<contJogadores; i++){
+    //         JogoGeneral jogoGeneral = (JogoGeneral) player.getJogoDados(i);
+    //         int soma=0;
+    //         for(int j=0; j<13;j++){
+    //             System.out.print(type[j]+"\t");//imprime os nomes das jogadas
+    //             System.out.print(jogoGeneral.getSalvarJogadasG(i, j)+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
+    //             System.out.print("\n");
+    //         }
+    //         soma=somaJogadasDoExtrato(i, jogoGeneral);
+    //         // }
+    //     if(contJogadores<=5){//para imprimir linha fofa 
+    //         System.out.println("-------------------<3-------------------<3-------------------<3-------------------");
+    //     }
+    //     else if(contJogadores>5){
+    //         System.out.println("-------------------<3-------------------<3-------------------<3-------------------<3------------------<3-------------------<3------------------");
+    //     }
+    //     System.out.print("Total\t");
 
-        System.out.print(soma+"\t\t");
-        System.out.print("\n");
-    }
+    //     System.out.print(soma+"\t\t");
+    //     System.out.print("\n");
+    // }
 
     public void mostrarExtratoJG(Jogador player, int i) { // Mostra a Cartela dos extartos do jogo general
         System.out.println("-- Cartela de Resultados --");
@@ -428,6 +430,17 @@ public class Campeonato implements Serializable {
     }
 
 
+    // public void mostrarEstatisticaJG(){
+    //     for (Jogador p : players) {//printa o saldo de todas as maquinas
+    //         if(p!=null ){
+    //             System.out.println("Jogo Azar: "+j.somaEstatistica());
+    //             jogoDados.somarFacesSorteadas(null);
+    //         }
+    //     }
+    // }
+
+
+
     public void mostrarEstatistica(){
         System.out.println("------- Estatísticas -------");
         System.out.println("Deseja imprimir as estatísticas para qual das opções abaixo?");
@@ -436,8 +449,6 @@ public class Campeonato implements Serializable {
         System.out.println("c) Total por jogos[general e azar]");
         System.out.println("d) Total do campeonato");
         opcao = teclado.nextLine();
-        Jogador player = new Humano(nome,biotipo,cpf,saldo);
-        JogoDados jogoDados = (JogoDados)player.getJogoDados(player.getJogadasRealizadas());
         
         switch (opcao) {
             case "a":
@@ -445,22 +456,26 @@ public class Campeonato implements Serializable {
                     System.out.println("Humano (h) ou máquina (m)? ");
                     opcao=teclado.nextLine();
 
-                    // if(opcao.equals("h")){
-                    //     for (int j = 0; j < contJogadores; j++) {
-                    //         if (player[j] instanceof Humano) {
-                    //                 player[j].getJogoDados(player[j].getJogadasRealizadas()).somaEstatistica();
-                                
-                    //         }
-                    //     }
-
-                    // }
-                     if(opcao.equals("m")){
-                        for (Jogador p : players) {//printa a estatistica de todos os humanos
-                            if(p!=null && p instanceof Maquina){
-                                System.out.println("Jogo Azar: "+jogoDados.somaEstatistica());
+                    if(opcao.equals("h")){
+                        for (Jogador p : players) {//printa o saldo de todos os jogadores
+                            if(p!=null && p instanceof Humano){
+                                System.out.println(p);
+                                JogoDados jogoDados = p.getJogoDados(p.getJogadasRealizadas());
+                                System.out.println(jogoDados);
+                                for(i=0;i<6;i++){
+                                    System.out.printf("Face "+(i+1)+": %d",jogoDados.getCont(i));
+                                }
+                                //System.out.println("Total: "+p.getJogoDados(p.getJogadasRealizadas()).somaEstatistica());
                             }
                         }
                     }
+                    //  if(opcao.equals("m")){
+                    //     for (Jogador p : players) {
+                    //         if(p!=null && p instanceof Maquina){
+                    //             System.out.println("Jogo Azar: "+jogoDados.somaEstatistica());
+                    //         }
+                    //     }
+                    // }
                 }while(!opcao.equals("h")|| !opcao.equals("m"));
 
                 break;
@@ -470,12 +485,21 @@ public class Campeonato implements Serializable {
                     opcao=teclado.nextLine();
 
                     if(opcao.equals("a")){
-                        // for (JogoDados j : jogoDados) {//printa o saldo de todas as maquinas
-                        //     if(j!=null && j instanceof JogoAzar){
-                        //         System.out.println("Jogo Azar: "+j.somaEstatistica());
-                        //         jogoDados.somarFacesSorteadas(null);
-                        //     }
-                        //  }
+                        for (Jogador p : players) {//printa o saldo de todos os jogadores
+                            if(p!=null){
+                                JogoDados j = (JogoDados)p.getJogoDados(p.getJogadasRealizadas());
+                                //System.out.println(j);
+                                if(j!=null && j instanceof JogoAzar){
+                                    System.out.println("Jogo Azar: ");
+                                    for(i=0;i<6;i++){
+                                        System.out.println("Face "+(i+1)+": "+j.getArrayCont(0,i));
+                                    }
+                                System.out.println("Total: "+j.somaEstatistica());
+                                }
+                        
+
+                            }
+                        }
                         
                     }
                     else if(opcao.equals("g")){

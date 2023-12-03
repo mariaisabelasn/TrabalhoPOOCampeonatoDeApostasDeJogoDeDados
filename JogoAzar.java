@@ -36,7 +36,7 @@ public class JogoAzar extends JogoDados{
 
         // Rola os dados e calcula a soma das faces
         player.getJogoDados(player.getJogadasRealizadas()).rolarDados(2);
-        int qtdFaces[] = somarFacesSorteadas(dados);
+        //int qtdFaces[] = somarFacesSorteadas(dados);
 
         System.out.println("1º Lançamento");
 
@@ -67,7 +67,7 @@ public class JogoAzar extends JogoDados{
             do {
                 // Rolagem dos dados para encontrar o número a ser buscado
                 player.getJogoDados(player.getJogadasRealizadas()).rolarDados(2);
-                qtdFaces = somarFacesSorteadas(dados);
+                //qtdFaces = somarFacesSorteadas(dados);
 
                 novaSoma = dados[0].getSideUp()+dados[1].getSideUp();
 
@@ -93,7 +93,8 @@ public class JogoAzar extends JogoDados{
                     break;
                 }
                 i++;
-                System.out.println("1: "+qtdFaces[0] +" 2: "+qtdFaces[1]+" 3: "+qtdFaces[2] +" 4: "+qtdFaces[3]+" 5: "+qtdFaces[4] +" 6: "+qtdFaces[5]);
+                System.out.println("1: "+getCont(0) +" 2: "+getCont(1)+" 3: "+getCont(2)+" 4: "+getCont(3)+" 5: "+getCont(4) +" 6: "+getCont(5));
+                setArrayCont(0, getCont2());
             } while (novaSoma != soma || (novaSoma == 2 || novaSoma == 3 || novaSoma == 12));
         }
     }
@@ -108,6 +109,8 @@ public class JogoAzar extends JogoDados{
             }
             this.dados[i].roll(numFaces);
         }
+        int[] qtd = somarFacesSorteadas(dados);
+        setCont(qtd);
     }
 
     public String toString() {    
