@@ -93,8 +93,6 @@ public class JogoAzar extends JogoDados{
                     break;
                 }
                 i++;
-                System.out.println("1: "+getCont(0) +" 2: "+getCont(1)+" 3: "+getCont(2)+" 4: "+getCont(3)+" 5: "+getCont(4) +" 6: "+getCont(5));
-                setArrayCont(0, getCont2());
             } while (novaSoma != soma || (novaSoma == 2 || novaSoma == 3 || novaSoma == 12));
         }
     }

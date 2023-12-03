@@ -113,12 +113,6 @@ public abstract class Jogador implements Serializable{
                 System.out.println(">>Rolando dados para " + player.getNome());
                 System.out.print("Valores obtidos: ");// imprime sem pular a linha pros dados ficarem do lado
                 player.getJogoDados(player.getJogadasRealizadas()).rolarDados(5);
-                //qtdFaces = player.getJogoDados(player.getJogadasRealizadas()).somarFacesSorteadas(player.getJogoDados(j));
-                // for(i=0;i<6;i++){
-                //     System.out.println(qtdFaces[i]);
-                // }
-                //player.getJogoDados(player.getJogadasRealizadas()).setCont(qtdFaces);
-                //player.getJogoDados(player.getJogadasRealizadas()).setCont(qtdFaces);
                 jogoGeneral.mostrarDados();//tava grudado na linha de cima
                
 
