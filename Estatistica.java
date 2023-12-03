@@ -1,7 +1,7 @@
 public interface Estatistica {
-    short numFaces = 6;
+    public static final short numFaces = (short)6;
 
-    public int[] somarFacesSorteadas(Dado[] dados);
+    public abstract int[] somarFacesSorteadas(Dado[] dados);
 
 
 }
