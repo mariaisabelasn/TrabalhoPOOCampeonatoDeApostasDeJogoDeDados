@@ -1,17 +1,17 @@
 //import java.io.Serializable;
 //import java.util.Scanner;
+// Nessa classe usamos herança e herança multipla
+
 public class JogoGeneral extends JogoDados{
     private Dado[] dados;
     private int[] jogadas;  
-    private int[] qtdFaces;
     private int[][] jogadasSalvasG;
  
     public JogoGeneral(double valorAposta) {
-        super(5, "Jogo General", valorAposta);
+        super(5, "Jogo General", valorAposta);//HERANÇA
 
         dados = new Dado[5];
         jogadas = new int[13];
-        qtdFaces = new int[numFaces];
         jogadasSalvasG = new int[13][13];//array de array pra salvar todas as jogadas de todos os jogos generais
 
         for (int i = 0; i < 5; i++) {
@@ -51,7 +51,7 @@ public class JogoGeneral extends JogoDados{
         }
         return result;
     }
-
+    //SOBRESCRITA DA HERANÇA
     @Override
     public void rolarDados(int nDados) { // resultados dos 2 dados
         for (int i = 0; i < nDados; i++) {

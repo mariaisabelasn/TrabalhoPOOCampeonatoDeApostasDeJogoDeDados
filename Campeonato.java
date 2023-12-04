@@ -8,9 +8,8 @@ import java.io.Serializable;
 
 public class Campeonato implements Serializable {
     private int n = 10, i=0;
-    private Jogador[] players; 
+    private Jogador[] players; //array polimorfo que recebe instancia do tipo Maquina e Humano
     private int contJogadores;
-    private transient Scanner teclado;
     private String nome, biotipo, cpf, opcao, opcao1, opcao2, opcao3;
     private double saldo;
     //private int vet[];//VER PRA QUE SERVIA NO CÓDIGO ANTIGO
@@ -18,12 +17,11 @@ public class Campeonato implements Serializable {
 
     // CONSTRUTOR
     public Campeonato() {
-        n = 10;
-        players = new Jogador[n]; // vetor dos jogadores do campeonato
-        contJogadores = 0;
-        teclado = new Scanner(System.in);// scanf do java
+        this.n = 10;
+        this.players = new Jogador[n]; // vetor dos jogadores do campeonato
+        this.contJogadores = 0;
         //vet = new int[13];
-        jogoDados = new JogoDados[10];
+        this.jogoDados = new JogoDados[10];
 
 
         for (int i = 0; i < players.length; i++) {
@@ -32,6 +30,7 @@ public class Campeonato implements Serializable {
     }
 
     public void incluirjogador() {
+        Scanner teclado= new Scanner(System.in);
         saldo=0;
         if (contJogadores < n && players[contJogadores] == null) {
 
@@ -64,6 +63,8 @@ public class Campeonato implements Serializable {
     } 
 
     public void removerJogador() {
+        Scanner teclado= new Scanner(System.in);
+
         System.out.println("Jogadores:");
         if(contJogadores==0){
             System.out.println("Não há jogadores para excluir");
@@ -111,13 +112,13 @@ public class Campeonato implements Serializable {
             int jogo=0;
             
             if(players[i]!=null){
-                if(players[i] instanceof Humano){ // se for humano
+                if(players[i] instanceof Humano){ // se for humano -- POLIMORFISMO
                     Humano humano = (Humano) players[i];
                     jogo = humano.escolherJogo();
                     humano.iniciarCassino(players[i], jogo, i);
                 }
                 
-                else if(players[i] instanceof Maquina){// se for maquina
+                else if(players[i] instanceof Maquina){// se for maquina --POLIMORFISMO
                     Maquina maquina = (Maquina) players[i];
                     jogo = maquina.sorteiaJogo();
                     maquina.iniciarCassino(players[i], jogo, i);
@@ -245,6 +246,8 @@ public class Campeonato implements Serializable {
     }
 
     public void mostrarSaldo(){
+        Scanner teclado= new Scanner(System.in);
+
         System.out.println("Deseja imprimir saldo para quem?");
         System.out.println("a) Para todos os Jogadores");
         System.out.println("b) Apenas para os jogadores humanos");
@@ -263,7 +266,7 @@ public class Campeonato implements Serializable {
 
             case "b":
                 for (Jogador p : players) {//printa o saldo de todos os humanos
-                    if(p!=null && p instanceof Humano){
+                    if(p!=null && p instanceof Humano){ //POLIMORFISMO
                         System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
                     }
                 }
@@ -272,7 +275,7 @@ public class Campeonato implements Serializable {
             
             case "c":
                 for (Jogador p : players) {//printa o saldo de todas as maquinas
-                    if(p!=null && p instanceof Maquina){
+                    if(p!=null && p instanceof Maquina){//POLIMORFISMO
                         System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
                     }
                 }
@@ -286,6 +289,7 @@ public class Campeonato implements Serializable {
     }
 
     public void mostrarExtratos(){ //(valores das jogadas [jogo general], valor apostado, ganho ou perda)
+        Scanner teclado= new Scanner(System.in);
         System.out.println("Deseja imprimir extrato de qual jogo?");
         System.out.println("a) Para o Jogo General");
         System.out.println("b) Para o Jogo de Azar");
@@ -630,6 +634,7 @@ public class Campeonato implements Serializable {
 
 
     public void mostrarEstatistica(){
+        Scanner teclado= new Scanner(System.in);
         System.out.println("------- Estatísticas -------");
         System.out.println("Deseja imprimir as estatísticas para qual das opções abaixo?");
         System.out.println("a) Por tipo de Jogador[humano ou máquina]");
@@ -647,7 +652,7 @@ public class Campeonato implements Serializable {
                 switch (opcao1) {
                     case "h":
                         for (Jogador p : players) {//printa a estatistica de todos os jogadores humano
-                            if(p!=null && p instanceof Humano){
+                            if(p!=null && p instanceof Humano){//POLIMORFISMO
                                 for (int i=0; i<p.getJogadasRealizadas(); i++){
                                     JogoDados jogoDados = p.getJogoDados(i);
                                     for(int j=0;j<6;j++){
@@ -669,7 +674,7 @@ public class Campeonato implements Serializable {
 
                     case "m":
                         for (Jogador p : players) {//printa  a estatistica de todos os jogadores maquina
-                            if(p!=null && p instanceof Maquina){
+                            if(p!=null && p instanceof Maquina){//POLIMORFISMO
                                 for (int i=0; i<p.getJogadasRealizadas(); i++){
                                     JogoDados jogoDados = p.getJogoDados(i);
                                     for(int j=0;j<6;j++){
@@ -707,7 +712,7 @@ public class Campeonato implements Serializable {
                             if(p!=null){
                                 for (int i=0; i<p.getJogadasRealizadas(); i++){
                                     JogoDados jogoDados = p.getJogoDados(i);
-                                    if(jogoDados!=null && jogoDados instanceof JogoGeneral){
+                                    if(jogoDados!=null && jogoDados instanceof JogoGeneral){//POLIMORFISMO
                                         for(int j=0;j<6;j++){
                                             soma[j] += jogoDados.getCont(j);
                                         }
@@ -732,7 +737,7 @@ public class Campeonato implements Serializable {
                             if(p!=null){
                                 for (int i=0; i<p.getJogadasRealizadas(); i++){
                                     JogoDados jogoDados = p.getJogoDados(i);
-                                    if(jogoDados!=null && jogoDados instanceof JogoAzar){
+                                    if(jogoDados!=null && jogoDados instanceof JogoAzar){//POLIMORFISMO
                                         for(int j=0;j<6;j++){
                                             soma[j] += jogoDados.getCont(j);
                                         }
@@ -766,12 +771,12 @@ public class Campeonato implements Serializable {
                     if(p!=null){
                         for (int i=0; i<p.getJogadasRealizadas(); i++){
                             JogoDados jogoDados = p.getJogoDados(i);
-                            if(jogoDados!=null && jogoDados instanceof JogoGeneral){
+                            if(jogoDados!=null && jogoDados instanceof JogoGeneral){//POLIMORFISMO
                                 for(int j=0;j<6;j++){
                                     somaJG[j] += jogoDados.getCont(j);
                                 }
                             }
-                            else if(jogoDados!=null && jogoDados instanceof JogoAzar){
+                            else if(jogoDados!=null && jogoDados instanceof JogoAzar){//POLIMORFISMO
                                 for(int j=0;j<6;j++){
                                     somaJA[j] += jogoDados.getCont(j);
                                 }

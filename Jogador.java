@@ -1,17 +1,14 @@
 import java.io.Serializable;
 import java.util.Scanner;
+
+// Nessa classe usamos polimorfismo
 public abstract class Jogador implements Serializable{
     private String nome = new String();
     private String tipoJogador = new String();
     private double saldo;
-    private JogoDados[] jogoDados; //Array polimorfo
+    private JogoDados[] jogoDados; //Array polimorfo que recebe instancia do tipo JogoAzar e JogoGeneral
     private int jogosRealizados= 0;
     private double valorAposta; 
-   // private int opcao;
-    //private int i=0;//verificar
-   // private Dado dados;//verificar
-    private transient Scanner teclado;
-    private int[] qtdFaces;
 
     // Construtor
     public Jogador(String nome, String tipoJogador, double saldo) {
@@ -24,8 +21,6 @@ public abstract class Jogador implements Serializable{
             this.saldo=saldo;
         }
         jogoDados =new JogoDados[10];//dez jogos dados
-        teclado =new Scanner(System.in);
-        qtdFaces=new int[6];
     }
 
     public String getNome() {// Função para pegar o nome dos respectivos jogadores.
@@ -74,13 +69,16 @@ public abstract class Jogador implements Serializable{
         this.tipoJogador=null;
         this.saldo=0;
         this.jogoDados=null;
+        // if(this.cpf!= null){
+        //     this.cpf = null;
+        // }
+    }
 
         //BOTAR UM IF PRA HUMANO PROVAVEL TER QUE PASSAR O PLAYER, PRA TIRAR AGENCIA CPF CONTA, ou um dell pra cada com override em humano e máquina
-    }
 
     public void mostrarJogadasExecutadas() {//mostra jogadas executadas do jogo general
         // Jogadas já feitas
-        if(getJogoDados(getJogadasRealizadas()) instanceof JogoGeneral){
+        if(getJogoDados(getJogadasRealizadas()) instanceof JogoGeneral){//POLIMORFISMO
             JogoGeneral jogoGeneral = (JogoGeneral) getJogoDados(getJogadasRealizadas());
             for (int i = 0 ; i < 13 ; i++) { 
                 if(jogoGeneral.getJogadas(i) !=-1) {
@@ -94,7 +92,8 @@ public abstract class Jogador implements Serializable{
     }
     }
 
-    public void iniciarJogoGeneral(Jogador player){//vai ter que passar um valor i pro jogaor
+    public void iniciarJogoGeneral(Jogador player){//vai ter que passar um valor i pro jogador
+        Scanner teclado= new Scanner(System.in);
         valorAposta=0;
         JogoGeneral jogoGeneral = (JogoGeneral) player.getJogoDados(player.getJogadasRealizadas());
         do{
@@ -116,11 +115,11 @@ public abstract class Jogador implements Serializable{
                 jogoGeneral.mostrarDados();//tava grudado na linha de cima
                
 
-                if(player instanceof Humano){ //faz a parada só jogar se o player for humano
+                if(player instanceof Humano){ //faz a parada só jogar se o player for humano -- POLIMORFISMO
                     Humano humano = (Humano) player;
                     humano.escolherJogada();
                 }
-                else if(player instanceof Maquina){ ///faz a parada só jogar se o player for maquina
+                else if(player instanceof Maquina){ ///faz a parada só jogar se o player for maquina -- POLIMORFISMO
                     Maquina maquina = (Maquina) player;
                     maquina.aplicarEstrategia();
                 }
@@ -131,10 +130,5 @@ public abstract class Jogador implements Serializable{
 
      }
 
-
-    //fazer uma função para armazenar dez jogos(azar ou general)
-
-    //função pra controlar a conta bancaria (começa sempre em 100)(saldo que vai decrementando e aumentando o valor da conta) 
-            //ter saldo suficiente e n ultrapassar dez apostas
 
 }

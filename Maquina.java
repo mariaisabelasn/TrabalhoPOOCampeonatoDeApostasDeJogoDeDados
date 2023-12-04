@@ -1,63 +1,60 @@
 import java.util.Random;
 import java.util.Scanner;
 
+// Nessa classe usamos polimorfismo, herança e herança multipla
+
 public class Maquina extends Jogador implements JogarComoMaquina {
     private int[] vet;
     private Random random;
-    private transient Scanner teclado;
     private Campeonato campeonato;
 
     public Maquina(String nome, String tipoJogador, double saldo){
-        super(nome, tipoJogador, saldo);
+        super(nome, tipoJogador, saldo); //HERANÇA
         vet=new int[13];
         random =new Random();
-        this.teclado=new Scanner(System.in);
         this.campeonato=new Campeonato();
     }
 
+    //SOBRESCRITA DA HERANÇA
     @Override
     public void iniciarCassino(Jogador player, int jogo, int i) {
+        Scanner teclado= new Scanner(System.in);
         if(jogo==1){
             double valorAposta=0;
             do{
-                if (player instanceof Humano){
+                if (player instanceof Humano){//POLIMORFISMO
                     System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
                     valorAposta = teclado.nextDouble();
-                   // player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i, valorAposta, player.getJogadasRealizadas());
                     if(valorAposta==0){
                     System.out.println("Aposte algum valor!");
                 }
                 }
-                else if(player instanceof Maquina){
+                else if(player instanceof Maquina){//POLIMORFISMO
                     Maquina maquina=(Maquina) player;
                     valorAposta= maquina.quantoApostar();//para ver quanto a maquina aposta
-                    // player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i, valorAposta, player.getJogadasRealizadas());
                     System.out.println("Valor apostado pela máquina: R$"+valorAposta);//mostra o valor que a máquina apostou
                 }
                 
             }while(valorAposta==0);
             
             JogoDados jg =new JogoGeneral(valorAposta);//outro indice
-           // player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
             player.setJogoDados(jg, player.getJogadasRealizadas());
 
-            if (player instanceof Humano){
+            if (player instanceof Humano){//POLIMORFISMO
                 player.iniciarJogoGeneral(player);
                 JogoGeneral jogoGeneral=(JogoGeneral) player.getJogoDados(player.getJogadasRealizadas());
                 player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                 jogoGeneral.setSalvarJogadasG(super.getJogadasRealizadas());//vai passar pro salvador o array de todas as jogadas do jogo general
                 campeonato.mostrarCartela(player,i);
-                //i++; //passa pro outra casa do vetor
                 player.setJogadasRealizadas();
             }
             
-            else if(player instanceof Maquina){
+            else if(player instanceof Maquina){//POLIMORFISMO
                 player.iniciarJogoGeneral(player);
                 JogoGeneral jogoGeneral=(JogoGeneral) player.getJogoDados(player.getJogadasRealizadas());
                 player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                 jogoGeneral.setSalvarJogadasG(super.getJogadasRealizadas());//vai passar pro salvador o array de todas as jogadas do jogo general 
                 campeonato.mostrarCartela(player,i);
-               // i++;
                 player.setJogadasRealizadas();
             }
 
@@ -66,36 +63,33 @@ public class Maquina extends Jogador implements JogarComoMaquina {
         else if(jogo==2){
             double valorAposta=0;
             do{
-                if (player instanceof Humano){
+                if (player instanceof Humano){//POLIMORFISMO
                     System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
                     valorAposta = teclado.nextDouble();
-                    // player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i, valorAposta, player.getJogadasRealizadas());
                     if(valorAposta==0){
                     System.out.println("Aposte algum valor!");
                 }
                 }
-                else if(player instanceof Maquina){
+                else if(player instanceof Maquina){//POLIMORFISMO
                     Maquina maquina=(Maquina) player;
                     valorAposta= maquina.quantoApostar();//para ver quanto a maquina aposta
-                    //player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i, valorAposta, player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                     System.out.println("Valor apostado pela máquina: R$"+valorAposta);//mostra o valor que a máquina apostou
                 }
             }while(valorAposta==0);
             
             JogoDados ja =new JogoAzar(valorAposta);//outro indice
-            //player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
             player.setJogoDados(ja, player.getJogadasRealizadas());
             
             JogoAzar jogoAzar =(JogoAzar) player.getJogoDados(player.getJogadasRealizadas()); //converte jogo dados em jogo azar
 
-            if (player instanceof Humano){
+            if (player instanceof Humano){//POLIMORFISMO
                 jogoAzar.executarRegrasJogo(player, i);
                 player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                 //i++; //passa pro outra casa do vetor
                 player.setJogadasRealizadas();
             }
             
-            else if(player instanceof Maquina){
+            else if(player instanceof Maquina){//POLIMORFISMO
                 jogoAzar.executarRegrasJogo(player, i);
                 player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                 //i++;
@@ -105,7 +99,6 @@ public class Maquina extends Jogador implements JogarComoMaquina {
         
     }
         
-    
 
     public int sorteiaJogo() { //como cada jogo é individual e nehum jogador joga com outro é necessário um método pra maquina "entrar" em um jogo
         int opcao = 0;
@@ -135,12 +128,13 @@ public class Maquina extends Jogador implements JogarComoMaquina {
       return 0;
   }
 
+      //SOBRESCRITA DA HERANÇA
     @Override
     public int aplicarEstrategia() { //aplica a estratégia para o jogo general
         int opcao=0;
             int melhorPontuacao = 0;
             int melhorJogada=0;
-           if (getJogoDados(getJogadasRealizadas()) instanceof JogoGeneral){
+           if (getJogoDados(getJogadasRealizadas()) instanceof JogoGeneral){//POLIMORFISMO
             JogoGeneral jogoGeneral = (JogoGeneral) getJogoDados(getJogadasRealizadas());
            
                 while(opcao<13){//basicamente vai ver para aquela rodada qual vai ser a jogada com maior pontuação
