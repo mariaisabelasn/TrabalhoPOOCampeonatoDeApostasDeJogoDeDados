@@ -739,7 +739,7 @@ public class Campeonato implements Serializable {
                                     }
                                 }
                                 
-                            };
+                            }
                     }
                         
                     break;
