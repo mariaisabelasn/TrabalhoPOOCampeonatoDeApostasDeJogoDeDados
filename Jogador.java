@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.util.Scanner;
-
 // Nessa classe usamos polimorfismo
 public abstract class Jogador implements Serializable{
     private String nome = new String();
@@ -37,7 +36,6 @@ public abstract class Jogador implements Serializable{
 
     public void setSaldo(double valorAtualizado){//função para setar saldo
         this.saldo=valorAtualizado; //atualiza o valor ganho ou perdido do saldo
-
     }
 
     public int getJogoGeneral(int i, Jogador player) { // Função para pegar as jogadas da "ficha" dos respectivos jogadores.
@@ -47,7 +45,6 @@ public abstract class Jogador implements Serializable{
 
     public abstract void iniciarCassino(Jogador player, int jogo, int i);
 
-
     public void setJogoDados(JogoDados jogoDados, int i ){//seta jogo general colocando ele no array de jogoDados
         this.jogosRealizados=i;
         this.jogoDados[jogosRealizados]=jogoDados;
@@ -56,11 +53,11 @@ public abstract class Jogador implements Serializable{
         return this.jogoDados[i];
     }
 
-    public int getJogadasRealizadas(){
+    public int getJogadasRealizadas(){//pega o índice da última jogos já realizados
         return jogosRealizados;
     }
 
-    public void setJogadasRealizadas(){ 
+    public void setJogadasRealizadas(){ //aumenta o índice de jogos já feitos
          this.jogosRealizados++;
     }
 
@@ -69,12 +66,7 @@ public abstract class Jogador implements Serializable{
         this.tipoJogador=null;
         this.saldo=0;
         this.jogoDados=null;
-        // if(this.cpf!= null){
-        //     this.cpf = null;
-        // }
     }
-
-        //BOTAR UM IF PRA HUMANO PROVAVEL TER QUE PASSAR O PLAYER, PRA TIRAR AGENCIA CPF CONTA, ou um dell pra cada com override em humano e máquina
 
     public void mostrarJogadasExecutadas() {//mostra jogadas executadas do jogo general
         // Jogadas já feitas
@@ -92,7 +84,7 @@ public abstract class Jogador implements Serializable{
     }
     }
 
-    public void iniciarJogoGeneral(Jogador player){//vai ter que passar um valor i pro jogador
+    public void iniciarJogoGeneral(Jogador player){
         Scanner teclado= new Scanner(System.in);
         valorAposta=0;
         JogoGeneral jogoGeneral = (JogoGeneral) player.getJogoDados(player.getJogadasRealizadas());
@@ -114,7 +106,6 @@ public abstract class Jogador implements Serializable{
                 player.getJogoDados(player.getJogadasRealizadas()).rolarDados(5);
                 jogoGeneral.mostrarDados();//tava grudado na linha de cima
                
-
                 if(player instanceof Humano){ //faz a parada só jogar se o player for humano -- POLIMORFISMO
                     Humano humano = (Humano) player;
                     humano.escolherJogada();
@@ -126,9 +117,6 @@ public abstract class Jogador implements Serializable{
 
         }
          
-
-
      }
-
 
 }
