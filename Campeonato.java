@@ -215,6 +215,9 @@ public class Campeonato implements Serializable {
                     if(p!=null){
                         System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
                     }
+                    else {
+                        System.out.println("Não há jogadores!");
+                    }
                 }
                 
                 break;
@@ -224,6 +227,9 @@ public class Campeonato implements Serializable {
                     if(p!=null && p instanceof Humano){ //POLIMORFISMO
                         System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
                     }
+                    else{
+                        System.out.println("Não há jogadores, ou há apenas jogadores máquinas!");
+                    }
                 }
 
                 break;
@@ -232,6 +238,9 @@ public class Campeonato implements Serializable {
                 for (Jogador p : players) {//printa o saldo de todas as maquinas
                     if(p!=null && p instanceof Maquina){//POLIMORFISMO
                         System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
+                    }
+                     else{
+                        System.out.println("Não há jogadores, ou há apenas jogadores humanos!");
                     }
                 }
                 break;
@@ -280,6 +289,9 @@ public class Campeonato implements Serializable {
                                     }
                                 }
                             }
+                            else{
+                                System.out.println("Não há jogadores!");
+                            }
                         }
                         
                         break;
@@ -303,6 +315,9 @@ public class Campeonato implements Serializable {
                                     }
                                 }
                             }
+                            else{
+                                System.out.println("Não há jogadores, ou há apenas jogadores máquinas!");
+                            }
                         }
                           
                         break;
@@ -325,6 +340,9 @@ public class Campeonato implements Serializable {
                                             }
                                     }          
                                 }
+                            }
+                            else{
+                                System.out.println("Não há jogadores, ou há apenas jogadores humanos!");
                             }
                         }
                         
@@ -363,6 +381,9 @@ public class Campeonato implements Serializable {
                                     }
                                 }
                             }
+                            else{
+                                System.out.println("Não há jogadores!");
+                            }
                         }
                         
                         break;
@@ -384,6 +405,9 @@ public class Campeonato implements Serializable {
                                     }
                                 }
                             }
+                            else{
+                                System.out.println("Não há jogadores, ou há apenas jogadores máquinas!");
+                            }
                         }                        
                         break;
                     case "c"://imprime o extrato do jogo azar para todos os jogadores máquina
@@ -403,6 +427,9 @@ public class Campeonato implements Serializable {
                                         }                                            
                                     }
                                 }
+                            }
+                            else{
+                                System.out.println("Não há jogadores, ou há apenas jogadores humanos!");
                             }
                         }
                         break;
@@ -424,6 +451,7 @@ public class Campeonato implements Serializable {
                     case "a"://imprime o extrato dos dois jogos  para todos os jogadores
                         for (int j=0; j<contJogadores; j++){
                             System.out.println("-> Nome do jogador: "+ players[j].getNome());
+                            if(players[j]!=null){
                                 for(int i=0; i<players[j].getJogadasRealizadas(); i++){
                                     if(players[j].getJogoDados(i) instanceof JogoGeneral){//polimorfismo
                                         System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
@@ -451,6 +479,10 @@ public class Campeonato implements Serializable {
                                                                                         
                                     }
                                 }
+                            }
+                            else{
+                                System.out.println("Não há jogadores!");
+                            }
                         }         
                         break;
                     case "b"://imprime o extrato dos dois jogos para todos os jogadores humanos
@@ -484,6 +516,9 @@ public class Campeonato implements Serializable {
                                                 }                                               
                                         }
                                     }
+                            }
+                            else{
+                                System.out.println("Não há jogadores, ou há apenas jogadores máquinas!");
                             }
                         }
                         
@@ -519,6 +554,9 @@ public class Campeonato implements Serializable {
                                                 }                                              
                                         }
                                     }
+                            }
+                            else{
+                                System.out.println("Não há jogadores, ou há apenas jogadores humanos!");
                             }
                         }
                      break;
@@ -568,6 +606,9 @@ public class Campeonato implements Serializable {
                                     soma[k] = 0;
                                 }
                             }
+                            else{
+                                System.out.println("Não há jogadores, ou há apenas jogadores máquinas!");
+                            }
                             
                         }
                         
@@ -589,6 +630,9 @@ public class Campeonato implements Serializable {
                                 for(int k=0;k<6;k++){//zera o vetor soma
                                     soma[k] = 0;
                                 }
+                            }
+                            else{
+                                System.out.println("Não há jogadores, ou há apenas jogadores humanos!");
                             }
                             
                         }
@@ -627,6 +671,9 @@ public class Campeonato implements Serializable {
                                     soma[k] = 0;
                                 }
                             }
+                            else{
+                                System.out.println("Não há jogadores!");
+                            }
                             
                         }
                         
@@ -651,6 +698,9 @@ public class Campeonato implements Serializable {
                                 for(int k=0;k<6;k++){//zera o vetor soma
                                     soma[k] = 0;
                                 }
+                            }
+                            else{
+                                System.out.println("Não há jogadores!");
                             }
                             
                         }
@@ -685,6 +735,9 @@ public class Campeonato implements Serializable {
                         }
                         
                     }
+                    else{
+                            System.out.println("Não há jogadores!");
+                    }
                     
                 }
                 System.out.printf("\n->Jogo General:\n");
@@ -712,6 +765,9 @@ public class Campeonato implements Serializable {
                                 }
                             }
                             
+                        }
+                        else{
+                                System.out.println("Não há jogadores!");
                         }
                         
                     }
