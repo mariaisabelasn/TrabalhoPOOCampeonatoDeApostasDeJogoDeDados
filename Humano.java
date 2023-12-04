@@ -2,17 +2,11 @@ import java.util.Scanner;
 // Nessa classe usamos polimorfismo, herança e herança multipla
 public class Humano extends Jogador implements JogarComoHumano{
     private String cpf;
-    private String agencia;
-    private String conta;
-    private int numeroBanco; 
     private Campeonato campeonato;
 
     public Humano(String nome, String tipoJogador, String cpf,double saldo){
         super(nome, tipoJogador, saldo); //HERANÇA
         this.cpf = cpf;
-        this.agencia = "2567-8";
-        this.conta = "2564987";
-        this.numeroBanco = 007; 
         this.campeonato=new Campeonato();
     }
 
