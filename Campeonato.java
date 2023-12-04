@@ -440,7 +440,7 @@ public class Campeonato implements Serializable {
                                                 System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
                                                 System.out.printf("O valor apostado nesse jogo foi: %.2f%n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                 System.out.println("Esse foi o jogo feito: \n");
-                                                mostrarExtratoJG(players[j], j);
+                                                mostrarExtratoJG(players[j], i);
                                                 System.out.println("E o resultado dele foi esse: ");
                                                 if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                     System.out.println("Jogo vencido!!");
@@ -474,7 +474,7 @@ public class Campeonato implements Serializable {
                                             System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
                                             System.out.printf("O valor apostado nesse jogo foi: %.2f%n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                             System.out.println("Esse foi o jogo feito: \n");
-                                            mostrarExtratoJG(players[j], j);
+                                            mostrarExtratoJG(players[j], i);
                                             System.out.println("E o resultado dele foi esse: ");
                                             if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                 System.out.println("Jogo vencido!!\n");
@@ -509,7 +509,7 @@ public class Campeonato implements Serializable {
                                                     System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
                                                     System.out.printf("O valor apostado nesse jogo foi: %.2f%n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                     System.out.println("Esse foi o jogo feito: \n");
-                                                    mostrarExtratoJG(players[j], j);
+                                                    mostrarExtratoJG(players[j], i);
                                                     System.out.println("E o resultado dele foi esse: ");
                                                         if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                             System.out.println("Jogo vencido!!\n");
@@ -622,52 +622,80 @@ public class Campeonato implements Serializable {
 
                 switch (opcao1) {
                     case "g":
-                        for (Jogador p : players) {//printa a estatistica de todos os jogos general
-                            if(p!=null){
-                                for (int i=0; i<p.getJogadasRealizadas(); i++){
-                                    JogoDados jogoDados = p.getJogoDados(i);
-                                    if(jogoDados!=null && jogoDados instanceof JogoGeneral){//POLIMORFISMO
-                                        for(int j=0;j<6;j++){
-                                            soma[j] += jogoDados.getCont(j);
-                                        }
-                                        System.out.printf("\n->"+jogoDados.getNomeJogo()+" %d:\n",i+1);
+
+                        System.out.println("Jogadores:");
+                        if(contJogadores==0){
+                            System.out.println("Não há jogadores!");
+                            
+                        }
+                        else{
+                            for (int i = 0; i <contJogadores; i++) { // printar o nome dos jogadores
+                                
+                                System.out.println((i+1)+" - "+ players[i].getNome());
+                            }
+                            System.out.println("Digite o nome do jogador:");
+                            nome = teclado.nextLine();
+                            int i;
+                            for(i=0;i<contJogadores;i++){
+                                if (nome.equals(players[i].getNome())&& players[i]!=null) {
+                                    for (int k=0; k<players[i].getJogadasRealizadas(); k++){
+                                            JogoDados jogoDados = players[i].getJogoDados(k);
+                                            if(jogoDados!=null && jogoDados instanceof JogoGeneral){//POLIMORFISMO
+                                                for(int j=0;j<6;j++){
+                                                    soma[j] += jogoDados.getCont(j);
+                                                }
+                                            }
+                                            
+                                    }
+                                    System.out.println("\n->Jogo General de:"+players[i].getNome());
+                                    for(int j=0;j<6;j++){
+                                        System.out.printf("Face "+(j+1)+": %d\n",soma[j]);
+                                    }
+                                    for(int m=0;m<6;m++){//zera o vetor soma
+                                        soma[m] = 0;
                                     }
                                     
                                 }
-                                for(int j=0;j<6;j++){
-                                    System.out.printf("Face "+(j+1)+": %d\n",soma[j]);
-                                }
-                                for(int k=0;k<6;k++){//zera o vetor soma
-                                    soma[k] = 0;
-                                }
                             }
-                            
                         }
                         
                         break;
 
                     case "a":
-                        for (Jogador p : players) {//printa  a estatistica de todos os jogos azar
-                            if(p!=null){
-                                for (int i=0; i<p.getJogadasRealizadas(); i++){
-                                    JogoDados jogoDados = p.getJogoDados(i);
-                                    if(jogoDados!=null && jogoDados instanceof JogoAzar){//POLIMORFISMO
-                                        for(int j=0;j<6;j++){
-                                            soma[j] += jogoDados.getCont(j);
-                                        }
-                                        System.out.printf("\n->"+jogoDados.getNomeJogo()+" %d:\n",i+1);
-                                    }
-                                    
-                                }
-                                for(int j=0;j<6;j++){
-                                    System.out.printf("Face "+(j+1)+": %d\n",soma[j]);
-                                }
-                                for(int k=0;k<6;k++){//zera o vetor soma
-                                    soma[k] = 0;
-                                }
-                            }
+                        System.out.println("Jogadores:");
+                        if(contJogadores==0){
+                            System.out.println("Não há jogadores!");
                             
                         }
+                        else{
+                            for (int i = 0; i <contJogadores; i++) { // printar o nome dos jogadores
+                                
+                                System.out.println((i+1)+" - "+ players[i].getNome());
+                            }
+                            System.out.println("Digite o nome do jogador:");
+                            nome = teclado.nextLine();
+                            int i=0;
+                            for(i=0;i<contJogadores;i++){
+                                if (nome.equals(players[i].getNome())&&players[i]!=null) {
+                                    for (int k=0; k<players[i].getJogadasRealizadas(); k++){
+                                        JogoDados jogoDados = players[i].getJogoDados(k);
+                                        if(jogoDados!=null && jogoDados instanceof JogoAzar){//POLIMORFISMO
+                                            for(int j=0;j<6;j++){
+                                                soma[j] += jogoDados.getCont(j);
+                                            }
+                                        }
+                                    }
+                                    System.out.println("\n->Jogo Azar de:"+players[i].getNome());
+                                    for(int j=0;j<6;j++){
+                                        System.out.printf("Face "+(j+1)+": %d\n",soma[j]);
+                                    }
+                                    for(int m=0;m<6;m++){//zera o vetor soma
+                                        soma[m] = 0;
+                                    }
+                                }
+                                
+                            }while(i<contJogadores);
+                    }
                         
                     break;
             

@@ -69,9 +69,6 @@ public abstract class Jogador implements Serializable{
         this.tipoJogador=null;
         this.saldo=0;
         this.jogoDados=null;
-        // if(this.cpf!= null){
-        //     this.cpf = null;
-        // }
     }
 
         //BOTAR UM IF PRA HUMANO PROVAVEL TER QUE PASSAR O PLAYER, PRA TIRAR AGENCIA CPF CONTA, ou um dell pra cada com override em humano e máquina
@@ -125,8 +122,6 @@ public abstract class Jogador implements Serializable{
                 }
 
         }
-         
-
 
      }
 
