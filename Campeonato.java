@@ -316,7 +316,6 @@ public class Campeonato implements Serializable {
                         
                         break;
                     case "c"://imprime o extrato do general para todos os jogadores máquina
-                   // for (Jogador p : players) {
                        for (int j=0; j<contJogadores; j++){
                                 if(players[j]!=null &&  players[j] instanceof Maquina){//polimorfismo
                                     for(int i=0; i<players[j].getJogadasRealizadas(); i++){
@@ -325,7 +324,7 @@ public class Campeonato implements Serializable {
                                                     System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
                                                     System.out.printf("O valor apostado nesse jogo foi: %.2f\n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                     System.out.println("Esse foi o jogo feito: \n");
-                                                    mostrarExtratoJG(players[j], j);
+                                                    mostrarExtratoJG(players[j], i);
                                                     System.out.println("E o resultado dele foi esse: ");
                                                         if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                             System.out.println("Jogo vencido!!\n");
@@ -435,46 +434,45 @@ public class Campeonato implements Serializable {
                     case "a"://imprime o extrato dos dois jogos  para todos os jogadores
                         for (int j=0; j<contJogadores; j++){
                             System.out.println("-> Nome do jogador: "+ players[j].getNome());
-                            for(int i=0; i<players[j].getJogadasRealizadas(); i++){
-                                if(players[j].getJogoDados(i) instanceof JogoGeneral){//polimorfismo
+                                    for(int i=0; i<players[j].getJogadasRealizadas(); i++){
+                                            if(players[j].getJogoDados(i) instanceof JogoGeneral){//polimorfismo
                                                 System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
                                                 System.out.printf("O valor apostado nesse jogo foi: %.2f%n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                 System.out.println("Esse foi o jogo feito: \n");
-                                                mostrarExtratoJG(players[j], j);
+                                                mostrarExtratoJG(players[j], i);
                                                 System.out.println("E o resultado dele foi esse: ");
-                                                if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
-                                                    System.out.println("Jogo vencido!!");
-                                                }
-                                                else{
-                                                    System.out.println("Jogo perdido!");
-                                                }
+                                                    if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                        System.out.println("Jogo vencido!!");
+                                                    }
+                                                    else{
+                                                        System.out.println("Jogo perdido!");
+                                                    }
                                             }
                                             if(players[j].getJogoDados(i) instanceof JogoAzar){//polimorfismo
                                                 System.out.println("\nJogo Azar, "+(i+1)+"º jogo realizado");
                                                 System.out.printf("O valor apostado nesse jogo foi: %.2f%n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                 System.out.println("E o resultado dele foi esse: ");
-                                                if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
-                                                    System.out.println("Jogo vencido!!\n");
-                                                }
-                                                else{
-                                                    System.out.println("Jogo perdido!\n");
-                                                }
+                                                    if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                        System.out.println("Jogo vencido!!\n");
+                                                    }
+                                                    else{
+                                                        System.out.println("Jogo perdido!\n");
+                                                    }
                                                                                                 
                                             }
-                                            j++;
                                         }
                                   }         
                         break;
                     case "b"://imprime o extrato dos dois jogos para todos os jogadores humanos
                         for (int j=0; j<contJogadores; j++){
                                 if(players[j]!=null && players[j] instanceof Humano){//polimorfismo
+                                    System.out.println("-> Nome do jogador: "+ players[j].getNome());
                                     for(int i=0; i<players[j].getJogadasRealizadas(); i++){
-                                        System.out.println("-> Nome do jogador: "+ players[j].getNome());
                                         if(players[j].getJogoDados(i) instanceof JogoGeneral){//polimorfismo
                                                     System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
                                                     System.out.printf("O valor apostado nesse jogo foi: %.2f%n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                     System.out.println("Esse foi o jogo feito: \n");
-                                                    mostrarExtratoJG(players[j], j);
+                                                    mostrarExtratoJG(players[j], i);
                                                     System.out.println("E o resultado dele foi esse: ");
                                                         if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                             System.out.println("Jogo vencido!!\n");
@@ -503,13 +501,13 @@ public class Campeonato implements Serializable {
                     case "c"://imprime o extrato do dos dois jogos para todos os jogadores máquina
                         for (int j=0; j<contJogadores; j++){
                             if(players[j]!=null && players[j] instanceof Maquina){//polimorfismo
+                                System.out.println("-> Nome do jogador: "+ players[j].getNome());
                                 for(int i=0; i<players[j].getJogadasRealizadas(); i++){
-                                        System.out.println("-> Nome do jogador: "+ players[j].getNome());
                                                 if(players[j].getJogoDados(i) instanceof JogoGeneral){//polimorfismo
                                                     System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
                                                     System.out.printf("O valor apostado nesse jogo foi: %.2f%n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                     System.out.println("Esse foi o jogo feito: \n");
-                                                    mostrarExtratoJG(players[j], j);
+                                                    mostrarExtratoJG(players[j], i);
                                                     System.out.println("E o resultado dele foi esse: ");
                                                         if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                             System.out.println("Jogo vencido!!\n");
