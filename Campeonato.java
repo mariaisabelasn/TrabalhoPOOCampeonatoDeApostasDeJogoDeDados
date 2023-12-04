@@ -8,9 +8,8 @@ import java.io.Serializable;
 
 public class Campeonato implements Serializable {
     private int n = 10, i=0;
-    private Jogador[] players; 
+    private Jogador[] players; //array polimorfo que recebe instancia do tipo Maquina e Humano
     private int contJogadores;
-    private transient Scanner teclado;
     private String nome, biotipo, cpf, opcao, opcao1, opcao2, opcao3;
     private double saldo;
     //private int vet[];//VER PRA QUE SERVIA NO CÓDIGO ANTIGO
@@ -18,11 +17,12 @@ public class Campeonato implements Serializable {
 
     // CONSTRUTOR
     public Campeonato() {
-        n = 10;
-        players = new Jogador[n]; // vetor dos jogadores do campeonato
-        contJogadores = 0;
-        teclado = new Scanner(System.in);// scanf do java
+        this.n = 10;
+        this.players = new Jogador[n]; // vetor dos jogadores do campeonato
+        this.contJogadores = 0;
         //vet = new int[13];
+        this.jogoDados = new JogoDados[10];
+
 
         for (int i = 0; i < players.length; i++) {
             players[i] = null; // Define cada elemento como nulo
@@ -30,6 +30,7 @@ public class Campeonato implements Serializable {
     }
 
     public void incluirjogador() {
+        Scanner teclado= new Scanner(System.in);
         saldo=0;
         if (contJogadores < n && players[contJogadores] == null) {
 
@@ -62,6 +63,8 @@ public class Campeonato implements Serializable {
     } 
 
     public void removerJogador() {
+        Scanner teclado= new Scanner(System.in);
+
         System.out.println("Jogadores:");
         if(contJogadores==0){
             System.out.println("Não há jogadores para excluir");
@@ -109,13 +112,13 @@ public class Campeonato implements Serializable {
             int jogo=0;
             
             if(players[i]!=null){
-                if(players[i] instanceof Humano){ // se for humano
+                if(players[i] instanceof Humano){ // se for humano -- POLIMORFISMO
                     Humano humano = (Humano) players[i];
                     jogo = humano.escolherJogo();
                     humano.iniciarCassino(players[i], jogo, i);
                 }
                 
-                else if(players[i] instanceof Maquina){// se for maquina
+                else if(players[i] instanceof Maquina){// se for maquina --POLIMORFISMO
                     Maquina maquina = (Maquina) players[i];
                     jogo = maquina.sorteiaJogo();
                     maquina.iniciarCassino(players[i], jogo, i);
@@ -194,7 +197,7 @@ public class Campeonato implements Serializable {
             int soma=0;
             for(int j=0; j<13;j++){
                 System.out.print(type[j]+"\t");//imprime os nomes das jogadas
-                System.out.print(jogoGeneral.getSalvarJogadasG(i, j)+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
+                System.out.print(jogoGeneral.getSalvarJogadasG(i,j)+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
                 System.out.print("\n");
             }
             soma=somaJogadasDoExtrato(i, jogoGeneral);
@@ -212,6 +215,8 @@ public class Campeonato implements Serializable {
     }
 
     public void mostrarSaldo(){
+        Scanner teclado= new Scanner(System.in);
+
         System.out.println("Deseja imprimir saldo para quem?");
         System.out.println("a) Para todos os Jogadores");
         System.out.println("b) Apenas para os jogadores humanos");
@@ -230,7 +235,7 @@ public class Campeonato implements Serializable {
 
             case "b":
                 for (Jogador p : players) {//printa o saldo de todos os humanos
-                    if(p!=null && p instanceof Humano){
+                    if(p!=null && p instanceof Humano){ //POLIMORFISMO
                         System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
                     }
                 }
@@ -239,7 +244,7 @@ public class Campeonato implements Serializable {
             
             case "c":
                 for (Jogador p : players) {//printa o saldo de todas as maquinas
-                    if(p!=null && p instanceof Maquina){
+                    if(p!=null && p instanceof Maquina){//POLIMORFISMO
                         System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
                     }
                 }
@@ -253,6 +258,7 @@ public class Campeonato implements Serializable {
     }
 
     public void mostrarExtratos(){ //(valores das jogadas [jogo general], valor apostado, ganho ou perda)
+        Scanner teclado= new Scanner(System.in);
         System.out.println("Deseja imprimir extrato de qual jogo?");
         System.out.println("a) Para o Jogo General");
         System.out.println("b) Para o Jogo de Azar");
@@ -278,7 +284,7 @@ public class Campeonato implements Serializable {
                                                 System.out.printf("O valor apostado nesse jogo foi: %.2f\n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                 System.out.println("Esse foi o jogo feito: \n");
                                                 mostrarExtratoJG(players[j], i);
-                                                System.out.println("E o resulatado dele foi esse: ");
+                                                System.out.println("E o resultado dele foi esse: ");
                                                     if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                         System.out.println("Jogo vencido!!\n");
                                                     }
@@ -363,9 +369,9 @@ public class Campeonato implements Serializable {
                                     for(int i=0; i<players[j].getJogadasRealizadas(); i++){
                                         if(players[j].getJogoDados(i) instanceof JogoAzar){
                                                     System.out.println("-> Nome do jogador: "+ players[j].getNome());
-                                                    System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
+                                                    System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
                                                     System.out.printf("O valor apostado nesse jogo foi: %.2f \n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );     
-                                                    System.out.println("E o resulatado dele foi esse: ");
+                                                    System.out.println("E o resultado dele foi esse: ");
                                                     if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                         System.out.println("Jogo vencido!!\n");
                                                     }
@@ -386,7 +392,7 @@ public class Campeonato implements Serializable {
                                                     System.out.println("-> Nome do jogador: "+ players[j].getNome());
                                                     System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
                                                     System.out.printf("O valor apostado nesse jogo foi: %.2f \n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) ); 
-                                                    System.out.println("E o resulatado dele foi esse: ");
+                                                    System.out.println("E o resultado dele foi esse: ");
                                                     if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                         System.out.println("Jogo vencido!!\n");
                                                     }
@@ -462,6 +468,7 @@ public class Campeonato implements Serializable {
                                                 }
                                                                                                 
                                             }
+                                            j++;
                                         }
                                   }         
                         break;
@@ -504,7 +511,7 @@ public class Campeonato implements Serializable {
                         for (int j=0; j<contJogadores; j++){
                             if(players[j]!=null && players[j] instanceof Maquina){//polimorfismo
                                 for(int i=0; i<players[j].getJogadasRealizadas(); i++){
-                                        System.out.println("-> Nome do jogador: "+ p.getNome());
+                                        System.out.println("-> Nome do jogador: "+ players[j].getNome());
                                                 if(players[j].getJogoDados(i) instanceof JogoGeneral){//polimorfismo
                                                     System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
                                                     System.out.printf("O valor apostado nesse jogo foi: %.2f%n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
@@ -547,6 +554,7 @@ public class Campeonato implements Serializable {
     }
 
     public void mostrarEstatistica(){
+        Scanner teclado= new Scanner(System.in);
         System.out.println("------- Estatísticas -------");
         System.out.println("Deseja imprimir as estatísticas para qual das opções abaixo?");
         System.out.println("a) Por tipo de Jogador[humano ou máquina]");
@@ -554,64 +562,189 @@ public class Campeonato implements Serializable {
         System.out.println("c) Total por jogos[general e azar]");
         System.out.println("d) Total do campeonato");
         opcao = teclado.nextLine();
-        Jogador player = new Humano(nome,biotipo,cpf,saldo);
-        JogoDados jogoDados = (JogoDados)player.getJogoDados(player.getJogadasRealizadas());
         
         switch (opcao) {
             case "a":
-                do{
-                    System.out.println("Humano (h) ou máquina (m)? ");
-                    opcao=teclado.nextLine();
+                System.out.println("Humano (h) ou máquina (m)? ");
+                opcao1=teclado.nextLine();
+                int[] soma=new int[6];
 
-                    // if(opcao.equals("h")){
-                    //     for (int j = 0; j < contJogadores; j++) {
-                    //         if (player[j] instanceof Humano) {
-                    //                 player[j].getJogoDados(player[j].getJogadasRealizadas()).somaEstatistica();
-                                
-                    //         }
-                    //     }
-
-                    // }
-                     if(opcao.equals("m")){
-                        for (Jogador p : players) {//printa a estatistica de todos os humanos
-                            if(p!=null && p instanceof Maquina){
-                                System.out.println("Jogo Azar: "+jogoDados.somaEstatistica());
+                switch (opcao1) {
+                    case "h":
+                        for (Jogador p : players) {//printa a estatistica de todos os jogadores humano
+                            if(p!=null && p instanceof Humano){//POLIMORFISMO
+                                for (int i=0; i<p.getJogadasRealizadas(); i++){
+                                    JogoDados jogoDados = p.getJogoDados(i);
+                                    for(int j=0;j<6;j++){
+                                        soma[j] += jogoDados.getCont(j);
+                                    }
+                                }
+                                System.out.println("\n->"+p.getNome()+":");
+                                for(int j=0;j<6;j++){
+                                    System.out.printf("Face "+(j+1)+": %d\n",soma[j]);
+                                }
+                                for(int k=0;k<6;k++){ //zera o vetor soma
+                                    soma[k] = 0;
+                                }
                             }
+                            
                         }
-                    }
-                }while(!opcao.equals("h")|| !opcao.equals("m"));
+                        
+                        break;
+
+                    case "m":
+                        for (Jogador p : players) {//printa  a estatistica de todos os jogadores maquina
+                            if(p!=null && p instanceof Maquina){//POLIMORFISMO
+                                for (int i=0; i<p.getJogadasRealizadas(); i++){
+                                    JogoDados jogoDados = p.getJogoDados(i);
+                                    for(int j=0;j<6;j++){
+                                        soma[j] += jogoDados.getCont(j);
+                                    }
+                                }
+                                System.out.println("\n->"+p.getNome()+":");
+                                for(int j=0;j<6;j++){
+                                    System.out.printf("Face "+(j+1)+": %d\n",soma[j]);
+                                }
+                                for(int k=0;k<6;k++){//zera o vetor soma
+                                    soma[k] = 0;
+                                }
+                            }
+                            
+                        }
+                        
+                    break;
+                
+                    default:
+                        System.out.println("Opção inválida! Tente outra!");
+                        break;
+                }
 
                 break;
             case "b":
-                do{
-                    System.out.println("Jogo Azar (a) ou Jogo General (g)? ");
-                    opcao=teclado.nextLine();
+                System.out.println("Jogo General (g) ou Jogo Azar (a)? ");
+                opcao1=teclado.nextLine();
+                soma = new int[6];
+                
 
-                    if(opcao.equals("a")){
-                        // for (JogoDados j : jogoDados) {//printa o saldo de todas as maquinas
-                        //     if(j!=null && j instanceof JogoAzar){
-                        //         System.out.println("Jogo Azar: "+j.somaEstatistica());
-                        //         jogoDados.somarFacesSorteadas(null);
-                        //     }
-                        //  }
+                switch (opcao1) {
+                    case "g":
+                        for (Jogador p : players) {//printa a estatistica de todos os jogos general
+                            if(p!=null){
+                                for (int i=0; i<p.getJogadasRealizadas(); i++){
+                                    JogoDados jogoDados = p.getJogoDados(i);
+                                    if(jogoDados!=null && jogoDados instanceof JogoGeneral){//POLIMORFISMO
+                                        for(int j=0;j<6;j++){
+                                            soma[j] += jogoDados.getCont(j);
+                                        }
+                                        System.out.printf("\n->"+jogoDados.getNomeJogo()+" %d:\n",i+1);
+                                    }
+                                    
+                                }
+                                for(int j=0;j<6;j++){
+                                    System.out.printf("Face "+(j+1)+": %d\n",soma[j]);
+                                }
+                                for(int k=0;k<6;k++){//zera o vetor soma
+                                    soma[k] = 0;
+                                }
+                            }
+                            
+                        }
                         
-                    }
-                    else if(opcao.equals("g")){
-                    //     System.out.printf("Jogo General: %d%n",jogoDados.somaEstatistica());
-                     }
-                }while(!opcao.equals("a")|| !opcao.equals("g"));
+                        break;
+
+                    case "a":
+                        for (Jogador p : players) {//printa  a estatistica de todos os jogos azar
+                            if(p!=null){
+                                for (int i=0; i<p.getJogadasRealizadas(); i++){
+                                    JogoDados jogoDados = p.getJogoDados(i);
+                                    if(jogoDados!=null && jogoDados instanceof JogoAzar){//POLIMORFISMO
+                                        for(int j=0;j<6;j++){
+                                            soma[j] += jogoDados.getCont(j);
+                                        }
+                                        System.out.printf("\n->"+jogoDados.getNomeJogo()+" %d:\n",i+1);
+                                    }
+                                    
+                                }
+                                for(int j=0;j<6;j++){
+                                    System.out.printf("Face "+(j+1)+": %d\n",soma[j]);
+                                }
+                                for(int k=0;k<6;k++){//zera o vetor soma
+                                    soma[k] = 0;
+                                }
+                            }
+                            
+                        }
+                        
+                    break;
+            
+                default:
+                    System.out.println("Opção inválida! Tente outra!");
+                    break;
+                }
 
                 break;
 
-            // case "c":
+            case "c":
+                int[] somaJA = new int[6];
+                int[] somaJG = new int[6];
+                for (Jogador p : players) {//printa a estatistica de todos os jogos general
+                    if(p!=null){
+                        for (int i=0; i<p.getJogadasRealizadas(); i++){
+                            JogoDados jogoDados = p.getJogoDados(i);
+                            if(jogoDados!=null && jogoDados instanceof JogoGeneral){//POLIMORFISMO
+                                for(int j=0;j<6;j++){
+                                    somaJG[j] += jogoDados.getCont(j);
+                                }
+                            }
+                            else if(jogoDados!=null && jogoDados instanceof JogoAzar){//POLIMORFISMO
+                                for(int j=0;j<6;j++){
+                                    somaJA[j] += jogoDados.getCont(j);
+                                }
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                }
+                System.out.printf("\n->Jogo General:\n");
+                for(int j=0;j<6;j++){
+                    System.out.printf("Face "+(j+1)+": %d\n",somaJG[j]);
+                }
+                System.out.printf("\n->Jogo Azar:\n");
+                for(int j=0;j<6;j++){
+                    System.out.printf("Face "+(j+1)+": %d\n",somaJA[j]);
+                }
+                for(int k=0;k<6;k++){//zera o vetor soma
+                    somaJA[k] = 0;
+                    somaJG[k] = 0;
+                }
+
+                break;
+                case "d":
+                    soma = new int[6];
+                    for (Jogador p : players) {//printa a estatistica de todos os jogos general
+                        if(p!=null){
+                            for (int i=0; i<p.getJogadasRealizadas(); i++){
+                                JogoDados jogoDados = p.getJogoDados(i);
+                                for(int j=0;j<6;j++){
+                                    soma[j] += jogoDados.getCont(j);
+                                }
+                            }
+                            
+                        }
+                        
+                    }
+
+                    System.out.println("Total do Campeonato:");
+                    for(int j=0;j<6;j++){
+                        System.out.printf("Face "+(j+1)+": %d\n",soma[j]);
+                    }
+                    for(int k=0;k<6;k++){//zera o vetor soma
+                        soma[k] = 0;
+                    }
+                    break;
                 
-            //     System.out.printf("Jogo Azar: %d%n",jogoDados.somaEstatistica());
-            //     System.out.printf("Jogo General: %d%n",jogoDados.somaEstatistica());
-            //     break;
-            // case "d":
-            //     System.out.printf("Total do Campeonato: %d%n",jogoDados.somaEstatistica()+jogoDados.somaEstatistica());
-            //     break;
-        
             default:
                 System.out.println ("Opcao invalida. Tente novamente");
         }

@@ -1,29 +1,29 @@
 import java.util.Scanner;
+// Nessa classe usamos polimorfismo, herança e herança multipla
 public class Humano extends Jogador implements JogarComoHumano{
     private String cpf;
     private String agencia;
     private String conta;
     private int numeroBanco; 
-    private transient Scanner teclado;
     private Campeonato campeonato;
 
-
     public Humano(String nome, String tipoJogador, String cpf,double saldo){
-        super(nome, tipoJogador, saldo);
+        super(nome, tipoJogador, saldo); //HERANÇA
         this.cpf = cpf;
         this.agencia = "2567-8";
         this.conta = "2564987";
         this.numeroBanco = 007; 
-        this.teclado=new Scanner(System.in);
         this.campeonato=new Campeonato();
     }
 
+    //SOBRESCRITA DA HERANÇA
     @Override
     public void iniciarCassino(Jogador player, int jogo, int i) {
+        Scanner teclado= new Scanner(System.in);
         if(jogo==1){
             double valorAposta=0;
             do{
-                if (player instanceof Humano){
+                if (player instanceof Humano){//POLIMORFISMO
                     System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
                     valorAposta = teclado.nextDouble();
                   //  player.getJogoDados(player.getJogadasRealizadas()).setArrayAposta(valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
@@ -31,7 +31,7 @@ public class Humano extends Jogador implements JogarComoHumano{
                     System.out.println("Aposte algum valor!");
                 }
                 }
-                else if(player instanceof Maquina){
+                else if(player instanceof Maquina){//POLIMORFISMO
                     Maquina maquina=(Maquina) player;
                     valorAposta= maquina.quantoApostar();//para ver quanto a maquina aposta
                     //player.getJogoDados(player.getJogadasRealizadas()).setArrayAposta(valorAposta, player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
@@ -45,14 +45,14 @@ public class Humano extends Jogador implements JogarComoHumano{
             player.setJogoDados(jg, player.getJogadasRealizadas());//seta o jogo para o player
             
 
-            if (player instanceof Humano){
+            if (player instanceof Humano){//POLIMORFISMO
                 player.iniciarJogoGeneral(player);
                 player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                 campeonato.mostrarCartela(player, i);
                 player.setJogadasRealizadas();
             }
             
-            else if(player instanceof Maquina){
+            else if(player instanceof Maquina){//POLIMORFISMO
                player.iniciarJogoGeneral(player);
                player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                campeonato.mostrarCartela(player, i);
@@ -63,7 +63,7 @@ public class Humano extends Jogador implements JogarComoHumano{
         else if(jogo==2){
             double valorAposta=0;
             do{
-                if (player instanceof Humano){
+                if (player instanceof Humano){//POLIMORFISMO
                     System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
                     valorAposta = teclado.nextDouble();
                    // player.getJogoDados(player.getJogadasRealizadas()).setArrayAposta(valorAposta, player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo                   
@@ -71,7 +71,7 @@ public class Humano extends Jogador implements JogarComoHumano{
                     System.out.println("Aposte algum valor!");
                 }
                 }
-                else if(player instanceof Maquina){
+                else if(player instanceof Maquina){//POLIMORFISMO
                     Maquina maquina=(Maquina) player;
                     valorAposta= maquina.quantoApostar();//para ver quanto a maquina aposta
                     //player.getJogoDados(player.getJogadasRealizadas()).setArrayAposta(valorAposta, player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
@@ -85,13 +85,13 @@ public class Humano extends Jogador implements JogarComoHumano{
             
             JogoAzar jogoAzar =(JogoAzar) player.getJogoDados(player.getJogadasRealizadas()); //converte jogo dados em jogo azar
 
-            if (player instanceof Humano){
+            if (player instanceof Humano){//POLIMORFISMO
                 jogoAzar.executarRegrasJogo(player, i);//executa o jogo de azar 
                 player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                 player.setJogadasRealizadas();
             }
             
-            else if(player instanceof Maquina){
+            else if(player instanceof Maquina){//POLIMORFISMO
                 jogoAzar.executarRegrasJogo(player, i);//executa o jogo de azar
                 player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                 player.setJogadasRealizadas();
@@ -99,10 +99,12 @@ public class Humano extends Jogador implements JogarComoHumano{
         }
     }
 
+    //SOBRESCRITA DA HERANÇA
     @Override
     public int escolherJogada() { //vai escolher a jogada do jogo general
+        Scanner teclado= new Scanner(System.in);
         int opcao=0;
-        if(getJogoDados(getJogadasRealizadas()) instanceof JogoGeneral){
+        if(getJogoDados(getJogadasRealizadas()) instanceof JogoGeneral){//POLIMORFISMO
             JogoGeneral jogoGeneral = (JogoGeneral) super.getJogoDados(getJogadasRealizadas()); //tranforma o get jogodados em um jogo general se ele for do tipo jogo general
                 do {
                     System.out.println("Para qual jogada deseja marcar: [1-13] " + super.getNome() + "?");
@@ -128,8 +130,10 @@ public class Humano extends Jogador implements JogarComoHumano{
       return 0;
     }
 
+    // SOBRESCRITA DA HERANÇA
     @Override
     public int escolherJogo() {
+        Scanner teclado= new Scanner(System.in);
           int opcao = 0;
           if(super.getSaldo() <=0.0){
             System.out.println("Saldo insufíciente, você faliu!");
@@ -144,8 +148,6 @@ public class Humano extends Jogador implements JogarComoHumano{
             System.out.println("1 - Jogo General");
             System.out.println("2 - Jogo Azar");
             opcao = teclado.nextInt();
-            teclado.nextLine(); // Limpar o buffer de entrada após a leitura do inteiro
-            
 
             if(opcao==1){
                 return 1;//inicia general

@@ -6,7 +6,7 @@ public abstract class JogoDados implements Estatistica, Serializable{
     private Dado[] dados;
     private int[] cont;// Inicializa o array cont
     private double[][] armazenadorDeApostas;
-    private int[][] armazenarResulatados;
+    private int[][] armazenarResultados;
 
     public JogoDados(int nDados, String nomeJogo, Dado[] dados, double valorAposta){
         this.nDados = nDados;
@@ -15,7 +15,7 @@ public abstract class JogoDados implements Estatistica, Serializable{
         this.valorAposta = valorAposta;
         cont = new int[numFaces];
         armazenadorDeApostas=new double[10][10];
-        armazenarResulatados=new int[10][10];
+        armazenarResultados=new int[10][10];
     }
 
     // Sobrecarga
@@ -29,7 +29,7 @@ public abstract class JogoDados implements Estatistica, Serializable{
         this.valorAposta = valorAposta;
         cont = new int[numFaces];
         armazenadorDeApostas=new double[10][10];
-        armazenarResulatados=new int[10][10];
+        armazenarResultados=new int[10][10];
     }
 
     public String getNomeJogo(){
@@ -49,12 +49,12 @@ public abstract class JogoDados implements Estatistica, Serializable{
     }
     
     public void setArmazenarResultados(int i, int x, int j){//recebe indice do player e o array de apostas, indice jogo
-        this.armazenarResulatados[i][j]=x;//recebe -1 pra jogo perdido e 1 pra jogo ganho
+        this.armazenarResultados[i][j]=x;//recebe -1 pra jogo perdido e 1 pra jogo ganho
 
     }
 
     public int getArmazenadorDeResultados(int i, int j) {//recebe o indice do player e o indice do jogo
-        return this.armazenarResulatados[i][j];
+        return this.armazenarResultados[i][j];
     }
 
 
@@ -79,14 +79,6 @@ public abstract class JogoDados implements Estatistica, Serializable{
         this.cont[5] = qtdFaces[5];
     }
 
-    public String somaEstatistica(){
-        int soma=0;
-        for(int i=0;i<6;i++){
-            soma += getCont(i);
-        }
-        return "Face 1: "+getCont(0)+" Face 2: "+getCont(1)+" Face 3: "+getCont(2)+" Face 4: "+getCont(3)+" Face 5:"+getCont(4)+" Face 6: "+getCont(5)+" Total: "+soma;
-    }
-
     public Dado[] getdados (){
         return this.dados;
         
@@ -94,17 +86,8 @@ public abstract class JogoDados implements Estatistica, Serializable{
 
 
     public abstract void rolarDados(int nDados);
-
-    // public void setSalvarJogadasG(int j, Jogador player){
-    //     //array de array pra salvar o array de jogadas do general
-    //     //vai ficar na linha 114 Em Humano em baixo do setar no método escolher jogada provelmente em máquina tbm//vai ter que ser antes de recetar
-    //     //j++ 
-    //     JogoGeneral jogoGeneral= (JogoGeneral)player.getJogoDados(j);
-    //     jogoGeneral.jogadasSalvasG[j][]=jogoGeneral.jogadas;
     
-    // }
-    
-    
+    //SOBRESCRITA DA HERANÇA
     @Override
     public int[] somarFacesSorteadas(Dado[] dados) { // método para verificar quantas vezes a face do dado caiu
         int i = 0;

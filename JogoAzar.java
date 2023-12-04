@@ -1,12 +1,12 @@
 import java.util.Scanner;
+// Nessa classe usamos herança e herança multipla
+
 public class JogoAzar extends JogoDados{
     private Dado[] dados;
-    private transient Scanner teclado;
 
     public JogoAzar(double valorAposta){
-        super(2, "Jogo Azar", valorAposta);
+        super(2, "Jogo Azar", valorAposta); //HERANÇA
         
-        teclado = new Scanner(System.in);// scanf do java
         dados = new Dado[2];
 
 
@@ -17,6 +17,7 @@ public class JogoAzar extends JogoDados{
     }
 
     public void executarRegrasJogo(Jogador player, int j){ // metodo para executar as regras e jogar o jogo azar
+        Scanner teclado= new Scanner(System.in);
         int soma=0;
         double novoSaldo = 0;
 
@@ -35,7 +36,6 @@ public class JogoAzar extends JogoDados{
 
         // Rola os dados e calcula a soma das faces
         player.getJogoDados(player.getJogadasRealizadas()).rolarDados(2);
-        int qtdFaces[] = somarFacesSorteadas(dados);
 
         System.out.println("1º Lançamento");
 
@@ -68,7 +68,6 @@ public class JogoAzar extends JogoDados{
             do {
                 // Rolagem dos dados para encontrar o número a ser buscado
                 player.getJogoDados(player.getJogadasRealizadas()).rolarDados(2);
-                qtdFaces = somarFacesSorteadas(dados);
 
                 novaSoma = dados[0].getSideUp()+dados[1].getSideUp();
 
@@ -96,13 +95,12 @@ public class JogoAzar extends JogoDados{
                     break;
                 }
                 i++;
-                //System.out.println("1: "+qtdFaces[0] +" 2: "+qtdFaces[1]+" 3: "+qtdFaces[2] +" 4: "+qtdFaces[3]+" 5: "+qtdFaces[4] +" 6: "+qtdFaces[5]);
             } while (novaSoma != soma || (novaSoma == 2 || novaSoma == 3 || novaSoma == 12));
         }
     }
 
 
-
+    //SOBRESCRITA DA HERANÇA
     @Override
     public void rolarDados(int nDados) { // resultados dos 2 dados
         for (int i = 0; i < nDados; i++) {
@@ -111,9 +109,11 @@ public class JogoAzar extends JogoDados{
             }
             this.dados[i].roll(numFaces);
         }
+        int[] qtd = somarFacesSorteadas(dados); 
+        setCont(qtd);
     }
 
-    public String toString() {    
+    public String toString() {    //printar as faces roladas
         return dados[0].getSideUp() + " + " + dados[1].getSideUp();
     }
     
