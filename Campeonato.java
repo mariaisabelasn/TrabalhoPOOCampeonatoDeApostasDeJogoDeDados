@@ -307,7 +307,7 @@ public class Campeonato implements Serializable {
                                         for (int i=0; i<p.getJogadasRealizadas(); i++){//mudar para p.getjogadas realizadas
                                             if(p.getJogoDados(i) instanceof JogoGeneral){
                                                 System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
-                                                System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                                System.out.printf("O valor apostado nesse jogo foi: %.2f\n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                 System.out.println("Esse foi o jogo feito: \n");
                                                 mostrarExtratoJG(p, i);
                                                 System.out.println("E o resulatado dele foi esse: ");
@@ -319,6 +319,9 @@ public class Campeonato implements Serializable {
                                                 }
                                                 
                                             }
+                                             else{
+                                                    
+                                                }
                                         }
                                     }
                                 }
@@ -345,6 +348,9 @@ public class Campeonato implements Serializable {
                                                 }
                                                 
                                             }
+                                             else{
+                                                    
+                                                }
                                         }
                                     }
                                 }
@@ -360,7 +366,7 @@ public class Campeonato implements Serializable {
                                     for(int i=0; i<p.getJogadasRealizadas(); i++){
                                             if(p.getJogoDados(i) instanceof JogoGeneral){
                                                 System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
-                                                System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                                System.out.printf("O valor apostado nesse jogo foi: %.2f\n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                 System.out.println("Esse foi o jogo feito: \n");
                                                 mostrarExtratoJG(p, j);
                                                 System.out.println("E o resulatado dele foi esse: ");
@@ -372,6 +378,9 @@ public class Campeonato implements Serializable {
                                                 }
                                                 
                                             }
+                                             else{
+                                                    
+                                                }
                                         }
                                   }
                                 }
@@ -396,13 +405,13 @@ public class Campeonato implements Serializable {
                 switch (opcao2) {
                     case "a"://imprime o extrato do jogo azar para todos os jogadores
                     for (Jogador p : players) {
-                                if(p!=null && p instanceof Humano){
+                                if(p!=null){
                                     System.out.println("-> Nome do jogador: "+ p.getNome());
                                     for (int j=0; j<contJogadores; j++){
                                         for(int i=0; i<p.getJogadasRealizadas(); i++){
                                                 if(p.getJogoDados(i) instanceof JogoAzar){
                                                     System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
-                                                    System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );     
+                                                    System.out.printf("O valor apostado nesse jogo foi: %.2f \n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );     
                                                     System.out.println("E o resulatado dele foi esse: ");
                                                     if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                         System.out.println("Jogo vencido!!\n");
@@ -410,6 +419,9 @@ public class Campeonato implements Serializable {
                                                     else{
                                                         System.out.println("Jogo perdido!\n");
                                                     }                                           
+                                                }
+                                                else{
+                                                    
                                                 }
                                         }
                                     }
@@ -425,7 +437,7 @@ public class Campeonato implements Serializable {
                                         for(int i=0; i<p.getJogadasRealizadas(); i++){
                                                 if(p.getJogoDados(i) instanceof JogoAzar){
                                                     System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
-                                                    System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) ); 
+                                                    System.out.printf("O valor apostado nesse jogo foi: %.2f \n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) ); 
                                                     System.out.println("E o resulatado dele foi esse: ");
                                                     if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                         System.out.println("Jogo vencido!!\n");
@@ -433,6 +445,9 @@ public class Campeonato implements Serializable {
                                                     else{
                                                         System.out.println("Jogo perdido!\n");
                                                     }                                               
+                                                }
+                                                else{
+                                                    
                                                 }
                                         }
                                     }
@@ -450,13 +465,16 @@ public class Campeonato implements Serializable {
                                                     System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
                                                     System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                     System.out.println("E o resulatado dele foi esse: ");
-                                                    if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
-                                                        System.out.println("Jogo vencido!!\n");
-                                                    }
-                                                    else{
-                                                        System.out.println("Jogo perdido!\n");
-                                                    }
+                                                        if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                            System.out.println("Jogo vencido!!\n");
+                                                        }
+                                                        else{
+                                                            System.out.println("Jogo perdido!\n");
+                                                        }
                                                                                                     
+                                                }
+                                                else{
+                                                    
                                                 }
                                         }
                                     }
