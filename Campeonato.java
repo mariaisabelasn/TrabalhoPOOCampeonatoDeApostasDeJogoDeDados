@@ -208,7 +208,8 @@ public class Campeonato implements Serializable {
         System.out.println("b) Apenas para os jogadores humanos");
         System.out.println("c) Apenas para os jogadores máquinas");
         opcao = teclado.nextLine();
-        
+        boolean encontrouHumano = false;
+        boolean encontrouMaquina =false;
         switch (opcao) {
             case "a":
                 for (Jogador p : players) {//printa o saldo de todos os jogadores
@@ -225,11 +226,12 @@ public class Campeonato implements Serializable {
             case "b":
                 for (Jogador p : players) {//printa o saldo de todos os humanos
                     if(p!=null && p instanceof Humano){ //POLIMORFISMO
+                        encontrouHumano=true;
                         System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
                     }
-                    else{
-                        System.out.println("Não há jogadores, ou há apenas jogadores máquinas!");
-                    }
+                }
+                if(!encontrouHumano){
+                            System.out.println("Não há jogadores, ou há apenas jogadores máquinas!");
                 }
 
                 break;
@@ -237,12 +239,14 @@ public class Campeonato implements Serializable {
             case "c":
                 for (Jogador p : players) {//printa o saldo de todas as maquinas
                     if(p!=null && p instanceof Maquina){//POLIMORFISMO
+                        encontrouMaquina=true;
                         System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
                     }
-                     else{
-                        System.out.println("Não há jogadores, ou há apenas jogadores humanos!");
-                    }
                 }
+                if(!encontrouMaquina){
+                            System.out.println("Não há jogadores, ou há apenas jogadores humanos!");
+                }
+                        
                 break;
         
             default:
@@ -259,7 +263,8 @@ public class Campeonato implements Serializable {
         System.out.println("b) Para o Jogo de Azar");
         System.out.println("c) Para ambos os jogos");
         opcao = teclado.nextLine();
-        
+        boolean encontrouHumano = false;
+        boolean encontrouMaquina =false;
         switch (opcao) {
             case "a"://JOGO GENERAL
                 System.out.println("Deseja imprimir extrato de qual tipo de jogador?");
@@ -298,6 +303,7 @@ public class Campeonato implements Serializable {
                     case "b"://imprime o extrato do general para todos os jogadores humanos
                         for(int j=0; j<contJogadores; j++){
                             if(players[j]!=null && players[j] instanceof Humano){
+                                encontrouHumano=true;
                                 for (int i=0; i<players[j].getJogadasRealizadas(); i++){
                                     if(players[j].getJogoDados(i) instanceof JogoGeneral){
                                         System.out.println("-> Nome do jogador: "+ players[j].getNome());
@@ -315,15 +321,16 @@ public class Campeonato implements Serializable {
                                     }
                                 }
                             }
-                            else{
+                        }
+                        if(!encontrouHumano){
                                 System.out.println("Não há jogadores, ou há apenas jogadores máquinas!");
-                            }
                         }
                           
                         break;
                     case "c"://imprime o extrato do general para todos os jogadores máquina
                        for (int j=0; j<contJogadores; j++){
                             if(players[j]!=null &&  players[j] instanceof Maquina){//polimorfismo
+                                encontrouMaquina=true;
                                 for(int i=0; i<players[j].getJogadasRealizadas(); i++){
                                     if(players[j].getJogoDados(i) instanceof JogoGeneral){
                                         System.out.println("-> Nome do jogador: "+ players[j].getNome());
@@ -341,9 +348,9 @@ public class Campeonato implements Serializable {
                                     }          
                                 }
                             }
-                            else{
+                        }
+                        if(!encontrouMaquina){
                                 System.out.println("Não há jogadores, ou há apenas jogadores humanos!");
-                            }
                         }
                         
                         break;
@@ -390,6 +397,7 @@ public class Campeonato implements Serializable {
                     case "b"://imprime o extrato do jogo azar para todos os jogadores humanos
                        for (int j=0; j<contJogadores; j++){
                             if(players[j]!=null && players[j] instanceof Humano){//polimorfismo
+                                encontrouHumano=true;
                                 for(int i=0; i<players[j].getJogadasRealizadas(); i++){
                                     if(players[j].getJogoDados(i) instanceof JogoAzar){
                                         System.out.println("-> Nome do jogador: "+ players[j].getNome());
@@ -405,14 +413,15 @@ public class Campeonato implements Serializable {
                                     }
                                 }
                             }
-                            else{
+                        }  
+                        if(!encontrouHumano){
                                 System.out.println("Não há jogadores, ou há apenas jogadores máquinas!");
-                            }
-                        }                        
+                        }                      
                         break;
                     case "c"://imprime o extrato do jogo azar para todos os jogadores máquina
                        for (int j=0; j<contJogadores; j++){
                             if(players[j]!=null && players[j] instanceof Maquina){//polimorfismo
+                                encontrouMaquina=true;
                                 for(int i=0; i<players[j].getJogadasRealizadas(); i++){
                                     if(players[j].getJogoDados(i) instanceof JogoAzar){
                                         System.out.println("-> Nome do jogador: "+ players[j].getNome());
@@ -428,10 +437,11 @@ public class Campeonato implements Serializable {
                                     }
                                 }
                             }
-                            else{
-                                System.out.println("Não há jogadores, ou há apenas jogadores humanos!");
-                            }
                         }
+                        if(!encontrouMaquina){
+                                System.out.println("Não há jogadores, ou há apenas jogadores humanos!");
+                        }
+                        
                         break;
                 
                     default:
@@ -517,15 +527,16 @@ public class Campeonato implements Serializable {
                                         }
                                     }
                             }
-                            else{
+                        }
+                        if(!encontrouHumano){
                                 System.out.println("Não há jogadores, ou há apenas jogadores máquinas!");
-                            }
                         }
                         
                         break;
                     case "c"://imprime o extrato do dos dois jogos para todos os jogadores máquina
                         for (int j=0; j<contJogadores; j++){
                             if(players[j]!=null && players[j] instanceof Maquina){//polimorfismo
+                                encontrouMaquina=true;
                                 System.out.println("-> Nome do jogador: "+ players[j].getNome());
                                     for(int i=0; i<players[j].getJogadasRealizadas(); i++){
                                         if(players[j].getJogoDados(i) instanceof JogoGeneral){//polimorfismo
@@ -555,10 +566,11 @@ public class Campeonato implements Serializable {
                                         }
                                     }
                             }
-                            else{
-                                System.out.println("Não há jogadores, ou há apenas jogadores humanos!");
-                            }
                         }
+                        if(!encontrouMaquina){
+                                System.out.println("Não há jogadores, ou há apenas jogadores humanos!");
+                        }
+                        
                      break;
 
                     default:
@@ -581,7 +593,8 @@ public class Campeonato implements Serializable {
         System.out.println("c) Total por jogos[general e azar]");
         System.out.println("d) Total do campeonato");
         opcao = teclado.nextLine();
-        
+        boolean encontrouHumano = false;
+        boolean encontrouMaquina =false;
         switch (opcao) {
             case "a":
                 System.out.println("Humano (h) ou máquina (m)? ");
@@ -592,6 +605,7 @@ public class Campeonato implements Serializable {
                     case "h":
                         for (Jogador p : players) {//printa a estatistica de todos os jogadores humano
                             if(p!=null && p instanceof Humano){//POLIMORFISMO
+                                encontrouHumano=true;
                                 for (int i=0; i<p.getJogadasRealizadas(); i++){
                                     JogoDados jogoDados = p.getJogoDados(i);
                                     for(int j=0;j<6;j++){
@@ -605,11 +619,10 @@ public class Campeonato implements Serializable {
                                 for(int k=0;k<6;k++){ //zera o vetor soma
                                     soma[k] = 0;
                                 }
-                            }
-                            else{
+                            }   
+                        }
+                        if(!encontrouHumano){
                                 System.out.println("Não há jogadores, ou há apenas jogadores máquinas!");
-                            }
-                            
                         }
                         
                         break;
@@ -617,6 +630,7 @@ public class Campeonato implements Serializable {
                     case "m":
                         for (Jogador p : players) {//printa  a estatistica de todos os jogadores maquina
                             if(p!=null && p instanceof Maquina){//POLIMORFISMO
+                                encontrouMaquina=true;
                                 for (int i=0; i<p.getJogadasRealizadas(); i++){
                                     JogoDados jogoDados = p.getJogoDados(i);
                                     for(int j=0;j<6;j++){
@@ -631,11 +645,11 @@ public class Campeonato implements Serializable {
                                     soma[k] = 0;
                                 }
                             }
-                            else{
-                                System.out.println("Não há jogadores, ou há apenas jogadores humanos!");
-                            }
-                            
                         }
+                        if(!encontrouMaquina){
+                                System.out.println("Não há jogadores, ou há apenas jogadores humanos!");
+                        }
+                        
                         
                     break;
                 
