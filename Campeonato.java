@@ -12,7 +12,6 @@ public class Campeonato implements Serializable {
     private int contJogadores;
     private String nome, biotipo, cpf, opcao, opcao1, opcao2, opcao3;
     private double saldo;
-    //private int vet[];//VER PRA QUE SERVIA NO CÓDIGO ANTIGO
     private JogoDados[] jogoDados; //array polimorfo que recebe instancia do tipo JogoAzar e JogoGeneral
 
     // CONSTRUTOR
@@ -20,7 +19,6 @@ public class Campeonato implements Serializable {
         this.n = 10;
         this.players = new Jogador[n]; // vetor dos jogadores do campeonato
         this.contJogadores = 0;
-        //vet = new int[13];
         this.jogoDados = new JogoDados[10];
 
 
@@ -478,30 +476,30 @@ public class Campeonato implements Serializable {
                                     for(int i=0; i<players[j].getJogadasRealizadas(); i++){
                                         System.out.println("-> Nome do jogador: "+ players[j].getNome());
                                         if(players[j].getJogoDados(i) instanceof JogoGeneral){//polimorfismo
-                                                    System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
-                                                    System.out.printf("O valor apostado nesse jogo foi: %.2f%n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
-                                                    System.out.println("Esse foi o jogo feito: \n");
-                                                    mostrarExtratoJG(players[j], j);
-                                                    System.out.println("E o resultado dele foi esse: ");
-                                                        if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
-                                                            System.out.println("Jogo vencido!!\n");
-                                                        }
-                                                        else{
-                                                            System.out.println("Jogo perdido!\n");
-                                                        }
-                                                    
-                                                }
-                                                if(players[j].getJogoDados(i) instanceof JogoAzar){//polimorfismo
-                                                    System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
-                                                    System.out.printf("O valor apostado nesse jogo foi: %.2f%n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
-                                                    System.out.println("E o resultado dele foi esse: ");
-                                                        if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
-                                                            System.out.println("Jogo vencido!!\n");
-                                                        }
-                                                        else{
-                                                            System.out.println("Jogo perdido!\n");
-                                                        }                                               
-                                                }
+                                            System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
+                                            System.out.printf("O valor apostado nesse jogo foi: %.2f%n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                            System.out.println("Esse foi o jogo feito: \n");
+                                            mostrarExtratoJG(players[j], j);
+                                            System.out.println("E o resultado dele foi esse: ");
+                                            if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                System.out.println("Jogo vencido!!\n");
+                                            }
+                                            else{
+                                                System.out.println("Jogo perdido!\n");
+                                            }
+                                            
+                                        }
+                                        if(players[j].getJogoDados(i) instanceof JogoAzar){//polimorfismo
+                                            System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
+                                            System.out.printf("O valor apostado nesse jogo foi: %.2f%n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                            System.out.println("E o resultado dele foi esse: ");
+                                            if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                System.out.println("Jogo vencido!!\n");
+                                            }
+                                            else{
+                                                System.out.println("Jogo perdido!\n");
+                                            }                                               
+                                        }
                                          }
                                     }
                                 }
@@ -551,6 +549,7 @@ public class Campeonato implements Serializable {
             default:
                 System.out.println ("Opcao invalida. Tente novamente");
         }
+
     }
 
     public void mostrarEstatistica(){
