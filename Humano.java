@@ -1,12 +1,10 @@
 import java.util.Scanner;
 // Nessa classe usamos polimorfismo, herança e herança multipla
 public class Humano extends Jogador implements JogarComoHumano{
-    private String cpf;
     private Campeonato campeonato;
 
-    public Humano(String nome, String tipoJogador, String cpf,double saldo){
+    public Humano(String nome, String tipoJogador,double saldo){
         super(nome, tipoJogador, saldo); //HERANÇA
-        this.cpf = cpf;
         this.campeonato=new Campeonato();
     }
 
@@ -20,7 +18,6 @@ public class Humano extends Jogador implements JogarComoHumano{
                 if (player instanceof Humano){//POLIMORFISMO
                     System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
                     valorAposta = teclado.nextDouble();
-                  //  player.getJogoDados(player.getJogadasRealizadas()).setArrayAposta(valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                     if(valorAposta==0){
                     System.out.println("Aposte algum valor!");
                 }
@@ -28,17 +25,14 @@ public class Humano extends Jogador implements JogarComoHumano{
                 else if(player instanceof Maquina){//POLIMORFISMO
                     Maquina maquina=(Maquina) player;
                     valorAposta= maquina.quantoApostar();//para ver quanto a maquina aposta
-                    //player.getJogoDados(player.getJogadasRealizadas()).setArrayAposta(valorAposta, player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                     System.out.println("Valor apostado pela máquina: R$"+valorAposta);//mostra o valor que a máquina apostou
                 }
                 
             }while(valorAposta==0);
             
             JogoDados jg =new JogoGeneral(valorAposta);//outro indice polimorfismo aqui
-           // player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
             player.setJogoDados(jg, player.getJogadasRealizadas());//seta o jogo para o player
             
-
             if (player instanceof Humano){//POLIMORFISMO
                 player.iniciarJogoGeneral(player);
                 player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
@@ -59,8 +53,7 @@ public class Humano extends Jogador implements JogarComoHumano{
             do{
                 if (player instanceof Humano){//POLIMORFISMO
                     System.out.println("Qual o valor que deseja apostar? ");//pede o valor da aposta
-                    valorAposta = teclado.nextDouble();
-                   // player.getJogoDados(player.getJogadasRealizadas()).setArrayAposta(valorAposta, player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo                   
+                    valorAposta = teclado.nextDouble(); 
                     if(valorAposta==0){
                     System.out.println("Aposte algum valor!");
                 }
@@ -68,13 +61,11 @@ public class Humano extends Jogador implements JogarComoHumano{
                 else if(player instanceof Maquina){//POLIMORFISMO
                     Maquina maquina=(Maquina) player;
                     valorAposta= maquina.quantoApostar();//para ver quanto a maquina aposta
-                    //player.getJogoDados(player.getJogadasRealizadas()).setArrayAposta(valorAposta, player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                     System.out.println("Valor apostado pela máquina: R$"+valorAposta);//mostra o valor que a máquina apostou
                 }
             }while(valorAposta==0);
             
             JogoDados ja =new JogoAzar(valorAposta);//outro indice polimorfismo aqui
-           // player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
             player.setJogoDados(ja, player.getJogadasRealizadas());//seta o jogo para o player
             
             JogoAzar jogoAzar =(JogoAzar) player.getJogoDados(player.getJogadasRealizadas()); //converte jogo dados em jogo azar
