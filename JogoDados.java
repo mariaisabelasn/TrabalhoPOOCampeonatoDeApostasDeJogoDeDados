@@ -6,7 +6,7 @@ public abstract class JogoDados implements Estatistica, Serializable{
     private Dado[] dados;
     private int[] cont;// Inicializa o array cont
     private double[][] armazenadorDeApostas;
-    private int[][] armazenarResulatados;
+    private int[][] armazenarResultados;
     private double[] arrayApostas;
     //private int[] jogadas; //verificar
 
@@ -17,7 +17,7 @@ public abstract class JogoDados implements Estatistica, Serializable{
         this.valorAposta = valorAposta;
         cont = new int[numFaces];
         armazenadorDeApostas=new double[10][10];
-        armazenarResulatados=new int[10][10];
+        armazenarResultados=new int[10][10];
     }
 
     // Sobrecarga
@@ -31,7 +31,7 @@ public abstract class JogoDados implements Estatistica, Serializable{
         this.valorAposta = valorAposta;
         cont = new int[numFaces];
         armazenadorDeApostas=new double[10][10];
-        armazenarResulatados=new int[10][10];
+        armazenarResultados=new int[10][10];
     }
 
     public String getNomeJogo(){
@@ -51,12 +51,12 @@ public abstract class JogoDados implements Estatistica, Serializable{
     }
     
     public void setArmazenarResultados(int i, int x, int j){//recebe indice do player e o array de apostas, indice jogo
-        this.armazenarResulatados[i][j]=x;//recebe -1 pra jogo perdido e 1 pra jogo ganho
+        this.armazenarResultados[i][j]=x;//recebe -1 pra jogo perdido e 1 pra jogo ganho
 
     }
 
     public int getArmazenadorDeResultados(int i, int j) {//recebe o indice do player e o indice do jogo
-        return this.armazenarResulatados[i][j];
+        return this.armazenarResultados[i][j];
     }
 
 

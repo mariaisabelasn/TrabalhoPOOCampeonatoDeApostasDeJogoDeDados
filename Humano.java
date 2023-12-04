@@ -144,6 +144,7 @@ public class Humano extends Jogador implements JogarComoHumano{
             System.out.println("1 - Jogo General");
             System.out.println("2 - Jogo Azar");
             opcao = teclado.nextInt();
+            //limparBuffer(opcao);
             
 
             if(opcao==1){

@@ -22,7 +22,7 @@ public class Campeonato implements Serializable {
         players = new Jogador[n]; // vetor dos jogadores do campeonato
         contJogadores = 0;
         teclado = new Scanner(System.in);// scanf do java
-        vet = new int[13];
+        //vet = new int[13];
         jogoDados = new JogoDados[10];
 
 
@@ -227,7 +227,7 @@ public class Campeonato implements Serializable {
             int soma=0;
             for(int j=0; j<13;j++){
                 System.out.print(type[j]+"\t");//imprime os nomes das jogadas
-                System.out.print(jogoGeneral.getSalvarJogadasG(i, j)+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
+                System.out.print(jogoGeneral.getSalvarJogadasG(i,j)+"\t\t"); // pega as pontuações jogadas de uma "ficha" dos jogadores que é o jogogeneral
                 System.out.print("\n");
             }
             soma=somaJogadasDoExtrato(i, jogoGeneral);
@@ -312,7 +312,7 @@ public class Campeonato implements Serializable {
                                                 System.out.printf("O valor apostado nesse jogo foi: %.2f\n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                 System.out.println("Esse foi o jogo feito: \n");
                                                 mostrarExtratoJG(p, i);
-                                                System.out.println("E o resulatado dele foi esse: ");
+                                                System.out.println("E o resultado dele foi esse: ");
                                                 if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                     System.out.println("Jogo vencido!!\n");
                                                 }
@@ -341,7 +341,7 @@ public class Campeonato implements Serializable {
                                                 System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                 System.out.println("Esse foi o jogo feito: \n");
                                                 mostrarExtratoJG(p, i);
-                                                System.out.println("E o resulatado dele foi esse: ");
+                                                System.out.println("E o resultado dele foi esse: ");
                                                 if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                     System.out.println("Jogo vencido!!\n");
                                                 }
@@ -371,7 +371,7 @@ public class Campeonato implements Serializable {
                                                 System.out.printf("O valor apostado nesse jogo foi: %.2f\n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                 System.out.println("Esse foi o jogo feito: \n");
                                                 mostrarExtratoJG(p, j);
-                                                System.out.println("E o resulatado dele foi esse: ");
+                                                System.out.println("E o resultado dele foi esse: ");
                                                 if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                     System.out.println("Jogo vencido!!\n");
                                                 }
@@ -412,9 +412,9 @@ public class Campeonato implements Serializable {
                                     for (int j=0; j<contJogadores; j++){
                                         for(int i=0; i<p.getJogadasRealizadas(); i++){
                                                 if(p.getJogoDados(i) instanceof JogoAzar){
-                                                    System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
+                                                    System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
                                                     System.out.printf("O valor apostado nesse jogo foi: %.2f \n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );     
-                                                    System.out.println("E o resulatado dele foi esse: ");
+                                                    System.out.println("E o resultado dele foi esse: ");
                                                     if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                         System.out.println("Jogo vencido!!\n");
                                                     }
@@ -440,7 +440,7 @@ public class Campeonato implements Serializable {
                                                 if(p.getJogoDados(i) instanceof JogoAzar){
                                                     System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
                                                     System.out.printf("O valor apostado nesse jogo foi: %.2f \n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) ); 
-                                                    System.out.println("E o resulatado dele foi esse: ");
+                                                    System.out.println("E o resultado dele foi esse: ");
                                                     if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                         System.out.println("Jogo vencido!!\n");
                                                     }
@@ -466,7 +466,7 @@ public class Campeonato implements Serializable {
                                                 if(p.getJogoDados(i) instanceof JogoAzar){
                                                     System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
                                                     System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
-                                                    System.out.println("E o resulatado dele foi esse: ");
+                                                    System.out.println("E o resultado dele foi esse: ");
                                                         if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                             System.out.println("Jogo vencido!!\n");
                                                         }
@@ -499,16 +499,20 @@ public class Campeonato implements Serializable {
 
                 switch (opcao3) {
                     case "a"://imprime o extrato dos dois jogos  para todos os jogadores
-                    for (Jogador p : players) {
-                                    System.out.println("-> Nome do jogador: "+ p.getNome());
-                                    for (int j=0; j<contJogadores; j++){
-                                    for(int i=0; i<p.getJogadasRealizadas(); i++){
+                        for (Jogador p : players) {
+                            if(p!=null){
+                                System.out.println("-> Nome do jogador: "+ p.getNome());
+                                //for (int j=0; j<contJogadores; j++){
+                                    int j = 0;
+                                    do{
+                                        System.out.println(p.getJogadasRealizadas());
+                                        for(int i=0; i<p.getJogadasRealizadas(); i++){
                                             if(p.getJogoDados(i) instanceof JogoGeneral){
                                                 System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
-                                                System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                                System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j,i));
                                                 System.out.println("Esse foi o jogo feito: \n");
                                                 mostrarExtratoJG(p, j);
-                                                System.out.println("E o resulatado dele foi esse: ");
+                                                System.out.println("E o resultado dele foi esse: ");
                                                 if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                     System.out.println("Jogo vencido!!");
                                                 }
@@ -519,7 +523,7 @@ public class Campeonato implements Serializable {
                                             if(p.getJogoDados(i) instanceof JogoAzar){
                                                 System.out.println("\nJogo Azar, "+(i+1)+"º jogo realizado");
                                                 System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
-                                                System.out.println("E o resulatado dele foi esse: ");
+                                                System.out.println("E o resultado dele foi esse: ");
                                                 if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                     System.out.println("Jogo vencido!!\n");
                                                 }
@@ -528,9 +532,12 @@ public class Campeonato implements Serializable {
                                                 }
                                                                                                 
                                             }
+                                            j++;
                                         }
-                                  }
+                                    }while (j!=contJogadores);
+                                //}
                             }
+                        }
                         
                         break;
                     case "b"://imprime o extrato dos dois jogos para todos os jogadores humanos
@@ -544,7 +551,7 @@ public class Campeonato implements Serializable {
                                                     System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                     System.out.println("Esse foi o jogo feito: \n");
                                                     mostrarExtratoJG(p, j);
-                                                    System.out.println("E o resulatado dele foi esse: ");
+                                                    System.out.println("E o resultado dele foi esse: ");
                                                     if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                         System.out.println("Jogo vencido!!\n");
                                                     }
@@ -556,7 +563,7 @@ public class Campeonato implements Serializable {
                                                 if(p.getJogoDados(i) instanceof JogoAzar){
                                                     System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
                                                     System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
-                                                    System.out.println("E o resulatado dele foi esse: ");
+                                                    System.out.println("E o resultado dele foi esse: ");
                                                     if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                         System.out.println("Jogo vencido!!\n");
                                                     }
@@ -575,32 +582,32 @@ public class Campeonato implements Serializable {
                         if(p!=null && p instanceof Maquina){
                             System.out.println("-> Nome do jogador: "+ p.getNome());
                             for (int j=0; j<contJogadores; j++){
-                                 for(int i=0; i<p.getJogadasRealizadas(); i++){
-                                            if(p.getJogoDados(i) instanceof JogoGeneral){
-                                                System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
-                                                System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
-                                                System.out.println("Esse foi o jogo feito: \n");
-                                                mostrarExtratoJG(p, j);
-                                                System.out.println("E o resulatado dele foi esse: ");
-                                                if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
-                                                    System.out.println("Jogo vencido!!\n");
-                                                }
-                                                else{
-                                                    System.out.println("Jogo perdido!\n");
-                                                }
-                                            
-                                            }
-                                            if(p.getJogoDados(i) instanceof JogoAzar){
-                                                System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
-                                                System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
-                                                System.out.println("E o resulatado dele foi esse: ");
-                                                if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
-                                                    System.out.println("Jogo vencido!!\n");
-                                                }
-                                                else{
-                                                    System.out.println("Jogo perdido!\n");
-                                                }                                              
-                                            }
+                                for(int i=0; i<p.getJogadasRealizadas(); i++){
+                                    if(p.getJogoDados(i) instanceof JogoGeneral){
+                                        System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
+                                        System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                        System.out.println("Esse foi o jogo feito: \n");
+                                        mostrarExtratoJG(p, j);
+                                        System.out.println("E o resultado dele foi esse: ");
+                                        if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                            System.out.println("Jogo vencido!!\n");
+                                        }
+                                        else{
+                                            System.out.println("Jogo perdido!\n");
+                                        }
+                                    
+                                    }
+                                    else if(p.getJogoDados(i) instanceof JogoAzar){
+                                        System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
+                                        System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                        System.out.println("E o resultado dele foi esse: ");
+                                        if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                            System.out.println("Jogo vencido!!\n");
+                                        }
+                                        else{
+                                            System.out.println("Jogo perdido!\n");
+                                        }                                              
+                                    }
                                  }
                             }
                         }
@@ -608,6 +615,7 @@ public class Campeonato implements Serializable {
                      break;
 
                     default:
+                        System.out.println ("Opcao invalida. Tente novamente");
                         break;
                 }
                 break;
@@ -688,65 +696,65 @@ public class Campeonato implements Serializable {
 
                 break;
             case "b":
-                    System.out.println("Jogo General (g) ou Jogo Azar (a)? ");
-                    opcao1=teclado.nextLine();
-                    soma = new int[6];
-                    
-
-                    switch (opcao1) {
-                        case "g":
-                            for (Jogador p : players) {//printa a estatistica de todos os jogos general
-                                if(p!=null){
-                                    for (int i=0; i<p.getJogadasRealizadas(); i++){
-                                        JogoDados jogoDados = p.getJogoDados(i);
-                                        if(jogoDados!=null && jogoDados instanceof JogoGeneral){
-                                            for(int j=0;j<6;j++){
-                                                soma[j] += jogoDados.getCont(j);
-                                            }
-                                            System.out.printf("\n->"+jogoDados.getNomeJogo()+" %d:\n",i+1);
-                                        }
-                                        
-                                    }
-                                    for(int j=0;j<6;j++){
-                                        System.out.printf("Face "+(j+1)+": %d\n",soma[j]);
-                                    }
-                                    for(int k=0;k<6;k++){//zera o vetor soma
-                                        soma[k] = 0;
-                                    }
-                                }
-                                
-                            }
-                            
-                            break;
-
-                        case "a":
-                            for (Jogador p : players) {//printa  a estatistica de todos os jogos azar
-                                if(p!=null){
-                                    for (int i=0; i<p.getJogadasRealizadas(); i++){
-                                        JogoDados jogoDados = p.getJogoDados(i);
-                                        if(jogoDados!=null && jogoDados instanceof JogoAzar){
-                                            for(int j=0;j<6;j++){
-                                                soma[j] += jogoDados.getCont(j);
-                                            }
-                                            System.out.printf("\n->"+jogoDados.getNomeJogo()+" %d:\n",i+1);
-                                        }
-                                        
-                                    }
-                                    for(int j=0;j<6;j++){
-                                        System.out.printf("Face "+(j+1)+": %d\n",soma[j]);
-                                    }
-                                    for(int k=0;k<6;k++){//zera o vetor soma
-                                        soma[k] = 0;
-                                    }
-                                }
-                                
-                            }
-                            
-                        break;
+                System.out.println("Jogo General (g) ou Jogo Azar (a)? ");
+                opcao1=teclado.nextLine();
+                soma = new int[6];
                 
-                    default:
-                        System.out.println("Opção inválida! Tente outra!");
+
+                switch (opcao1) {
+                    case "g":
+                        for (Jogador p : players) {//printa a estatistica de todos os jogos general
+                            if(p!=null){
+                                for (int i=0; i<p.getJogadasRealizadas(); i++){
+                                    JogoDados jogoDados = p.getJogoDados(i);
+                                    if(jogoDados!=null && jogoDados instanceof JogoGeneral){
+                                        for(int j=0;j<6;j++){
+                                            soma[j] += jogoDados.getCont(j);
+                                        }
+                                        System.out.printf("\n->"+jogoDados.getNomeJogo()+" %d:\n",i+1);
+                                    }
+                                    
+                                }
+                                for(int j=0;j<6;j++){
+                                    System.out.printf("Face "+(j+1)+": %d\n",soma[j]);
+                                }
+                                for(int k=0;k<6;k++){//zera o vetor soma
+                                    soma[k] = 0;
+                                }
+                            }
+                            
+                        }
+                        
                         break;
+
+                    case "a":
+                        for (Jogador p : players) {//printa  a estatistica de todos os jogos azar
+                            if(p!=null){
+                                for (int i=0; i<p.getJogadasRealizadas(); i++){
+                                    JogoDados jogoDados = p.getJogoDados(i);
+                                    if(jogoDados!=null && jogoDados instanceof JogoAzar){
+                                        for(int j=0;j<6;j++){
+                                            soma[j] += jogoDados.getCont(j);
+                                        }
+                                        System.out.printf("\n->"+jogoDados.getNomeJogo()+" %d:\n",i+1);
+                                    }
+                                    
+                                }
+                                for(int j=0;j<6;j++){
+                                    System.out.printf("Face "+(j+1)+": %d\n",soma[j]);
+                                }
+                                for(int k=0;k<6;k++){//zera o vetor soma
+                                    soma[k] = 0;
+                                }
+                            }
+                            
+                        }
+                        
+                    break;
+            
+                default:
+                    System.out.println("Opção inválida! Tente outra!");
+                    break;
                 }
 
                 break;
