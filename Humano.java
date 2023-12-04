@@ -41,20 +41,22 @@ public class Humano extends Jogador implements JogarComoHumano{
             }while(valorAposta==0);
             
             JogoDados jg =new JogoGeneral(valorAposta);//outro indice polimorfismo aqui
-            player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
+           // player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
             player.setJogoDados(jg, player.getJogadasRealizadas());//seta o jogo para o player
             
 
             if (player instanceof Humano){
                 player.iniciarJogoGeneral(player);
-                campeonato.mostrarCartela(player);
+                player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
+                campeonato.mostrarCartela(player, i);
                 player.setJogadasRealizadas();
             }
             
             else if(player instanceof Maquina){
                player.iniciarJogoGeneral(player);
-               campeonato.mostrarCartela(player);
-                player.setJogadasRealizadas();
+               player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
+               campeonato.mostrarCartela(player, i);
+               player.setJogadasRealizadas();
             }
 
         }
@@ -78,18 +80,20 @@ public class Humano extends Jogador implements JogarComoHumano{
             }while(valorAposta==0);
             
             JogoDados ja =new JogoAzar(valorAposta);//outro indice polimorfismo aqui
-            player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
+           // player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
             player.setJogoDados(ja, player.getJogadasRealizadas());//seta o jogo para o player
             
             JogoAzar jogoAzar =(JogoAzar) player.getJogoDados(player.getJogadasRealizadas()); //converte jogo dados em jogo azar
 
             if (player instanceof Humano){
-                jogoAzar.executarRegrasJogo(player);//executa o jogo de azar 
+                jogoAzar.executarRegrasJogo(player, i);//executa o jogo de azar 
+                player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                 player.setJogadasRealizadas();
             }
             
             else if(player instanceof Maquina){
-                jogoAzar.executarRegrasJogo(player);//executa o jogo de azar
+                jogoAzar.executarRegrasJogo(player, i);//executa o jogo de azar
+                player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                 player.setJogadasRealizadas();
             }
         }

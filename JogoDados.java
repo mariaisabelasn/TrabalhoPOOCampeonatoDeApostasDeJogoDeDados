@@ -6,6 +6,7 @@ public abstract class JogoDados implements Estatistica, Serializable{
     private Dado[] dados;
     private int[] cont;// Inicializa o array cont
     private double[][] armazenadorDeApostas;
+    private int[][] armazenarResulatados;
     private double[] arrayApostas;
     //private int[] jogadas; //verificar
 
@@ -16,7 +17,7 @@ public abstract class JogoDados implements Estatistica, Serializable{
         this.valorAposta = valorAposta;
         cont = new int[numFaces];
         armazenadorDeApostas=new double[10][10];
-        arrayApostas=new double[10];
+        armazenarResulatados=new int[10][10];
     }
 
     // Sobrecarga
@@ -30,6 +31,7 @@ public abstract class JogoDados implements Estatistica, Serializable{
         this.valorAposta = valorAposta;
         cont = new int[numFaces];
         armazenadorDeApostas=new double[10][10];
+        armazenarResulatados=new int[10][10];
     }
 
     public String getNomeJogo(){
@@ -47,15 +49,16 @@ public abstract class JogoDados implements Estatistica, Serializable{
     public void setValorAposta(double valorAposta){
         this.valorAposta = valorAposta;
     }
-
-    public void setArrayAposta(double valorAposta, int i){//recebe o numero do jogo
-        this.arrayApostas[i]=valorAposta;
+    
+    public void setArmazenarResultados(int i, int x, int j){//recebe indice do player e o array de apostas, indice jogo
+        this.armazenarResulatados[i][j]=x;//recebe -1 pra jogo perdido e 1 pra jogo ganho
 
     }
 
-    public double[] getArrayAposta(){
-        return arrayApostas;
+    public int getArmazenadorDeResultados(int i, int j) {//recebe o indice do player e o indice do jogo
+        return this.armazenarResulatados[i][j];
     }
+
 
     public void setArmazenarAposta(int i, double valorAposta, int j){//recebe indice do player e o array de apostas, indice jogo
         this.armazenadorDeApostas[i][j]=valorAposta;
@@ -83,9 +86,6 @@ public abstract class JogoDados implements Estatistica, Serializable{
         
     }
 
-    // public String toString() {
-    //     return "Face 1: "+dados[0]+" Face 2:"+dados[1]+" Face 3: "+dados[2]+" Face 4: "+dados[3]+" Face 5:"+dados[4]+" Face 6: "+dados[5];
-    // }
 
     public abstract void rolarDados(int nDados);
 
