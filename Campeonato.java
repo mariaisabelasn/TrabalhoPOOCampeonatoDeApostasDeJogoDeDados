@@ -12,17 +12,12 @@ public class Campeonato implements Serializable {
     private int contJogadores;
     private String nome, biotipo, cpf, opcao, opcao1, opcao2, opcao3;
     private double saldo;
-    //private int vet[];//VER PRA QUE SERVIA NO CÓDIGO ANTIGO
-    private JogoDados[] jogoDados; //array polimorfo que recebe instancia do tipo JogoAzar e JogoGeneral
-
+ 
     // CONSTRUTOR
     public Campeonato() {
         this.n = 10;
         this.players = new Jogador[n]; // vetor dos jogadores do campeonato
         this.contJogadores = 0;
-        //vet = new int[13];
-        this.jogoDados = new JogoDados[10];
-
 
         for (int i = 0; i < players.length; i++) {
             players[i] = null; // Define cada elemento como nulo
@@ -127,9 +122,7 @@ public class Campeonato implements Serializable {
             }
         }               
     }
-
-    
-                
+             
     public void mostrarCartela(Jogador player, int i) { // Mostra a Cartela do Jogo General
         System.out.println("-- Cartela de Resultados --");
         System.out.print("Jogada\t");
@@ -308,7 +301,7 @@ public class Campeonato implements Serializable {
                                                     System.out.printf("O valor apostado nesse jogo foi: %.2f%n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                     System.out.println("Esse foi o jogo feito: \n");
                                                     mostrarExtratoJG(players[j], i);
-                                                    System.out.println("E o resulatado dele foi esse: ");
+                                                    System.out.println("E o resultado dele foi esse: ");
                                                         if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                             System.out.println("Jogo vencido!!\n");
                                                         }
@@ -333,7 +326,7 @@ public class Campeonato implements Serializable {
                                                     System.out.printf("O valor apostado nesse jogo foi: %.2f\n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                     System.out.println("Esse foi o jogo feito: \n");
                                                     mostrarExtratoJG(players[j], j);
-                                                    System.out.println("E o resulatado dele foi esse: ");
+                                                    System.out.println("E o resultado dele foi esse: ");
                                                         if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                             System.out.println("Jogo vencido!!\n");
                                                         }
@@ -448,7 +441,7 @@ public class Campeonato implements Serializable {
                                                 System.out.printf("O valor apostado nesse jogo foi: %.2f%n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                 System.out.println("Esse foi o jogo feito: \n");
                                                 mostrarExtratoJG(players[j], j);
-                                                System.out.println("E o resulatado dele foi esse: ");
+                                                System.out.println("E o resultado dele foi esse: ");
                                                 if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                     System.out.println("Jogo vencido!!");
                                                 }
@@ -459,7 +452,7 @@ public class Campeonato implements Serializable {
                                             if(players[j].getJogoDados(i) instanceof JogoAzar){//polimorfismo
                                                 System.out.println("\nJogo Azar, "+(i+1)+"º jogo realizado");
                                                 System.out.printf("O valor apostado nesse jogo foi: %.2f%n", players[j].getJogoDados(i).getArmazenadorDeApostas(j, i) );
-                                                System.out.println("E o resulatado dele foi esse: ");
+                                                System.out.println("E o resultado dele foi esse: ");
                                                 if(players[j].getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
                                                     System.out.println("Jogo vencido!!\n");
                                                 }
