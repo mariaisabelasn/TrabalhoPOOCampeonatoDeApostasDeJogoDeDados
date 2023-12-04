@@ -13,7 +13,7 @@ public class Campeonato implements Serializable {
     private transient Scanner teclado;
     private String nome, biotipo, cpf, opcao, opcao1, opcao2, opcao3;
     private double saldo;
-    private int vet[];//VER PRA QUE SERVIA NO CÓDIGO ANTIGO
+    //private int vet[];//VER PRA QUE SERVIA NO CÓDIGO ANTIGO
     private JogoDados[] jogoDados; //array polimorfo que recebe instancia do tipo JogoAzar e JogoGeneral
 
     // CONSTRUTOR
@@ -22,7 +22,7 @@ public class Campeonato implements Serializable {
         players = new Jogador[n]; // vetor dos jogadores do campeonato
         contJogadores = 0;
         teclado = new Scanner(System.in);// scanf do java
-        vet = new int[13];
+        //vet = new int[13];
 
         for (int i = 0; i < players.length; i++) {
             players[i] = null; // Define cada elemento como nulo
@@ -127,7 +127,7 @@ public class Campeonato implements Serializable {
 
     
                 
-    public void mostrarCartela(Jogador player) { // Mostra a Cartela do Jogo General
+    public void mostrarCartela(Jogador player, int i) { // Mostra a Cartela do Jogo General
         System.out.println("-- Cartela de Resultados --");
         System.out.print("Jogada\t");
 
@@ -161,6 +161,7 @@ public class Campeonato implements Serializable {
         double novoSaldo;
         if(soma>(2*jogoGeneral.getJogadas(12))){ // se dobro do valor da jogada treze for menor que a soma das outras jogadas então ele ganhou o jogo general
             System.out.println("Você ganhou a rodada!");
+            player.getJogoDados(player.getJogadasRealizadas()).setArmazenarResultados(i, 1, player.getJogadasRealizadas());//seta com 1 se ganhar
             System.out.printf("Seu saldo era de R$ %.2f\n", player.getSaldo());
             novoSaldo = player.getSaldo() + player.getJogoDados(player.getJogadasRealizadas()).getValorAposta(); //adicionar ao saldo o valor apostado
             player.setSaldo(novoSaldo);
@@ -168,6 +169,7 @@ public class Campeonato implements Serializable {
         }
         else{ // se nao ele perdeu o jogo general
             System.out.println("Você perdeu a rodada!");
+            player.getJogoDados(player.getJogadasRealizadas()).setArmazenarResultados(i, -1, player.getJogadasRealizadas());
             System.out.printf("Seu saldo era de R$ %.2f\n", player.getSaldo());
             novoSaldo = player.getSaldo() - player.getJogoDados(player.getJogadasRealizadas()).getValorAposta(); // retirar do saldo o valor apostado
             player.setSaldo(novoSaldo);
@@ -175,7 +177,7 @@ public class Campeonato implements Serializable {
         }
         System.out.print("\n");
         JogoDados jogoDados = (JogoDados)player.getJogoDados(player.getJogadasRealizadas());
-        System.out.println(jogoDados.somaEstatistica());
+       // System.out.println(jogoDados.somaEstatistica());
     }
 
     // public void mostrarExtratoJG(Jogador player, int i) { // Mostra a Cartela dos extartos do jogo general
@@ -302,13 +304,19 @@ public class Campeonato implements Serializable {
                                   if(p!=null){
                                     System.out.println("-> Nome do jogador: "+ p.getNome());
                                     for(int j=0; j<contJogadores; j++){
-                                        for (int i=0; i<10; i++){
+                                        for (int i=0; i<p.getJogadasRealizadas(); i++){//mudar para p.getjogadas realizadas
                                             if(p.getJogoDados(i) instanceof JogoGeneral){
                                                 System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
-                                            // p.getJogoDados(i).setArmazenarAposta(i, p.getJogoDados(i).getArrayAposta());
                                                 System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                 System.out.println("Esse foi o jogo feito: \n");
                                                 mostrarExtratoJG(p, i);
+                                                System.out.println("E o resulatado dele foi esse: ");
+                                                if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                    System.out.println("Jogo vencido!!\n");
+                                                }
+                                                else{
+                                                    System.out.println("Jogo perdido!\n");
+                                                }
                                                 
                                             }
                                         }
@@ -321,12 +329,22 @@ public class Campeonato implements Serializable {
                         for (Jogador p : players) {
                                 if(p!=null && p instanceof Humano){
                                     System.out.println("-> Nome do jogador: "+ p.getNome());
-                                    for (int i=0; i<10; i++){
-                                        if(p.getJogoDados(i) instanceof JogoGeneral){
-                                            System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
-                                            System.out.println("Esse foi o jogo feito: \n");
-                                            mostrarExtratoJG(p, i);
-                                            
+                                    for(int j=0; j<contJogadores; j++){
+                                        for (int i=0; i<p.getJogadasRealizadas(); i++){
+                                            if(p.getJogoDados(i) instanceof JogoGeneral){
+                                                System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
+                                                System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                                System.out.println("Esse foi o jogo feito: \n");
+                                                mostrarExtratoJG(p, i);
+                                                System.out.println("E o resulatado dele foi esse: ");
+                                                if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                    System.out.println("Jogo vencido!!\n");
+                                                }
+                                                else{
+                                                    System.out.println("Jogo perdido!\n");
+                                                }
+                                                
+                                            }
                                         }
                                     }
                                 }
@@ -338,16 +356,24 @@ public class Campeonato implements Serializable {
                     for (Jogador p : players) {
                                 if(p!=null && p instanceof Maquina){
                                     System.out.println("-> Nome do jogador: "+ p.getNome());
-                                    //for (int i=0; i<contJogadores; i++){
-                                    for(int j=0; j<10; j++){
-                                            if(p.getJogoDados(j) instanceof JogoGeneral){
-                                                System.out.println("Jogo General, "+(j+1)+"º jogo realizado");
+                                    for (int j=0; j<contJogadores; j++){
+                                    for(int i=0; i<p.getJogadasRealizadas(); i++){
+                                            if(p.getJogoDados(i) instanceof JogoGeneral){
+                                                System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
+                                                System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
                                                 System.out.println("Esse foi o jogo feito: \n");
                                                 mostrarExtratoJG(p, j);
+                                                System.out.println("E o resulatado dele foi esse: ");
+                                                if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                    System.out.println("Jogo vencido!!\n");
+                                                }
+                                                else{
+                                                    System.out.println("Jogo perdido!\n");
+                                                }
                                                 
                                             }
                                         }
-                                  //  }
+                                  }
                                 }
                             }
                         
@@ -365,70 +391,205 @@ public class Campeonato implements Serializable {
                 System.out.println("a) Para todos os jogadores");
                 System.out.println("b) Para jogadores humanos");
                 System.out.println("c) Para jogadores máquinas");
-                opcao1 = teclado.nextLine();
+                opcao2 = teclado.nextLine();
 
-                switch (opcao1) {
+                switch (opcao2) {
                     case "a"://imprime o extrato do jogo azar para todos os jogadores
+                    for (Jogador p : players) {
+                                if(p!=null && p instanceof Humano){
+                                    System.out.println("-> Nome do jogador: "+ p.getNome());
+                                    for (int j=0; j<contJogadores; j++){
+                                        for(int i=0; i<p.getJogadasRealizadas(); i++){
+                                                if(p.getJogoDados(i) instanceof JogoAzar){
+                                                    System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
+                                                    System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );     
+                                                    System.out.println("E o resulatado dele foi esse: ");
+                                                    if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                        System.out.println("Jogo vencido!!\n");
+                                                    }
+                                                    else{
+                                                        System.out.println("Jogo perdido!\n");
+                                                    }                                           
+                                                }
+                                        }
+                                    }
+                                }
+                    }
                         
                         break;
                     case "b"://imprime o extrato do jogo azar para todos os jogadores humanos
-                        
-                        break;
-                    case "c"://imprime o extrato do jogo azar para todos os jogadores máquina
-                        for (Jogador p : players) {
-                            if(p!=null && p instanceof Maquina){
-                                System.out.println("-> Nome do jogador: "+ p.getNome());
-                                for (int i=0; i<10; i++){
-                                    if(p.getJogoDados(i) instanceof JogoAzar){
-                                        System.out.println("Jogo Azar, "+i+"º jogo realizado");
-                                        System.out.println("Valor apostado:");//vaomos precisar de um array de apostas feitas em cada jogada
-                                        System.out.println("Valor Ganho/Perdido: "); //vamo precisar de um array que grave um se na posição se o jogador ganhar o jogo e -1 se perder
+                    for (Jogador p : players) {
+                                if(p!=null && p instanceof Humano){
+                                    System.out.println("-> Nome do jogador: "+ p.getNome());
+                                    for (int j=0; j<contJogadores; j++){
+                                        for(int i=0; i<p.getJogadasRealizadas(); i++){
+                                                if(p.getJogoDados(i) instanceof JogoAzar){
+                                                    System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
+                                                    System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) ); 
+                                                    System.out.println("E o resulatado dele foi esse: ");
+                                                    if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                        System.out.println("Jogo vencido!!\n");
+                                                    }
+                                                    else{
+                                                        System.out.println("Jogo perdido!\n");
+                                                    }                                               
+                                                }
+                                        }
                                     }
                                 }
                             }
-                        }
+                        
+                        break;
+                    case "c"://imprime o extrato do jogo azar para todos os jogadores máquina
+                    for (Jogador p : players) {
+                                if(p!=null && p instanceof Maquina){
+                                    System.out.println("-> Nome do jogador: "+ p.getNome());
+                                    for (int j=0; j<contJogadores; j++){
+                                        for(int i=0; i<p.getJogadasRealizadas(); i++){
+                                                if(p.getJogoDados(i) instanceof JogoAzar){
+                                                    System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
+                                                    System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                                    System.out.println("E o resulatado dele foi esse: ");
+                                                    if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                        System.out.println("Jogo vencido!!\n");
+                                                    }
+                                                    else{
+                                                        System.out.println("Jogo perdido!\n");
+                                                    }
+                                                                                                    
+                                                }
+                                        }
+                                    }
+                                }
+                            }
                         
                         break;
                 
-                
                     default:
                         break;
-                }
-
-                for (Jogador p : players) {//printa o saldo de todos os humanos
-                    if(p!=null && p instanceof Humano){
-                        System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
-                    }
-                }
-                break;
+            }
+            break;
             
             case "c":
                 System.out.println("Deseja imprimir extrato de qual tipo de jogador?");
                 System.out.println("a) Para todos os jogadores");
                 System.out.println("b) Para jogadores humanos");
                 System.out.println("c) Para jogadores máquinas");
-                opcao1 = teclado.nextLine();
+                opcao3 = teclado.nextLine();
 
-                switch (opcao1) {
+                switch (opcao3) {
                     case "a"://imprime o extrato dos dois jogos  para todos os jogadores
+                    for (Jogador p : players) {
+                                    System.out.println("-> Nome do jogador: "+ p.getNome());
+                                    for (int j=0; j<contJogadores; j++){
+                                    for(int i=0; i<p.getJogadasRealizadas(); i++){
+                                            if(p.getJogoDados(i) instanceof JogoGeneral){
+                                                System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
+                                                System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                                System.out.println("Esse foi o jogo feito: \n");
+                                                mostrarExtratoJG(p, j);
+                                                System.out.println("E o resulatado dele foi esse: ");
+                                                if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                    System.out.println("Jogo vencido!!");
+                                                }
+                                                else{
+                                                    System.out.println("Jogo perdido!");
+                                                }
+                                            }
+                                            if(p.getJogoDados(i) instanceof JogoAzar){
+                                                System.out.println("\nJogo Azar, "+(i+1)+"º jogo realizado");
+                                                System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                                System.out.println("E o resulatado dele foi esse: ");
+                                                if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                    System.out.println("Jogo vencido!!\n");
+                                                }
+                                                else{
+                                                    System.out.println("Jogo perdido!\n");
+                                                }
+                                                                                                
+                                            }
+                                        }
+                                  }
+                            }
                         
                         break;
                     case "b"://imprime o extrato dos dois jogos para todos os jogadores humanos
+                    for (Jogador p : players) {
+                                if(p!=null && p instanceof Humano){
+                                    System.out.println("-> Nome do jogador: "+ p.getNome());
+                                    for (int j=0; j<contJogadores; j++){
+                                        for(int i=0; i<p.getJogadasRealizadas(); i++){
+                                                if(p.getJogoDados(i) instanceof JogoGeneral){
+                                                    System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
+                                                    System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                                    System.out.println("Esse foi o jogo feito: \n");
+                                                    mostrarExtratoJG(p, j);
+                                                    System.out.println("E o resulatado dele foi esse: ");
+                                                    if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                        System.out.println("Jogo vencido!!\n");
+                                                    }
+                                                    else{
+                                                        System.out.println("Jogo perdido!\n");
+                                                    }
+                                                    
+                                                }
+                                                if(p.getJogoDados(i) instanceof JogoAzar){
+                                                    System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
+                                                    System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                                    System.out.println("E o resulatado dele foi esse: ");
+                                                    if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                        System.out.println("Jogo vencido!!\n");
+                                                    }
+                                                    else{
+                                                        System.out.println("Jogo perdido!\n");
+                                                    }                                               
+                                                }
+                                         }
+                                    }
+                                }
+                            }
                         
                         break;
                     case "c"://imprime o extrato do dos dois jogos para todos os jogadores máquina
-                        
-                        break;
-                
-                
+                    for (Jogador p : players) {
+                        if(p!=null && p instanceof Maquina){
+                            System.out.println("-> Nome do jogador: "+ p.getNome());
+                            for (int j=0; j<contJogadores; j++){
+                                 for(int i=0; i<p.getJogadasRealizadas(); i++){
+                                            if(p.getJogoDados(i) instanceof JogoGeneral){
+                                                System.out.println("Jogo General, "+(i+1)+"º jogo realizado");
+                                                System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                                System.out.println("Esse foi o jogo feito: \n");
+                                                mostrarExtratoJG(p, j);
+                                                System.out.println("E o resulatado dele foi esse: ");
+                                                if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                    System.out.println("Jogo vencido!!\n");
+                                                }
+                                                else{
+                                                    System.out.println("Jogo perdido!\n");
+                                                }
+                                            
+                                            }
+                                            if(p.getJogoDados(i) instanceof JogoAzar){
+                                                System.out.println("Jogo Azar, "+(i+1)+"º jogo realizado");
+                                                System.out.printf("O valor apostado nesse jogo foi: %.2f%n", p.getJogoDados(i).getArmazenadorDeApostas(j, i) );
+                                                System.out.println("E o resulatado dele foi esse: ");
+                                                if(p.getJogoDados(i).getArmazenadorDeResultados(j, i)==1){
+                                                    System.out.println("Jogo vencido!!\n");
+                                                }
+                                                else{
+                                                    System.out.println("Jogo perdido!\n");
+                                                }                                              
+                                            }
+                                 }
+                            }
+                        }
+                     } 
+                     break;
+
                     default:
                         break;
                 }
-                // for (Jogador p : players) {//printa o saldo de todas as maquinas
-                //     if(p!=null && p instanceof Maquina){
-                //         System.out.println("-> Nome do jogador: "+ p.getNome() +" "+ "Saldo bancário: R$"+p.getSaldo());
-                //     }
-                // }
                 break;
         
             default:

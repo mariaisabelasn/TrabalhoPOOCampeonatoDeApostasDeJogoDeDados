@@ -236,7 +236,7 @@ public class JogoGeneral extends JogoDados{
 
         }
         else if(njogada==13){//jogada aleatória
-            if(jogadas[11]!=-1){
+            if(jogadas[12]!=-1){
                 System.out.println("Jogada ja usada");
                 return false;
             }

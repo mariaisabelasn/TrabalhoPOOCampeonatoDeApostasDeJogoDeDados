@@ -46,7 +46,7 @@ public class Maquina extends Jogador implements JogarComoMaquina {
                 JogoGeneral jogoGeneral=(JogoGeneral) player.getJogoDados(player.getJogadasRealizadas());
                 player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                 jogoGeneral.setSalvarJogadasG(super.getJogadasRealizadas());//vai passar pro salvador o array de todas as jogadas do jogo general
-                campeonato.mostrarCartela(player);
+                campeonato.mostrarCartela(player,i);
                 //i++; //passa pro outra casa do vetor
                 player.setJogadasRealizadas();
             }
@@ -56,7 +56,7 @@ public class Maquina extends Jogador implements JogarComoMaquina {
                 JogoGeneral jogoGeneral=(JogoGeneral) player.getJogoDados(player.getJogadasRealizadas());
                 player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                 jogoGeneral.setSalvarJogadasG(super.getJogadasRealizadas());//vai passar pro salvador o array de todas as jogadas do jogo general 
-                campeonato.mostrarCartela(player);
+                campeonato.mostrarCartela(player,i);
                // i++;
                 player.setJogadasRealizadas();
             }
@@ -89,14 +89,14 @@ public class Maquina extends Jogador implements JogarComoMaquina {
             JogoAzar jogoAzar =(JogoAzar) player.getJogoDados(player.getJogadasRealizadas()); //converte jogo dados em jogo azar
 
             if (player instanceof Humano){
-                jogoAzar.executarRegrasJogo(player);
+                jogoAzar.executarRegrasJogo(player, i);
                 player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                 //i++; //passa pro outra casa do vetor
                 player.setJogadasRealizadas();
             }
             
             else if(player instanceof Maquina){
-                jogoAzar.executarRegrasJogo(player);
+                jogoAzar.executarRegrasJogo(player, i);
                 player.getJogoDados(player.getJogadasRealizadas()).setArmazenarAposta(i,valorAposta,player.getJogadasRealizadas());//manda pro array de aposta o valor da aposta do jogo
                 //i++;
                 player.setJogadasRealizadas();

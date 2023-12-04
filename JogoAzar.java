@@ -2,7 +2,6 @@ import java.util.Scanner;
 public class JogoAzar extends JogoDados{
     private Dado[] dados;
     private transient Scanner teclado;
-    //private Jogador[] players; //verificar
 
     public JogoAzar(double valorAposta){
         super(2, "Jogo Azar", valorAposta);
@@ -17,7 +16,7 @@ public class JogoAzar extends JogoDados{
         }
     }
 
-    public void executarRegrasJogo( Jogador player){ // metodo para executar as regras e jogar o jogo azar
+    public void executarRegrasJogo(Jogador player, int j){ // metodo para executar as regras e jogar o jogo azar
         int soma=0;
         double novoSaldo = 0;
 
@@ -46,6 +45,7 @@ public class JogoAzar extends JogoDados{
 
         if (soma == 7 || soma == 11) { // Jogador ganha
             System.out.println("Jogador ganhou! [encerra jogada]");
+            player.getJogoDados(player.getJogadasRealizadas()).setArmazenarResultados(j, 1, player.getJogadasRealizadas());//seta com 1 quando player ganha o jogo
             System.out.println("...");
             System.out.printf("Seu saldo era de R$ %.2f\n", player.getSaldo());
             novoSaldo = player.getSaldo() + getValorAposta(); // adicionar ao saldo o valor apostado
@@ -54,6 +54,7 @@ public class JogoAzar extends JogoDados{
             System.out.print("\n");
         } else if (soma == 2 || soma == 3 || soma == 12) {// Jogador perde
             System.out.println("Jogador perdeu! [encerra jogada]");
+            player.getJogoDados(player.getJogadasRealizadas()).setArmazenarResultados(j, -1, player.getJogadasRealizadas());//seta com -1 
             System.out.printf("Seu saldo era de R$ %.2f\n", player.getSaldo());
             novoSaldo = player.getSaldo() - getValorAposta();// retirar do saldo o valor apostado
             player.setSaldo(novoSaldo);//define o novo saldo ao jogador
@@ -76,6 +77,7 @@ public class JogoAzar extends JogoDados{
 
                 if (novaSoma == soma) { // Jogador ganha se o numero retirado na primeira rodada for igual ao novo
                     System.out.println("Jogador ganhou! [encerra jogada]");
+                    player.getJogoDados(player.getJogadasRealizadas()).setArmazenarResultados(j, 1, player.getJogadasRealizadas());//seta com 1 se ganha
                     System.out.println("...");
                     System.out.printf("Seu saldo era de R$ %.2f\n", player.getSaldo());
                     novoSaldo = player.getSaldo() + getValorAposta();// adicionar ao saldo o valor apostado
@@ -85,6 +87,7 @@ public class JogoAzar extends JogoDados{
                     break;
                 } else if (novaSoma == 2 || novaSoma == 3 || novaSoma == 12) { // Jogador perde
                     System.out.println("Jogador perdeu! [encerra jogada]");
+                    player.getJogoDados(player.getJogadasRealizadas()).setArmazenarResultados(j, -1, player.getJogadasRealizadas());//seta com -1 se perde
                     System.out.printf("Seu saldo era de R$ %.2f\n", player.getSaldo());
                     novoSaldo = player.getSaldo() - getValorAposta();// retirar do saldo o valor apostado
                     player.setSaldo(novoSaldo);//define o novo saldo ao jogador
@@ -93,7 +96,7 @@ public class JogoAzar extends JogoDados{
                     break;
                 }
                 i++;
-                System.out.println("1: "+qtdFaces[0] +" 2: "+qtdFaces[1]+" 3: "+qtdFaces[2] +" 4: "+qtdFaces[3]+" 5: "+qtdFaces[4] +" 6: "+qtdFaces[5]);
+                //System.out.println("1: "+qtdFaces[0] +" 2: "+qtdFaces[1]+" 3: "+qtdFaces[2] +" 4: "+qtdFaces[3]+" 5: "+qtdFaces[4] +" 6: "+qtdFaces[5]);
             } while (novaSoma != soma || (novaSoma == 2 || novaSoma == 3 || novaSoma == 12));
         }
     }
